@@ -1,0 +1,100 @@
+{
+  "produtos": [
+    {
+      "id": "1",
+      "nome": "CDB Liquidez Diária",
+      "instituicao": "BTG Pactual",
+      "tipo": "CDB",
+      "modalidade": "pos_fixado_cdi",
+      "taxa": 100,
+      "vencimento": "",
+      "fgc": true,
+      "minimo_rs": 1,
+      "notas": "Liquidez diária D+0"
+    },
+    {
+      "id": "2",
+      "nome": "CDB 102,5% CDI",
+      "instituicao": "Nubank",
+      "tipo": "CDB",
+      "modalidade": "pos_fixado_cdi",
+      "taxa": 102.5,
+      "vencimento": "2026-11-24",
+      "fgc": true,
+      "minimo_rs": 100,
+      "notas": ""
+    },
+    {
+      "id": "3",
+      "nome": "CDB 109% CDI",
+      "instituicao": "Banco Digimais",
+      "tipo": "CDB",
+      "modalidade": "pos_fixado_cdi",
+      "taxa": 109,
+      "vencimento": "2026-11-23",
+      "fgc": true,
+      "minimo_rs": 1000,
+      "notas": "Via BTG"
+    },
+    {
+      "id": "4",
+      "nome": "LCA Original",
+      "instituicao": "Banco Original",
+      "tipo": "LCA",
+      "modalidade": "pos_fixado_cdi",
+      "taxa": 92,
+      "vencimento": "2029-05-01",
+      "fgc": true,
+      "minimo_rs": 1000,
+      "notas": "Via XP"
+    },
+    {
+      "id": "5",
+      "nome": "Tesouro Selic 2031",
+      "instituicao": "Tesouro Nacional",
+      "tipo": "TESOURO_SELIC",
+      "modalidade": "pos_fixado_selic",
+      "taxa": 100.08,
+      "vencimento": "2031-03-01",
+      "fgc": false,
+      "minimo_rs": 100,
+      "notas": "Selic + 0,0823%"
+    },
+    {
+      "id": "6",
+      "nome": "Tesouro Prefixado 2028",
+      "instituicao": "Tesouro Nacional",
+      "tipo": "TESOURO_PREFIXADO",
+      "modalidade": "prefixado",
+      "taxa": 14.03,
+      "vencimento": "2028-01-01",
+      "fgc": false,
+      "minimo_rs": 100,
+      "notas": ""
+    },
+    {
+      "id": "7",
+      "nome": "CDB PicPay Bank 104,75%",
+      "instituicao": "PicPay Bank",
+      "tipo": "CDB",
+      "modalidade": "pos_fixado_cdi",
+      "taxa": 104.75,
+      "vencimento": "2027-05-27",
+      "fgc": true,
+      "minimo_rs": 1000,
+      "notas": "Via Nubank"
+    },
+    {
+      "id": "8",
+      "nome": "Poupança",
+      "instituicao": "Qualquer banco",
+      "tipo": "POUPANCA",
+      "modalidade": "poupanca",
+      "taxa": 6.17,
+      "vencimento": "",
+      "fgc": true,
+      "minimo_rs": 1,
+      "notas": "0,5% ao mês + TR"
+    }
+  ]
+}
