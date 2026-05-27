@@ -5,7 +5,7 @@
     "description": "Calculadora de Rentabilidade Líquida Anualizada para investimentos de renda fixa no Brasil",
     "language": "pt-BR",
     "created_at": "2026-05-27",
-    "author": "Igor Alves",
+    "author": "ila",
     "motivation": "Revelar a taxa real líquida de IR/IOF de investimentos de renda fixa, considerando o prazo efetivo determinado pelo vencimento do produto ou pela vontade do investidor, eliminando a ilusão da taxa bruta anunciada pelos bancos"
   },
 
@@ -502,7 +502,7 @@
         "data_coleta": "2026-05-27"
       },
       {
-        "plataforma": "BTG Pactual (Igor)",
+        "plataforma": "BTG Pactual",
         "tipo": "CDB",
         "emissor": "BTG Pactual",
         "modalidade": "pos_fixado_cdi",
@@ -515,7 +515,7 @@
         "data_coleta": "2026-05-27"
       },
       {
-        "plataforma": "BTG Pactual (Igor)",
+        "plataforma": "BTG Pactual",
         "tipo": "CDB",
         "emissor": "BTG Pactual",
         "modalidade": "pos_fixado_cdi",
@@ -529,7 +529,7 @@
         "data_coleta": "2026-05-27"
       },
       {
-        "plataforma": "BTG Pactual (Igor)",
+        "plataforma": "BTG Pactual",
         "tipo": "CDB",
         "emissor": "Banco Digimais",
         "modalidade": "pos_fixado_cdi",
@@ -607,13 +607,13 @@
   },
 
   "user_portfolio": {
-    "owner": "Igor Alves",
+    "owner": "ila",
     "data_referencia": "2026-05-27",
     "total_investido_estimado_rs": 1227393.41,
     "contas": [
       {
         "instituicao": "BTG Pactual (AVIN)",
-        "relatorio": "AVIN_BTG_Igor_01052025_30042026.pdf",
+        "relatorio": "AVIN_BTG_Carteira_01052025_30042026.pdf",
         "valor_rs": 600000.00,
         "rentabilidade_anualizada_estimada_bruta": 0.1511,
         "rentabilidade_pct_cdi": 1.0188,

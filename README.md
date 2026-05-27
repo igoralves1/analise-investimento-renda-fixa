@@ -39,7 +39,7 @@ Este projeto nasce de uma constatação prática ao analisar uma carteira real d
 | Índice Sharpe | 27,93 |
 | % CDI (comparativo benchmark) | **101,88%** |
 
-**Produtos na carteira BTG Pactual (Igor - BTG):**
+**Produtos na carteira BTG Pactual:**
 
 | Produto | Rent. 12m | % CDI 12m | Liquidez | Vencimento | Valor |
 |---|---|---|---|---|---|
@@ -374,7 +374,7 @@ A **MP 1.303/2025** propunha:
 | Banco BMG | 99% CDI | 17,5% | 27/05/2027 | R$ 1.000 | Baixo |
 | Banco Rendimento | Não especificado | — | Curto prazo | R$ 1.000 | — |
 
-**BTG Pactual (carteira atual Igor):**
+**BTG Pactual (carteira atual):**
 
 | Produto | Taxa | Liquidez | Vencimento | Valor |
 |---|---|---|---|---|
@@ -449,7 +449,7 @@ A **MP 1.303/2025** propunha:
 
 | Instituição | Valor Aproximado | Observação |
 |---|---|---|
-| BTG Pactual (Igor - BTG) | R$ 600.000,00 | Conforme relatório AVIN/BTG |
+| BTG Pactual | R$ 600.000,00 | Conforme relatório AVIN/BTG |
 | Nubank | R$ 627.393,41 | Saldo disponível no app |
 | **Total estimado** | **~R$ 1.227.393,41** | Renda fixa consolidada |
 
@@ -746,7 +746,7 @@ i_liq_anual = (1,2968)^(365/720) - 1 = 13,37% a.a.
 
 ---
 
-### 8.4 Exemplo 4 — Carteira Igor: CDB 109% CDI Digimais, data real de aplicação
+### 8.4 Exemplo 4 — Carteira do Usuário: CDB 109% CDI Digimais, data real de aplicação
 
 Supondo que o produto foi aplicado há ~180 dias (data de aplicação: ~27/11/2025):
 
@@ -1168,7 +1168,7 @@ Retorna taxas e preços de todos os títulos disponíveis em tempo real.
 ## 13. Referências e Fontes Consultadas
 
 ### Documentos e Relatórios
-- **PDF:** Relatório da Proposta AVIN/BTG Pactual — Carteira Igor BTG, período 01/05/2025–30/04/2026, gerado em 27/05/2026
+- **PDF:** Relatório da Proposta AVIN/BTG Pactual — período 01/05/2025–30/04/2026, gerado em 27/05/2026
 - **Screenshots:** Aplicativo Nubank — telas de CDB marketplace, Taxas & Impostos, Rendimentos Maio/2026 (R$ 4.688,45 líquido)
 
 ### Sites e Artigos Consultados (27/05/2026)
