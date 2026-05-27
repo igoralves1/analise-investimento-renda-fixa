@@ -1,0 +1,784 @@
+{
+  "app": {
+    "name": "RentaReal",
+    "version": "1.0.0-spec",
+    "description": "Calculadora de Rentabilidade Líquida Anualizada para investimentos de renda fixa no Brasil",
+    "language": "pt-BR",
+    "created_at": "2026-05-27",
+    "author": "Igor Alves",
+    "motivation": "Revelar a taxa real líquida de IR/IOF de investimentos de renda fixa, considerando o prazo efetivo determinado pelo vencimento do produto ou pela vontade do investidor, eliminando a ilusão da taxa bruta anunciada pelos bancos"
+  },
+
+  "tax_rules": {
+    "ir_regressiva": {
+      "description": "Tabela regressiva de Imposto de Renda sobre rendimentos de renda fixa (CDB, Tesouro Direto, etc.)",
+      "base": "dias_corridos_desde_aplicacao",
+      "faixas": [
+        { "de": 1,   "ate": 180,  "aliquota": 0.225, "label": "22,5%" },
+        { "de": 181, "ate": 360,  "aliquota": 0.200, "label": "20,0%" },
+        { "de": 361, "ate": 720,  "aliquota": 0.175, "label": "17,5%" },
+        { "de": 721, "ate": null, "aliquota": 0.150, "label": "15,0%" }
+      ],
+      "incide_sobre": "rendimento_bruto",
+      "retencao": "fonte"
+    },
+
+    "iof_regressivo": {
+      "description": "IOF incide sobre rendimento bruto em resgates antes de 30 dias. Após 30 dias: alíquota zero.",
+      "tabela": [
+        { "dia": 1,  "aliquota": 0.96 },
+        { "dia": 2,  "aliquota": 0.93 },
+        { "dia": 3,  "aliquota": 0.90 },
+        { "dia": 4,  "aliquota": 0.86 },
+        { "dia": 5,  "aliquota": 0.83 },
+        { "dia": 6,  "aliquota": 0.80 },
+        { "dia": 7,  "aliquota": 0.76 },
+        { "dia": 8,  "aliquota": 0.73 },
+        { "dia": 9,  "aliquota": 0.70 },
+        { "dia": 10, "aliquota": 0.66 },
+        { "dia": 11, "aliquota": 0.63 },
+        { "dia": 12, "aliquota": 0.60 },
+        { "dia": 13, "aliquota": 0.56 },
+        { "dia": 14, "aliquota": 0.53 },
+        { "dia": 15, "aliquota": 0.50 },
+        { "dia": 16, "aliquota": 0.46 },
+        { "dia": 17, "aliquota": 0.43 },
+        { "dia": 18, "aliquota": 0.40 },
+        { "dia": 19, "aliquota": 0.36 },
+        { "dia": 20, "aliquota": 0.33 },
+        { "dia": 21, "aliquota": 0.30 },
+        { "dia": 22, "aliquota": 0.26 },
+        { "dia": 23, "aliquota": 0.23 },
+        { "dia": 24, "aliquota": 0.20 },
+        { "dia": 25, "aliquota": 0.16 },
+        { "dia": 26, "aliquota": 0.13 },
+        { "dia": 27, "aliquota": 0.10 },
+        { "dia": 28, "aliquota": 0.06 },
+        { "dia": 29, "aliquota": 0.03 },
+        { "dia": 30, "aliquota": 0.00 }
+      ],
+      "nota": "A partir do dia 30, IOF = 0%. Aplicado sobre rendimento bruto, ANTES do IR."
+    },
+
+    "produtos_isentos_ir": ["LCI", "LCA", "CRI", "CRA", "DEBENTURE_INCENTIVADA", "POUPANCA"],
+    "produtos_isentos_iof": ["LCI", "LCA", "CRI", "CRA", "DEBENTURE_INCENTIVADA"],
+    "produtos_tributados": ["CDB", "RDB", "TESOURO_SELIC", "TESOURO_PREFIXADO", "TESOURO_IPCA", "FUNDO_RF"],
+
+    "status_legislativo_2026": {
+      "mp_1303_2025": "CADUCADA — A MP que propunha 5% de IR para LCI/LCA e alíquota única de 17,5% para CDB caducou em outubro/2025 sem aprovação do Congresso. Regras atuais permanecem vigentes.",
+      "risco_regulatorio": "Possível nova proposta legislativa — o app deve suportar configuração de alíquotas"
+    }
+  },
+
+  "product_types": [
+    {
+      "id": "CDB",
+      "name": "CDB — Certificado de Depósito Bancário",
+      "isento_ir": false,
+      "isento_iof": false,
+      "fgc": true,
+      "fgc_limite": 250000,
+      "modalidades": ["prefixado", "pos_fixado_cdi", "hibrido_ipca"],
+      "prazo_minimo_dias": 1,
+      "observacoes": "Produto mais comum em bancos e fintechs. IR retido na fonte. FGC cobre até R$ 250k por CPF por instituição.",
+      "convencao_dias": {
+        "prefixado": 365,
+        "pos_fixado_cdi": 252,
+        "nota": "Para simulação com taxa projetada, usar 365 dias corridos como aproximação razoável"
+      }
+    },
+    {
+      "id": "LCI",
+      "name": "LCI — Letra de Crédito Imobiliário",
+      "isento_ir": true,
+      "isento_iof": true,
+      "fgc": true,
+      "fgc_limite": 250000,
+      "modalidades": ["prefixado", "pos_fixado_cdi", "hibrido_ipca"],
+      "prazo_minimo_dias": {
+        "pos_fixado_cdi": 180,
+        "prefixado": 180,
+        "hibrido_ipca": 1095,
+        "fonte": "Resolução CMN maio/2025"
+      },
+      "observacoes": "Isenta de IR para PF. Prazo mínimo de 6 meses para CDI/pré. Liquidez restrita — geralmente sem resgate antecipado.",
+      "taxas_tipicas_maio_2026": "80% a 95% CDI"
+    },
+    {
+      "id": "LCA",
+      "name": "LCA — Letra de Crédito do Agronegócio",
+      "isento_ir": true,
+      "isento_iof": true,
+      "fgc": true,
+      "fgc_limite": 250000,
+      "modalidades": ["prefixado", "pos_fixado_cdi", "hibrido_ipca"],
+      "prazo_minimo_dias": {
+        "pos_fixado_cdi": 180,
+        "prefixado": 180,
+        "hibrido_ipca": 365,
+        "fonte": "Resolução CMN maio/2025"
+      },
+      "observacoes": "Isenta de IR para PF. Prazo mínimo de 6 meses para CDI/pré, 12 meses para IPCA.",
+      "taxas_tipicas_maio_2026": "85% a 92% CDI"
+    },
+    {
+      "id": "CRI",
+      "name": "CRI — Certificado de Recebíveis Imobiliários",
+      "isento_ir": true,
+      "isento_iof": true,
+      "fgc": false,
+      "modalidades": ["prefixado", "pos_fixado_cdi", "hibrido_ipca"],
+      "prazo_minimo_dias": 1095,
+      "observacoes": "Isento IR para PF. SEM cobertura FGC. Risco de crédito do emissor. Liquidez secundária."
+    },
+    {
+      "id": "CRA",
+      "name": "CRA — Certificado de Recebíveis do Agronegócio",
+      "isento_ir": true,
+      "isento_iof": true,
+      "fgc": false,
+      "modalidades": ["prefixado", "pos_fixado_cdi", "hibrido_ipca"],
+      "prazo_minimo_dias": 1095,
+      "observacoes": "Isento IR para PF. SEM cobertura FGC. Risco de crédito do emissor."
+    },
+    {
+      "id": "DEBENTURE_INCENTIVADA",
+      "name": "Debênture Incentivada (Lei 12.431/2011)",
+      "isento_ir": true,
+      "isento_iof": true,
+      "fgc": false,
+      "modalidades": ["prefixado", "pos_fixado_cdi", "hibrido_ipca"],
+      "observacoes": "Isento IR para PF. SEM FGC. Risco corporativo. Infraestrutura."
+    },
+    {
+      "id": "TESOURO_SELIC",
+      "name": "Tesouro Selic",
+      "isento_ir": false,
+      "isento_iof": false,
+      "fgc": false,
+      "modalidades": ["pos_fixado_selic"],
+      "garantia": "Governo Federal",
+      "observacoes": "Referência de risco mínimo. Liquidez diária. IR tabela regressiva.",
+      "taxa_referencia_maio_2026": "Selic + 0,0823% a.a."
+    },
+    {
+      "id": "TESOURO_PREFIXADO",
+      "name": "Tesouro Prefixado",
+      "isento_ir": false,
+      "isento_iof": false,
+      "fgc": false,
+      "modalidades": ["prefixado"],
+      "garantia": "Governo Federal",
+      "observacoes": "Taxa fixa. Risco de marcação a mercado se vendido antes do vencimento.",
+      "taxa_referencia_maio_2026": "~14,03% a.a."
+    },
+    {
+      "id": "TESOURO_IPCA",
+      "name": "Tesouro IPCA+",
+      "isento_ir": false,
+      "isento_iof": false,
+      "fgc": false,
+      "modalidades": ["hibrido_ipca"],
+      "garantia": "Governo Federal",
+      "observacoes": "Protege contra inflação. IR sobre rendimento total (IPCA + spread).",
+      "taxa_referencia_maio_2026": "IPCA + 6,95% a 7,68% a.a."
+    }
+  ],
+
+  "formulas": {
+    "taxa_bruta_anual": {
+      "prefixado": {
+        "formula": "i = taxa_anunciada / 100",
+        "exemplo": "14,17% → i = 0,1417"
+      },
+      "pos_fixado_cdi": {
+        "formula": "i = (pct_cdi / 100) * cdi_atual",
+        "exemplo": "102,5% CDI, CDI=14,65% → i = 1,025 * 0,1465 = 0,15016"
+      },
+      "hibrido_ipca": {
+        "formula": "i = (1 + ipca) * (1 + spread) - 1",
+        "exemplo": "IPCA 5,5% + spread 7,20% → i = 1,055 * 1,072 - 1 = 0,13096"
+      }
+    },
+
+    "prazo_efetivo": {
+      "formula": "d = min(data_resgate_desejada, data_vencimento_produto) - data_inicio (em dias corridos)",
+      "regra": "Se data_vencimento_produto não informado, usa-se data_resgate_desejada",
+      "unidade": "dias corridos (não úteis)"
+    },
+
+    "rendimento_bruto_periodo": {
+      "formula": "R_bruto = (1 + i)^(d / 365) - 1",
+      "parametros": {
+        "i": "taxa bruta anual (decimal)",
+        "d": "prazo efetivo em dias corridos"
+      },
+      "nota": "Aproximação usando 365 dias corridos. Para pós-fixado oficial usa-se CDI diário acumulado em 252 dias úteis."
+    },
+
+    "aliquota_ir": {
+      "formula": "if d <= 180: alpha = 0.225; elif d <= 360: alpha = 0.20; elif d <= 720: alpha = 0.175; else: alpha = 0.15",
+      "se_isento_ir": "alpha = 0"
+    },
+
+    "aliquota_iof": {
+      "formula": "Consultar tabela iof_regressivo. Se d >= 30 ou produto isento_iof: IOF = 0",
+      "se_isento_iof": "iof = 0"
+    },
+
+    "rendimento_liquido_periodo": {
+      "sem_iof": {
+        "formula": "R_liq = R_bruto * (1 - alpha)",
+        "se_isento_ir": "R_liq = R_bruto"
+      },
+      "com_iof": {
+        "formula": "R_apos_iof = R_bruto * (1 - iof_aliq); R_liq = R_apos_iof * (1 - alpha)",
+        "nota": "IOF é aplicado ANTES do IR, sobre o rendimento bruto"
+      }
+    },
+
+    "taxa_anual_equivalente_liquida": {
+      "formula": "i_liq_anual = (1 + R_liq)^(365 / d) - 1",
+      "formula_direta_sem_iof": "i_liq_anual = [1 + (1 - alpha) * ((1 + i)^(d/365) - 1)]^(365/d) - 1",
+      "descricao": "Esta é a saída principal do aplicativo — a taxa que o usuário vê em destaque"
+    },
+
+    "calculo_monetario": {
+      "lucro_bruto": "P * R_bruto",
+      "iof_valor": "P * R_bruto * iof_aliq (se d < 30 e não isento)",
+      "ir_valor": "(P * R_bruto - IOF_valor) * alpha (se não isento IR)",
+      "lucro_liquido": "P * R_bruto - IOF_valor - IR_valor",
+      "valor_final": "P + lucro_liquido"
+    },
+
+    "equivalencia_cdb_lci_lca": {
+      "cdb_equivalente_para_lci": {
+        "formula": "cdb_pct_cdi_equiv = lci_pct_cdi / (1 - alpha)",
+        "descricao": "Qual % CDI o CDB precisa pagar para ter o mesmo retorno líquido que a LCI/LCA"
+      },
+      "lci_equivalente_para_cdb": {
+        "formula": "lci_pct_cdi_equiv = cdb_pct_cdi * (1 - alpha)",
+        "descricao": "Qual % CDI a LCI/LCA precisa pagar para ter o mesmo retorno líquido que o CDB"
+      }
+    }
+  },
+
+  "ui_specification": {
+    "modules": [
+      {
+        "id": "calculator",
+        "name": "Calculadora Individual",
+        "priority": "MUST HAVE — MVP",
+        "description": "Calcula a taxa líquida anualizada de um único produto de renda fixa",
+        "inputs": [
+          {
+            "id": "product_type",
+            "label": "Tipo de Produto",
+            "type": "select",
+            "options": ["CDB", "LCI", "LCA", "CRI", "CRA", "DEBENTURE_INCENTIVADA", "TESOURO_SELIC", "TESOURO_PREFIXADO", "TESOURO_IPCA"],
+            "required": true
+          },
+          {
+            "id": "modalidade",
+            "label": "Modalidade",
+            "type": "select",
+            "options": ["prefixado", "pos_fixado_cdi", "hibrido_ipca"],
+            "required": true
+          },
+          {
+            "id": "taxa_bruta",
+            "label": "Taxa bruta anual",
+            "type": "number",
+            "placeholder_prefixado": "Ex: 14,17 (% ao ano)",
+            "placeholder_pos_fixado": "Ex: 102,5 (% do CDI)",
+            "required": true
+          },
+          {
+            "id": "cdi_atual",
+            "label": "CDI atual (% a.a.)",
+            "type": "number",
+            "default": "auto — via API BACEN",
+            "editavel": true,
+            "required": "apenas para pós-fixado"
+          },
+          {
+            "id": "ipca_projetado",
+            "label": "IPCA projetado (% a.a.)",
+            "type": "number",
+            "default": "auto — via API BACEN ou 5,5%",
+            "editavel": true,
+            "required": "apenas para híbrido"
+          },
+          {
+            "id": "valor_investido",
+            "label": "Valor a investir (R$)",
+            "type": "number",
+            "required": false,
+            "nota": "Opcional — ativa cálculo em R$"
+          },
+          {
+            "id": "data_inicio",
+            "label": "Data de início",
+            "type": "date",
+            "default": "hoje",
+            "required": true
+          },
+          {
+            "id": "data_resgate_desejada",
+            "label": "Data de resgate desejada",
+            "type": "date",
+            "required": true
+          },
+          {
+            "id": "data_vencimento_produto",
+            "label": "Data de vencimento do produto",
+            "type": "date",
+            "required": false,
+            "nota": "Se preenchida e menor que data de resgate, será o fator limitante"
+          }
+        ],
+        "outputs": {
+          "primary": {
+            "label": "TAXA ANUAL EQUIVALENTE LÍQUIDA",
+            "value": "i_liq_anual em %",
+            "visual": "destaque máximo — fonte grande, cor verde, card prominente"
+          },
+          "secondary": [
+            { "label": "Taxa bruta anual", "value": "i em %" },
+            { "label": "Prazo efetivo", "value": "d dias (limitado por: PRODUTO / INVESTIDOR)" },
+            { "label": "Data efetiva de resgate", "value": "DD/MM/AAAA" },
+            { "label": "Alíquota IR aplicável", "value": "alpha em %" },
+            { "label": "Alíquota IOF aplicável", "value": "iof em %" },
+            { "label": "Rendimento bruto no período", "value": "R_bruto em %" },
+            { "label": "IR descontado", "value": "alpha * R_bruto em %" },
+            { "label": "Rendimento líquido no período", "value": "R_liq em %" }
+          ],
+          "monetary": {
+            "visible_when": "valor_investido preenchido",
+            "fields": [
+              { "label": "Principal investido", "value": "P em R$" },
+              { "label": "Lucro bruto", "value": "R$" },
+              { "label": "IOF pago", "value": "R$ (se aplicável)" },
+              { "label": "IR pago", "value": "R$" },
+              { "label": "Lucro líquido", "value": "R$" },
+              { "label": "Valor final", "value": "R$" }
+            ]
+          },
+          "comparatives": [
+            { "label": "vs. CDI puro 100%", "value": "taxa líquida do CDI 100% no mesmo prazo" },
+            { "label": "vs. Tesouro Selic", "value": "taxa líquida do Tesouro Selic no mesmo prazo" },
+            { "label": "vs. Poupança", "value": "taxa líquida da poupança (~6,17% a.a.)" },
+            { "label": "Equivalência LCI/LCA", "value": "Ex: Este CDB equivale a uma LCI de 85,8% CDI" }
+          ]
+        },
+        "alerts": [
+          {
+            "tipo": "IOF",
+            "condicao": "d < 30 AND NOT produto isento",
+            "mensagem": "IOF incide neste prazo! Para zero IOF, aguarde {30 - d} dias.",
+            "nivel": "warning"
+          },
+          {
+            "tipo": "faixa_ir",
+            "condicao": "180 - d <= 10 OR 360 - d <= 10 OR 720 - d <= 10",
+            "mensagem": "Se aguardar mais {X} dias, o IR cai de {alpha_atual} para {alpha_prox}, economizando R$ {diff}.",
+            "nivel": "info"
+          },
+          {
+            "tipo": "vencimento_limitante",
+            "condicao": "data_vencimento_produto < data_resgate_desejada",
+            "mensagem": "Produto vence em {data_vencimento}. O prazo foi ajustado automaticamente.",
+            "nivel": "info"
+          },
+          {
+            "tipo": "sem_fgc",
+            "condicao": "produto IN [CRI, CRA, DEBENTURE_INCENTIVADA]",
+            "mensagem": "Este produto NÃO tem cobertura do FGC. Avalie o risco de crédito do emissor.",
+            "nivel": "warning"
+          }
+        ]
+      },
+
+      {
+        "id": "comparator",
+        "name": "Comparador de Produtos",
+        "priority": "SHOULD HAVE — Fase 2",
+        "description": "Compara até 10 produtos simultaneamente, ranking por taxa líquida",
+        "max_products": 10,
+        "output": "Tabela ranking + gráfico de barras ordenado por i_liq_anual"
+      },
+
+      {
+        "id": "portfolio",
+        "name": "Minha Carteira",
+        "priority": "SHOULD HAVE — Fase 3",
+        "description": "Gerencia portfólio pessoal, rentabilidade consolidada, alertas de vencimento"
+      },
+
+      {
+        "id": "market_scan",
+        "name": "Varredura de Mercado",
+        "priority": "NICE TO HAVE — Fase 4",
+        "description": "Busca automática dos melhores produtos no mercado com taxa líquida calculada"
+      }
+    ]
+  },
+
+  "reference_data": {
+    "indicadores_maio_2026": {
+      "selic": 0.1450,
+      "cdi_anual_estimado": 0.1465,
+      "ipca_12m_estimado": 0.0550,
+      "data_referencia": "2026-05-27",
+      "fontes": ["BACEN", "ANBIMA", "Numerando", "Meelion"]
+    },
+
+    "bacen_api_endpoints": {
+      "cdi_diario": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4391/dados/ultimos/1?formato=json",
+      "selic_diario": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados/ultimos/1?formato=json",
+      "selic_meta": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/1?formato=json",
+      "ipca_mensal": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.13522/dados/ultimos/12?formato=json",
+      "calculadora_oficial": "https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormCorrecaoValores.do"
+    },
+
+    "tesouro_direto_api": "https://www.tesourodireto.com.br/json/br/com/b3/tesourodireto/model/dto/TesouroDiretoDto.json",
+
+    "produtos_mercado_maio_2026": [
+      {
+        "plataforma": "Nubank",
+        "tipo": "CDB",
+        "emissor": "Nubank",
+        "modalidade": "pos_fixado_cdi",
+        "taxa_pct_cdi": 1.025,
+        "vencimento": "2026-11-24",
+        "minimo_rs": 100,
+        "liquidez": "no_vencimento",
+        "risco": "baixo",
+        "fgc": true,
+        "ir_estimado_pct": 0.20,
+        "i_liq_anual_estimado": 0.1180,
+        "data_coleta": "2026-05-27"
+      },
+      {
+        "plataforma": "Nubank",
+        "tipo": "CDB",
+        "emissor": "Realize CFI",
+        "modalidade": "pos_fixado_cdi",
+        "taxa_pct_cdi": 1.04,
+        "vencimento": "2027-05-27",
+        "minimo_rs": 1000,
+        "liquidez": "no_vencimento",
+        "risco": "moderado",
+        "fgc": true,
+        "ir_estimado_pct": 0.175,
+        "data_coleta": "2026-05-27"
+      },
+      {
+        "plataforma": "Nubank",
+        "tipo": "CDB",
+        "emissor": "PicPay Bank",
+        "modalidade": "pos_fixado_cdi",
+        "taxa_pct_cdi": 1.0475,
+        "vencimento": "2027-05-27",
+        "minimo_rs": 1000,
+        "liquidez": "no_vencimento",
+        "risco": "baixo",
+        "fgc": true,
+        "ir_estimado_pct": 0.175,
+        "data_coleta": "2026-05-27"
+      },
+      {
+        "plataforma": "Nubank",
+        "tipo": "CDB",
+        "emissor": "Banco BMG",
+        "modalidade": "pos_fixado_cdi",
+        "taxa_pct_cdi": 0.99,
+        "vencimento": "2027-05-27",
+        "minimo_rs": 1000,
+        "liquidez": "no_vencimento",
+        "risco": "baixo",
+        "fgc": true,
+        "ir_estimado_pct": 0.175,
+        "data_coleta": "2026-05-27"
+      },
+      {
+        "plataforma": "BTG Pactual (Igor)",
+        "tipo": "CDB",
+        "emissor": "BTG Pactual",
+        "modalidade": "pos_fixado_cdi",
+        "taxa_pct_cdi": 1.00,
+        "vencimento": null,
+        "liquidez": "D+0",
+        "fgc": true,
+        "valor_alocado_rs": 250000,
+        "rentabilidade_bruta_12m": 0.1489,
+        "data_coleta": "2026-05-27"
+      },
+      {
+        "plataforma": "BTG Pactual (Igor)",
+        "tipo": "CDB",
+        "emissor": "BTG Pactual",
+        "modalidade": "pos_fixado_cdi",
+        "taxa_pct_cdi": 1.006,
+        "vencimento": null,
+        "liquidez": "D+366",
+        "carencia_dias": 90,
+        "fgc": true,
+        "valor_alocado_rs": 250000,
+        "rentabilidade_bruta_12m": 0.1498,
+        "data_coleta": "2026-05-27"
+      },
+      {
+        "plataforma": "BTG Pactual (Igor)",
+        "tipo": "CDB",
+        "emissor": "Banco Digimais",
+        "modalidade": "pos_fixado_cdi",
+        "taxa_pct_cdi": 1.09,
+        "vencimento": "2026-11-23",
+        "liquidez": "D+179",
+        "fgc": true,
+        "valor_alocado_rs": 100000,
+        "rentabilidade_bruta_12m": 0.1633,
+        "data_coleta": "2026-05-27"
+      },
+      {
+        "plataforma": "XP Investimentos",
+        "tipo": "LCA",
+        "emissor": "Banco Original",
+        "modalidade": "pos_fixado_cdi",
+        "taxa_pct_cdi": 0.92,
+        "vencimento": "2029-05-01",
+        "minimo_rs": null,
+        "liquidez": "no_vencimento",
+        "risco": "baixo",
+        "fgc": true,
+        "isento_ir": true,
+        "i_liq_anual_estimado": 0.1337,
+        "data_coleta": "2026-05-27"
+      },
+      {
+        "plataforma": "XP Investimentos",
+        "tipo": "CDB",
+        "emissor": "Banco C6",
+        "modalidade": "pos_fixado_cdi",
+        "taxa_pct_cdi": 1.03,
+        "vencimento": "2032-01-01",
+        "liquidez": "no_vencimento",
+        "fgc": true,
+        "data_coleta": "2026-05-27"
+      },
+      {
+        "plataforma": "Tesouro Direto",
+        "tipo": "TESOURO_SELIC",
+        "emissor": "Governo Federal",
+        "modalidade": "pos_fixado_selic",
+        "taxa_selic_adicional": 0.000823,
+        "vencimento": "2031-03-01",
+        "liquidez": "D+1",
+        "fgc": false,
+        "garantia": "Governo Federal",
+        "data_coleta": "2026-05-27"
+      },
+      {
+        "plataforma": "Tesouro Direto",
+        "tipo": "TESOURO_PREFIXADO",
+        "emissor": "Governo Federal",
+        "modalidade": "prefixado",
+        "taxa_prefixada": 0.1403,
+        "vencimento": "2028-01-01",
+        "liquidez": "D+1",
+        "fgc": false,
+        "garantia": "Governo Federal",
+        "data_coleta": "2026-05-27"
+      },
+      {
+        "plataforma": "Tesouro Direto",
+        "tipo": "TESOURO_IPCA",
+        "emissor": "Governo Federal",
+        "modalidade": "hibrido_ipca",
+        "spread_sobre_ipca": 0.0768,
+        "vencimento": "2035-05-15",
+        "liquidez": "D+1",
+        "fgc": false,
+        "garantia": "Governo Federal",
+        "data_coleta": "2026-05-27"
+      }
+    ]
+  },
+
+  "user_portfolio": {
+    "owner": "Igor Alves",
+    "data_referencia": "2026-05-27",
+    "total_investido_estimado_rs": 1227393.41,
+    "contas": [
+      {
+        "instituicao": "BTG Pactual (AVIN)",
+        "relatorio": "AVIN_BTG_Igor_01052025_30042026.pdf",
+        "valor_rs": 600000.00,
+        "rentabilidade_anualizada_estimada_bruta": 0.1511,
+        "rentabilidade_pct_cdi": 1.0188,
+        "sharpe": 27.93,
+        "produtos": [
+          {
+            "nome": "CDB Liquidez Diária - 100% CDI",
+            "tipo": "CDB",
+            "modalidade": "pos_fixado_cdi",
+            "taxa_pct_cdi": 1.00,
+            "valor_rs": 250000,
+            "liquidez": "D+0",
+            "rentabilidade_12m_bruta": 0.1489
+          },
+          {
+            "nome": "CDB Liquidez 100,6% CDI (Carência 90 dias)",
+            "tipo": "CDB",
+            "modalidade": "pos_fixado_cdi",
+            "taxa_pct_cdi": 1.006,
+            "valor_rs": 250000,
+            "liquidez": "D+366",
+            "carencia_dias": 90,
+            "rentabilidade_12m_bruta": 0.1498
+          },
+          {
+            "nome": "CDB - Banco Digimais - 109% CDI",
+            "tipo": "CDB",
+            "modalidade": "pos_fixado_cdi",
+            "taxa_pct_cdi": 1.09,
+            "valor_rs": 100000,
+            "liquidez": "D+179",
+            "vencimento": "2026-11-23",
+            "rentabilidade_12m_bruta": 0.1633
+          }
+        ]
+      },
+      {
+        "instituicao": "Nubank",
+        "saldo_rs": 627393.41,
+        "rendimento_bruto_maio2026_rs": 5869.71,
+        "ir_retido_maio2026_rs": 1181.26,
+        "rendimento_liquido_maio2026_rs": 4688.45,
+        "iof_maio2026_rs": 0.00,
+        "rentabilidade_bruta_mensal_maio2026": 0.00936,
+        "rentabilidade_liquida_mensal_maio2026": 0.00748,
+        "rentabilidade_liquida_anualizada_estimada": 0.1198
+      }
+    ]
+  },
+
+  "calculation_examples": [
+    {
+      "id": "ex1",
+      "titulo": "CDB Nubank 102,5% CDI — vencimento 24/11/2026",
+      "data_inicio": "2026-05-27",
+      "data_resgate_desejada": "2027-12-31",
+      "data_vencimento_produto": "2026-11-24",
+      "prazo_efetivo_dias": 181,
+      "fator_limitante": "PRODUTO",
+      "tipo": "CDB",
+      "modalidade": "pos_fixado_cdi",
+      "taxa_pct_cdi": 1.025,
+      "cdi_usado": 0.1465,
+      "taxa_bruta_anual": 0.15016,
+      "calculos": {
+        "r_bruto": 0.0714,
+        "alpha_ir": 0.20,
+        "iof_aliq": 0.00,
+        "r_liquido": 0.0571,
+        "i_liq_anual": 0.1180
+      },
+      "monetario_100k": {
+        "principal": 100000,
+        "lucro_bruto_rs": 7140,
+        "ir_rs": 1428,
+        "lucro_liquido_rs": 5712,
+        "valor_final_rs": 105712
+      },
+      "conclusion": "102,5% CDI bruto → 11,80% a.a. líquido para este prazo"
+    },
+    {
+      "id": "ex2",
+      "titulo": "CDB Digimais 109% CDI — prazo curto (180 dias)",
+      "data_inicio": "2026-05-27",
+      "data_vencimento_produto": "2026-11-23",
+      "prazo_efetivo_dias": 180,
+      "fator_limitante": "PRODUTO",
+      "tipo": "CDB",
+      "taxa_pct_cdi": 1.09,
+      "taxa_bruta_anual": 0.15967,
+      "calculos": {
+        "r_bruto": 0.0737,
+        "alpha_ir": 0.225,
+        "iof_aliq": 0.00,
+        "r_liquido": 0.0571,
+        "i_liq_anual": 0.1183
+      },
+      "conclusion": "109% CDI bruto → 11,83% a.a. líquido (IR 22,5% devora a vantagem da taxa maior)"
+    },
+    {
+      "id": "ex3",
+      "titulo": "LCA 92% CDI — prazo 180 dias (mesma base do ex2)",
+      "data_inicio": "2026-05-27",
+      "prazo_efetivo_dias": 180,
+      "tipo": "LCA",
+      "modalidade": "pos_fixado_cdi",
+      "taxa_pct_cdi": 0.92,
+      "taxa_bruta_anual": 0.13478,
+      "calculos": {
+        "r_bruto": 0.0639,
+        "alpha_ir": 0.00,
+        "iof_aliq": 0.00,
+        "r_liquido": 0.0639,
+        "i_liq_anual": 0.1337
+      },
+      "conclusion": "LCA 92% CDI → 13,37% a.a. líquido — supera CDB 109% CDI em 1,54 p.p. no mesmo prazo de 180 dias"
+    },
+    {
+      "id": "ex4",
+      "titulo": "CDB genérico 14,17% a.a. — 97 dias (do prompt original)",
+      "prazo_efetivo_dias": 97,
+      "tipo": "CDB",
+      "modalidade": "prefixado",
+      "taxa_bruta_anual": 0.1417,
+      "calculos": {
+        "r_bruto": 0.03578,
+        "alpha_ir": 0.225,
+        "iof_aliq": 0.00,
+        "r_liquido": 0.02773,
+        "i_liq_anual": 0.1083
+      },
+      "monetario_600k": {
+        "principal": 600000,
+        "lucro_bruto_rs": 21468,
+        "ir_rs": 4830.30,
+        "lucro_liquido_rs": 16637.70,
+        "valor_final_rs": 616637.70
+      },
+      "conclusion": "14,17% bruto → 10,83% a.a. líquido para 97 dias (IR 22,5%)"
+    }
+  ],
+
+  "tech_stack": {
+    "frontend": "Next.js 14 (App Router) + TypeScript",
+    "styling": "Tailwind CSS",
+    "charts": "Recharts",
+    "precision": "Decimal.js para cálculos monetários",
+    "state": "Zustand ou React useState",
+    "api_calls": "SWR para fetching com cache",
+    "deploy": "Vercel",
+    "backend": "Next.js API Routes (proxy para BACEN e scraping)",
+    "storage": "localStorage (MVP), Firebase Firestore (v2)"
+  },
+
+  "prompt_para_claude_implementar": {
+    "instrucao": "Use este JSON como especificação técnica completa para construir o aplicativo web RentaReal. Implemente primeiro o Módulo 1 (Calculadora Individual) conforme descrito em ui_specification.modules[0]. Use as fórmulas exatas definidas em formulas. Busque o CDI via bacen_api_endpoints.cdi_diario. A saída principal deve ser a taxa_anual_equivalente_liquida exibida em destaque máximo na interface.",
+    "prioridade": "Módulo 1 — Calculadora Individual",
+    "dados_teste": "Usar os exemplos em calculation_examples para validar os cálculos",
+    "regras_criticas": [
+      "prazo_efetivo = min(data_resgate_desejada, data_vencimento_produto)",
+      "IOF aplica-se ANTES do IR, ambos somente sobre rendimento (nunca sobre principal)",
+      "Produtos LCI/LCA/CRI/CRA/Debenture Incentivada: alpha = 0 e iof = 0",
+      "Para pós-fixado CDI: taxa_bruta_anual = (pct_cdi/100) * cdi_atual",
+      "Mostrar a taxa líquida anualizada como saída principal em destaque absoluto",
+      "Mostrar alertas quando IOF incide e quando mudar de faixa de IR economizaria dinheiro"
+    ]
+  }
+}
