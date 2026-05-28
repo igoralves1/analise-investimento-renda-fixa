@@ -692,6 +692,212 @@
       </div>
     </section>
 
+    <!-- Retenção vs Prazo Efetivo -->
+    <section class="space-y-6">
+      <div>
+        <p class="text-red-400 text-xs font-semibold tracking-widest uppercase mb-1">Conceitos da calculadora</p>
+        <h2 class="section-title">Retenção vs. Prazo Efetivo — por que são diferentes?</h2>
+        <p class="text-gray-400 text-sm">
+          Dois conceitos que aparecem juntos nos resultados da calculadora e causam confusão frequente.
+          Entendê-los é essencial para interpretar corretamente a rentabilidade e o IR de cada produto.
+        </p>
+      </div>
+
+      <!-- Definições lado a lado -->
+      <div class="grid sm:grid-cols-2 gap-4">
+
+        <!-- Retenção -->
+        <div class="rounded-2xl border border-red-800/60 bg-red-950/30 p-5 space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-red-900/60 flex items-center justify-center shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-red-300 font-bold text-base">🔒 Retenção</p>
+              <p class="text-red-500 text-xs">Tempo mínimo que o dinheiro fica bloqueado</p>
+            </div>
+          </div>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            É o período durante o qual você <strong class="text-white">não pode acessar o dinheiro</strong> — nem parcial, nem totalmente.
+            Equivale ao prazo de carência do produto ou, quando não há carência, ao tempo até o vencimento (se o produto só permite resgate no vencimento).
+          </p>
+          <div class="space-y-1.5 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-red-500 shrink-0"></span>
+              <span class="text-gray-400">LCA com carência 6 meses → <strong class="text-red-300">Retenção: 6 meses</strong></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-red-500 shrink-0"></span>
+              <span class="text-gray-400">CDB que vence em 90 dias → <strong class="text-red-300">Retenção: 90 dias</strong></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-green-500 shrink-0"></span>
+              <span class="text-gray-400">CDB com liquidez diária → <strong class="text-green-400">Sem retenção</strong></span>
+            </div>
+          </div>
+          <div class="bg-red-900/30 border border-red-800/50 rounded-xl p-3 text-xs text-red-300">
+            <strong>Na calculadora:</strong> aparece como badge vermelho "🔒 X meses" nos cards e no ranking.
+            Indica que o produto é incompatível com retiradas mensais durante esse período.
+          </div>
+        </div>
+
+        <!-- Prazo efetivo -->
+        <div class="rounded-2xl border border-blue-800/60 bg-blue-950/30 p-5 space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-blue-900/60 flex items-center justify-center shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-blue-300 font-bold text-base">📅 Prazo Efetivo</p>
+              <p class="text-blue-500 text-xs">Período real da simulação — base do cálculo de IR</p>
+            </div>
+          </div>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            É o número de dias usado para calcular o rendimento e a alíquota de IR.
+            Determinado pela fórmula:
+          </p>
+          <div class="bg-gray-900/70 border border-blue-800/40 rounded-xl p-3 font-mono text-xs text-center text-blue-200">
+            Prazo efetivo = min(data&nbsp;resgate&nbsp;desejada, data&nbsp;vencimento)
+          </div>
+          <div class="space-y-1.5 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-blue-500 shrink-0"></span>
+              <span class="text-gray-400">Simula 365 dias · produto vence em 730 dias → <strong class="text-blue-300">Prazo efetivo: 365 dias</strong></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-blue-500 shrink-0"></span>
+              <span class="text-gray-400">Simula 365 dias · produto vence em 90 dias → <strong class="text-blue-300">Prazo efetivo: 90 dias</strong></span>
+            </div>
+          </div>
+          <div class="bg-blue-900/30 border border-blue-800/50 rounded-xl p-3 text-xs text-blue-300">
+            <strong>Na calculadora:</strong> define a faixa de IR (22,5% / 20% / 17,5% / 15%) e o rendimento total calculado.
+            Aparece como "Prazo ef." no ranking e no relatório.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Exemplo concreto -->
+      <div class="rounded-2xl border border-orange-700/60 bg-orange-950/30 p-5 space-y-4">
+        <p class="text-orange-300 font-bold text-sm">Exemplo prático: LCA com carência de 6 meses e simulação de 1 ano</p>
+
+        <div class="grid sm:grid-cols-3 gap-3 text-xs">
+          <div class="bg-gray-900/60 border border-gray-700 rounded-xl p-3 space-y-2">
+            <p class="text-gray-400 font-semibold uppercase tracking-wider text-[10px]">Produto</p>
+            <p class="text-white font-bold">LCA CDI 95%</p>
+            <div class="space-y-1 text-gray-400 mt-1">
+              <p>Carência: <span class="text-yellow-300">6 meses</span></p>
+              <p>Vencimento: <span class="text-gray-200">3 anos (1.095 dias)</span></p>
+            </div>
+          </div>
+          <div class="bg-red-900/20 border border-red-800/50 rounded-xl p-3 space-y-2">
+            <p class="text-red-400 font-semibold uppercase tracking-wider text-[10px]">🔒 Retenção</p>
+            <p class="text-red-300 font-bold text-lg">6 meses</p>
+            <p class="text-gray-400 leading-relaxed">
+              Durante os primeiros 6 meses, o dinheiro está bloqueado.
+              Não é possível nenhum resgate — mesmo que seja emergência.
+              Após os 6 meses, liquidez fica disponível.
+            </p>
+          </div>
+          <div class="bg-blue-900/20 border border-blue-800/50 rounded-xl p-3 space-y-2">
+            <p class="text-blue-400 font-semibold uppercase tracking-wider text-[10px]">📅 Prazo Efetivo</p>
+            <p class="text-blue-300 font-bold text-lg">365 dias</p>
+            <p class="text-gray-400 leading-relaxed">
+              A simulação foi configurada para 1 ano (365 dias).
+              O produto vence em 3 anos, então o prazo efetivo é 365 dias — a data de resgate desejada.
+              Esse prazo define o IR de <strong class="text-blue-200">15% (isenta para LCA)</strong>.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-orange-900/20 border border-orange-800/50 rounded-xl p-4 space-y-2 text-xs">
+          <p class="text-orange-200 font-semibold">O que isso significa na prática:</p>
+          <div class="space-y-1.5 text-gray-400">
+            <div class="flex items-start gap-2">
+              <span class="text-orange-400 shrink-0 mt-0.5">▸</span>
+              <p>Os <strong class="text-white">primeiros 6 meses</strong> o investidor não toca no dinheiro — a retenção vale.</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-orange-400 shrink-0 mt-0.5">▸</span>
+              <p>Do <strong class="text-white">7° mês ao 12° mês</strong> (resto da simulação), o dinheiro está livre — pode ser retirado se necessário.</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-orange-400 shrink-0 mt-0.5">▸</span>
+              <p>O <strong class="text-white">rendimento calculado</strong> é sobre os 365 dias inteiros, não apenas sobre os 6 meses bloqueados.</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-orange-400 shrink-0 mt-0.5">▸</span>
+              <p>O <strong class="text-white">IR</strong> é calculado sobre os 365 dias — faixa de 15% (mas LCA é isenta de IR).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabela de equivalências: retenção × prazo efetivo -->
+      <div class="card space-y-3">
+        <h3 class="font-semibold text-white text-sm">Como retenção e prazo efetivo interagem — combinações comuns</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs">
+            <thead>
+              <tr class="text-gray-500 text-[10px] uppercase tracking-wider border-b border-gray-800">
+                <th class="text-left py-2 pr-3">Produto</th>
+                <th class="text-center py-2 pr-3 text-red-400">🔒 Retenção</th>
+                <th class="text-center py-2 pr-3 text-blue-400">📅 Prazo efetivo</th>
+                <th class="text-center py-2 pr-3">IR</th>
+                <th class="text-left py-2">Atenção</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-800">
+              <tr class="hover:bg-gray-800/40">
+                <td class="py-2.5 pr-3 text-gray-200 font-medium">CDB liquidez diária</td>
+                <td class="py-2.5 pr-3 text-center text-green-400 font-semibold">Livre</td>
+                <td class="py-2.5 pr-3 text-center text-blue-300">365 dias</td>
+                <td class="py-2.5 pr-3 text-center text-gray-300">15%</td>
+                <td class="py-2.5 text-gray-500">Ideal para retiradas mensais</td>
+              </tr>
+              <tr class="hover:bg-gray-800/40">
+                <td class="py-2.5 pr-3 text-gray-200 font-medium">LCA CDI (carência 6m)</td>
+                <td class="py-2.5 pr-3 text-center text-red-400 font-semibold">6 meses</td>
+                <td class="py-2.5 pr-3 text-center text-blue-300">365 dias</td>
+                <td class="py-2.5 pr-3 text-center text-green-400">Isento</td>
+                <td class="py-2.5 text-yellow-500">Bloqueado por 6 meses; IR isento pelo prazo de 1 ano</td>
+              </tr>
+              <tr class="hover:bg-gray-800/40">
+                <td class="py-2.5 pr-3 text-gray-200 font-medium">CDB vence em 90 dias</td>
+                <td class="py-2.5 pr-3 text-center text-red-400 font-semibold">90 dias</td>
+                <td class="py-2.5 pr-3 text-center text-red-300">90 dias</td>
+                <td class="py-2.5 pr-3 text-center text-red-400">22,5%</td>
+                <td class="py-2.5 text-red-500">Vence antes da simulação — IR máximo</td>
+              </tr>
+              <tr class="hover:bg-gray-800/40">
+                <td class="py-2.5 pr-3 text-gray-200 font-medium">LCI IPCA+ (carência 36m)</td>
+                <td class="py-2.5 pr-3 text-center text-red-400 font-semibold">36 meses</td>
+                <td class="py-2.5 pr-3 text-center text-blue-300">365 dias</td>
+                <td class="py-2.5 pr-3 text-center text-green-400">Isento</td>
+                <td class="py-2.5 text-red-500">Incompatível com liquidez em 1 ano — dinheiro preso por 3 anos</td>
+              </tr>
+              <tr class="hover:bg-gray-800/40">
+                <td class="py-2.5 pr-3 text-gray-200 font-medium">Tesouro Selic</td>
+                <td class="py-2.5 pr-3 text-center text-green-400 font-semibold">Livre (D+1)</td>
+                <td class="py-2.5 pr-3 text-center text-blue-300">365 dias</td>
+                <td class="py-2.5 pr-3 text-center text-gray-300">15%</td>
+                <td class="py-2.5 text-green-500">Reserva de emergência ideal</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-gray-600 text-[10px] pt-1 border-t border-gray-800">
+          Retenção e prazo efetivo são independentes: você pode ter 6 meses de retenção e calcular o rendimento por 1 ano inteiro.
+          A retenção não reduz o prazo efetivo — apenas define quando o dinheiro fica acessível durante a simulação.
+        </p>
+      </div>
+
+    </section>
+
     <!-- Simulação real Abril 2026 -->
     <section class="space-y-6">
       <div>

@@ -46,6 +46,7 @@
           <div>
             <label class="label">Data de resgate</label>
             <input v-model="params.dataFimDesejada" type="date" class="input" />
+            <p class="text-xs text-gray-600 mt-1">Default: amanhã + 1 ano</p>
           </div>
           <div>
             <label class="label">Aporte mensal recorrente (R$)</label>
@@ -280,7 +281,7 @@
             <button
               v-for="b in bancosPorQtd"
               :key="b.banco"
-              @click="bancoFiltro = bancoFiltro === b.banco ? null : b.banco"
+              @click="bancoFiltro = bancoFiltro === b.banco ? null : b.banco; verTodos = false"
               class="text-[11px] font-medium border px-3 py-1 rounded-full transition-all"
               :class="[
                 getBancoCor(b.banco),
@@ -334,6 +335,10 @@
                       class="text-[10px] border px-1.5 py-0.5 rounded-full"
                       :class="c.cls"
                     >{{ c.label }}</span>
+                    <span v-if="retencaoBadge(p.criterio_resgate, retencaoDias(p))"
+                      class="text-[10px] border px-1.5 py-0.5 rounded-full bg-red-900/40 text-red-400 border-red-800 font-semibold">
+                      🔒 {{ retencaoBadge(p.criterio_resgate, retencaoDias(p)) }}
+                    </span>
                   </div>
                 </td>
                 <!-- Taxa -->
@@ -388,10 +393,22 @@
               </tr>
             </tbody>
           </table>
-          <p v-if="bancoFiltro" class="text-xs text-gray-600 mt-2">
-            Exibindo {{ produtosVisiveis.length }} produto(s) de <strong class="text-gray-400">{{ bancoFiltro }}</strong>.
-            <button @click="bancoFiltro = null" class="text-green-500 hover:text-green-400 ml-1">Limpar filtro ↺</button>
-          </p>
+          <div class="flex items-center justify-between mt-2">
+            <p class="text-xs text-gray-600">
+              <span v-if="bancoFiltro">
+                Exibindo {{ produtosVisiveis.length }} produto(s) de <strong class="text-gray-400">{{ bancoFiltro }}</strong>.
+                <button @click="bancoFiltro = null; verTodos = false" class="text-green-500 hover:text-green-400 ml-1">Limpar filtro ↺</button>
+              </span>
+              <span v-else>
+                Exibindo {{ produtosVisiveis.length }} de {{ todosProdutos.length }} produtos · ordenados por confirmações
+              </span>
+            </p>
+            <button
+              v-if="!bancoFiltro && todosProdutos.length > 10"
+              @click="verTodos = !verTodos"
+              class="text-xs text-green-500 hover:text-green-400 transition-colors font-medium"
+            >{{ verTodos ? '↑ Ver menos' : `Ver todos os ${todosProdutos.length} produtos ↓` }}</button>
+          </div>
         </div>
 
         <p class="text-[11px] text-gray-600 border-t border-gray-800 pt-3">
@@ -428,6 +445,87 @@
         </div>
       </div>
 
+      <!-- Contexto do investidor -->
+      <div class="bg-gray-800/50 border border-gray-700 rounded-2xl p-5 space-y-4">
+        <p class="text-xs font-semibold text-gray-400 uppercase tracking-widest">Contexto da análise</p>
+
+        <!-- Narrativa dinâmica -->
+        <div class="space-y-2 text-sm text-gray-300 leading-relaxed">
+          <!-- Sem retirada nem aporte -->
+          <p v-if="!params.retiradaMensal && !params.aportesMensais">
+            Esta análise compara <strong class="text-white">{{ resultados.length }} produto(s)</strong> de renda fixa para um investimento de
+            <strong class="text-white">{{ formatRS(params.valorInvestido) }}</strong> pelo prazo de
+            <strong class="text-white">{{ prazoSolicitado }} dias</strong>.
+            Os produtos estão ordenados pelo <span class="text-green-400 font-medium">maior retorno líquido anual</span> após IR e IOF.
+          </p>
+
+          <!-- Com retirada mensal -->
+          <template v-if="params.retiradaMensal > 0">
+            <p>
+              Levando-se em consideração que existe uma necessidade de
+              <strong class="text-white">retirada mensal de {{ formatRS(params.retiradaMensal) }}</strong>,
+              os produtos foram reordenados priorizando aqueles com
+              <span class="text-green-400 font-medium">liquidez diária explícita</span> —
+              únicos que permitem saques recorrentes sem penalidade ou deságio.
+            </p>
+            <p>
+              Produtos com carência ou resgate restrito ao vencimento são listados ao final, pois
+              <strong class="text-white">não são compatíveis</strong> com retiradas mensais durante o período de restrição.
+              Dentro de cada grupo de liquidez, a ordenação é pelo maior retorno líquido.
+            </p>
+            <p v-if="melhor">
+              Com o melhor produto disponível
+              (<span class="text-green-400">{{ melhor.produto.nome }}</span>),
+              o rendimento líquido mensal estimado é de
+              <strong class="text-green-400">{{ formatRS(params.valorInvestido * (Math.pow(1 + melhor.calc.iLiqAnual, 1/12) - 1)) }}</strong>
+              —
+              <span v-if="params.valorInvestido * (Math.pow(1 + melhor.calc.iLiqAnual, 1/12) - 1) >= params.retiradaMensal" class="text-green-400">
+                suficiente para cobrir a retirada desejada, com excedente de
+                {{ formatRS(params.valorInvestido * (Math.pow(1 + melhor.calc.iLiqAnual, 1/12) - 1) - params.retiradaMensal) }}/mês.
+              </span>
+              <span v-else class="text-red-400">
+                insuficiente para cobrir a retirada de {{ formatRS(params.retiradaMensal) }}
+                (déficit de {{ formatRS(params.retiradaMensal - params.valorInvestido * (Math.pow(1 + melhor.calc.iLiqAnual, 1/12) - 1)) }}/mês).
+              </span>
+            </p>
+          </template>
+
+          <!-- Com aporte mensal -->
+          <p v-if="params.aportesMensais > 0">
+            O aporte mensal recorrente de <strong class="text-white">{{ formatRS(params.aportesMensais) }}</strong>
+            é incorporado na projeção de crescimento do patrimônio — cada contribuição adicional é capitalizada
+            à mesma taxa líquida do produto, acelerando a formação de capital ao longo do tempo.
+          </p>
+        </div>
+
+        <!-- Fórmula utilizada -->
+        <div class="border-t border-gray-700 pt-4 space-y-2">
+          <p class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Fórmula de cálculo</p>
+          <div class="space-y-3 text-xs text-gray-400">
+            <div>
+              <p class="text-gray-500 mb-1">Valor futuro (sem aportes mensais):</p>
+              <MathFormula :tex="`VF = VP \\times \\left(1 + i_{liq}\\right)^{\\frac{n}{365}}`" />
+            </div>
+            <div v-if="params.aportesMensais > 0">
+              <p class="text-gray-500 mb-1">Valor futuro com aportes mensais recorrentes (juros compostos):</p>
+              <MathFormula :tex="`VF = VP \\times (1 + i_{liq})^{\\frac{n}{365}} + A \\times \\frac{(1 + i_{mensal})^{m} - 1}{i_{mensal}}`" />
+            </div>
+            <div v-if="params.retiradaMensal > 0">
+              <p class="text-gray-500 mb-1">Saldo após retirada mensal:</p>
+              <MathFormula :tex="`\\text{Saldo} = \\text{Rend. líq./mês} - \\text{Retirada}`" />
+            </div>
+            <p class="text-gray-600 leading-relaxed">
+              Onde: <span class="text-gray-400">VP</span> = valor investido ·
+              <span class="text-gray-400">i<sub>liq</sub></span> = taxa líquida anual (após IR e IOF) ·
+              <span class="text-gray-400">n</span> = prazo em dias ·
+              <span v-if="params.aportesMensais > 0"><span class="text-gray-400">A</span> = aporte mensal ·
+              <span class="text-gray-400">m</span> = número de meses · </span>
+              <span class="text-gray-400">i<sub>mensal</sub></span> = taxa líquida mensal equivalente = (1 + i<sub>liq</sub>)<sup>1/12</sup> − 1
+            </p>
+          </div>
+        </div>
+      </div>
+
       <!-- Resumo executivo -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="card text-center space-y-1">
@@ -452,13 +550,21 @@
 
       <!-- ══ TOP 5 — RENDIMENTOS MENSAIS ══ -->
       <div class="space-y-4">
-        <div class="flex items-center gap-3">
+        <div class="flex items-center justify-between gap-3">
           <div>
             <h3 class="font-bold text-white text-lg">Top 5 — Rendimentos Mensais</h3>
             <p class="text-gray-400 text-sm">
               Estimativa do rendimento mensal bruto e líquido para cada produto,
               ordenada do maior para o menor ganho líquido.
             </p>
+          </div>
+          <div class="flex gap-2 text-xs no-print shrink-0">
+            <button
+              v-for="v in ['tabela', 'cards']" :key="v"
+              class="px-3 py-1 rounded-lg transition-colors"
+              :class="vistaTop5 === v ? 'bg-green-900/50 text-green-400' : 'text-gray-500 hover:text-gray-300'"
+              @click="vistaTop5 = v"
+            >{{ v === 'tabela' ? 'Tabela' : 'Cards' }}</button>
           </div>
         </div>
 
@@ -496,31 +602,34 @@
 
         <!-- Tabela top 5 mensal -->
         <div class="card overflow-x-auto">
+
+          <!-- Tabela -->
+          <div v-if="vistaTop5 === 'tabela'">
           <table class="w-full text-sm">
             <thead>
               <tr class="border-b border-gray-700">
-                <th class="text-left pb-3 pr-3 text-gray-500 text-xs uppercase tracking-wider">#</th>
-                <th class="text-left pb-3 pr-3 text-gray-500 text-xs uppercase tracking-wider">Produto</th>
-                <th class="text-right pb-3 pr-3 text-xs uppercase tracking-wider">
-                  <span class="text-yellow-500">Banco anuncia<br><span class="text-gray-600 normal-case font-normal">bruto a.a.</span></span>
+                <th class="text-left pb-2 pr-3 text-gray-600 text-[10px] uppercase tracking-wider">#</th>
+                <th class="text-left pb-2 pr-3 text-gray-600 text-[10px] uppercase tracking-wider">Produto</th>
+                <th class="text-right pb-2 pr-3 text-[10px] uppercase tracking-wider text-gray-600">
+                  Banco anuncia<br><span class="text-gray-700 normal-case font-normal">bruto a.a.</span>
                 </th>
-                <th class="text-right pb-3 pr-3 text-xs uppercase tracking-wider">
-                  <span class="text-yellow-500">Rend. bruto<br><span class="text-gray-600 normal-case font-normal">por mês</span></span>
+                <th class="text-right pb-2 pr-3 text-[10px] uppercase tracking-wider text-gray-600">
+                  Rend. bruto<br><span class="text-gray-700 normal-case font-normal">por mês</span>
                 </th>
-                <th class="text-right pb-3 pr-3 text-xs uppercase tracking-wider">
-                  <span class="text-red-500">IR<br><span class="text-gray-600 normal-case font-normal">aplicado</span></span>
+                <th class="text-right pb-2 pr-3 text-[10px] uppercase tracking-wider text-gray-600">
+                  IR<br><span class="text-gray-700 normal-case font-normal">aplicado</span>
                 </th>
-                <th class="text-right pb-3 pr-3 text-xs uppercase tracking-wider">
-                  <span class="text-green-400">Você recebe<br><span class="text-gray-600 normal-case font-normal">líquido a.a.</span></span>
+                <th class="text-right pb-2 pr-3 text-[10px] uppercase tracking-wider text-gray-600">
+                  Ganho real<br><span class="text-gray-700 normal-case font-normal">líquido a.a.</span>
                 </th>
-                <th class="text-right pb-3 pr-3 text-xs uppercase tracking-wider">
-                  <span class="text-green-400">Rend. líq.<br><span class="text-gray-600 normal-case font-normal">por mês</span></span>
+                <th class="text-right pb-2 pr-3 text-[10px] uppercase tracking-wider text-gray-600">
+                  Rend. líq.<br><span class="text-gray-700 normal-case font-normal">por mês</span>
                 </th>
-                <th v-if="params.retiradaMensal > 0" class="text-right pb-3 pr-3 text-xs uppercase tracking-wider text-gray-500">
-                  Retirada<br><span class="normal-case font-normal">desejada</span>
+                <th v-if="params.retiradaMensal > 0" class="text-right pb-2 pr-3 text-[10px] uppercase tracking-wider text-gray-600">
+                  Retirada<br><span class="text-gray-700 normal-case font-normal">desejada</span>
                 </th>
-                <th v-if="params.retiradaMensal > 0" class="text-right pb-3 text-xs uppercase tracking-wider text-gray-500">
-                  Saldo<br><span class="normal-case font-normal">após retirada</span>
+                <th v-if="params.retiradaMensal > 0" class="text-right pb-2 text-[10px] uppercase tracking-wider text-gray-600">
+                  Saldo<br><span class="text-gray-700 normal-case font-normal">após retirada</span>
                 </th>
               </tr>
             </thead>
@@ -544,7 +653,6 @@
                   <p class="text-xs text-gray-500 mt-0.5">{{ r.produto.instituicao }}</p>
                   <div class="flex flex-wrap gap-1 mt-1">
                     <span class="tag">{{ r.produto.tipo }}</span>
-                    <span v-if="r.calc.isentoIR" class="badge-green">Isento IR</span>
                     <span v-if="r.calc.fatorLimitante === 'PRODUTO'" class="badge-yellow">Vence antes</span>
                   </div>
                   <div class="mt-1.5 flex items-center gap-2 text-[11px]">
@@ -608,6 +716,55 @@
             Rendimento mensal estimado = Valor investido × ((1 + taxa líquida a.a.)^(1/12) − 1).
             Simulação baseada no prazo e alíquota de IR do período definido acima.
           </p>
+          </div>
+
+          <!-- Cards -->
+          <div v-else class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div
+              v-for="(r, i) in top5Mensal" :key="r.produto.id"
+              class="bg-gray-800 rounded-xl p-4 space-y-3"
+              :class="i === 0 ? 'ring-1 ring-green-600' : ''"
+            >
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <p class="font-semibold text-white text-sm leading-tight">{{ r.produto.nome }}</p>
+                  <p class="text-xs text-gray-500 mt-0.5">{{ r.produto.instituicao }}</p>
+                </div>
+                <span v-if="i === 0" class="text-xl shrink-0">🥇</span>
+                <span v-else-if="i === 1" class="text-xl shrink-0">🥈</span>
+                <span v-else-if="i === 2" class="text-xl shrink-0">🥉</span>
+                <span v-else class="text-gray-600 text-xs shrink-0 mt-1">{{ i + 1 }}°</span>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="bg-yellow-900/30 rounded-lg p-3 text-center">
+                  <p class="text-yellow-500 text-xs font-semibold uppercase tracking-wider mb-1">Banco anuncia</p>
+                  <p class="text-yellow-400 font-bold text-base">{{ r.calc.taxaBrutaAnualPct.toFixed(2) }}%</p>
+                  <p class="text-yellow-600 text-xs">a.a. bruto</p>
+                  <p class="text-yellow-400 text-xs font-semibold mt-1">{{ formatRS(r.mensalBruto) }}/mês</p>
+                </div>
+                <div class="bg-green-900/20 rounded-lg p-3 text-center">
+                  <p class="text-green-500 text-xs font-semibold uppercase tracking-wider mb-1">Ganho real</p>
+                  <p class="font-bold text-base" :class="i === 0 ? 'text-green-400' : 'text-gray-200'">{{ r.calc.iLiqAnualPct.toFixed(2) }}%</p>
+                  <p class="text-green-700 text-xs">a.a. líquido</p>
+                  <p class="text-green-400 text-xs font-semibold mt-1">{{ formatRS(r.mensalLiq) }}/mês</p>
+                </div>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 text-xs">
+                <span class="tag">{{ r.produto.tipo }}</span>
+                <span v-if="r.calc.isentoIR" class="badge-green">Isento IR</span>
+                <span v-else class="badge-red">IR {{ (r.calc.alpha * 100).toFixed(0) }}%</span>
+                <span v-if="retencaoDias(r.produto)" class="badge-red">🔒 {{ formatarRetencao(retencaoDias(r.produto)) }}</span>
+                <span v-if="r.calc.fatorLimitante === 'PRODUTO'" class="badge-yellow">Vence antes</span>
+              </div>
+              <div v-if="params.retiradaMensal > 0" class="border-t border-gray-700 pt-2 text-xs flex justify-between">
+                <span class="text-gray-500">Saldo após retirada</span>
+                <span class="font-semibold" :class="r.saldo >= 0 ? 'text-green-400' : 'text-red-400'">
+                  {{ r.saldo >= 0 ? '+' : '' }}{{ formatRS(r.saldo) }}
+                </span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -619,7 +776,15 @@
       <!-- ── Ranking completo ── -->
       <div class="card overflow-x-auto space-y-0">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="font-semibold text-white">Ranking completo — Banco anuncia × Você recebe</h3>
+          <div class="flex items-center gap-3">
+            <h3 class="font-semibold text-white">Ranking completo — Banco anuncia × Você recebe</h3>
+            <button
+              v-if="rankingSort.campo !== 'iLiqAnual' || rankingSort.dir !== 'desc'"
+              @click="rankingSort = { campo: 'iLiqAnual', dir: 'desc' }"
+              class="text-[10px] text-gray-500 hover:text-gray-300 border border-gray-700 hover:border-gray-500 px-2 py-0.5 rounded-full transition-colors no-print"
+              title="Resetar ordenação"
+            >↺ resetar</button>
+          </div>
           <div class="flex gap-2 text-xs no-print">
             <button
               v-for="v in ['tabela', 'cards']" :key="v"
@@ -635,20 +800,31 @@
           <table class="w-full text-sm">
             <thead>
               <tr class="border-b border-gray-700">
-                <th class="text-left pb-3 pr-3 text-gray-500 text-xs uppercase tracking-wider">#</th>
-                <th class="text-left pb-3 pr-3 text-gray-500 text-xs uppercase tracking-wider">Produto</th>
-                <th class="text-right pb-3 pr-3 text-xs uppercase tracking-wider"><span class="text-yellow-500">Banco anuncia</span></th>
-                <th class="text-right pb-3 pr-3 text-gray-500 text-xs uppercase tracking-wider">Prazo ef.</th>
-                <th class="text-right pb-3 pr-3 text-xs uppercase tracking-wider"><span class="text-red-500">IR</span></th>
-                <th class="text-right pb-3 pr-3 text-xs uppercase tracking-wider"><span class="text-green-400">Você recebe</span></th>
-                <th class="text-right pb-3 pr-3 text-gray-500 text-xs uppercase tracking-wider">Desconto fisco</th>
-                <th class="text-right pb-3 pr-3 text-gray-500 text-xs uppercase tracking-wider">Lucro líq.</th>
-                <th class="text-right pb-3 text-gray-500 text-xs uppercase tracking-wider">Valor final</th>
+                <th class="text-left pb-2 pr-3 text-gray-600 text-[10px] uppercase tracking-wider">#</th>
+                <th class="text-left pb-2 pr-3 text-gray-600 text-[10px] uppercase tracking-wider">Produto</th>
+                <th @click="toggleSort('taxaBruta')" class="text-right pb-2 pr-3 text-[10px] uppercase tracking-wider cursor-pointer select-none transition-colors">
+                  <span :class="rankingSort.campo === 'taxaBruta' ? 'text-gray-200' : 'text-gray-600 hover:text-gray-400'">Banco anuncia {{ sortIcon('taxaBruta') }}</span>
+                </th>
+                <th @click="toggleSort('iLiqAnual')" class="text-right pb-2 pr-3 text-[10px] uppercase tracking-wider cursor-pointer select-none transition-colors">
+                  <span :class="rankingSort.campo === 'iLiqAnual' ? 'text-gray-200' : 'text-gray-600 hover:text-gray-400'">Ganho real {{ sortIcon('iLiqAnual') }}</span>
+                </th>
+                <th @click="toggleSort('retencao')" class="text-right pb-2 pr-3 text-[10px] uppercase tracking-wider cursor-pointer select-none transition-colors" title="Tempo mínimo que o dinheiro fica bloqueado">
+                  <span :class="rankingSort.campo === 'retencao' ? 'text-gray-200' : 'text-gray-600 hover:text-gray-400'">Retenção {{ sortIcon('retencao') }}</span>
+                </th>
+                <th @click="toggleSort('prazo')" class="text-right pb-2 pr-3 text-[10px] uppercase tracking-wider cursor-pointer select-none transition-colors" title="Menor entre o prazo solicitado e o vencimento do produto">
+                  <span :class="rankingSort.campo === 'prazo' ? 'text-gray-200' : 'text-gray-600 hover:text-gray-400'">Prazo efetivo {{ sortIcon('prazo') }}</span>
+                </th>
+                <th @click="toggleSort('lucroLiq')" class="text-right pb-2 pr-3 text-[10px] uppercase tracking-wider cursor-pointer select-none transition-colors">
+                  <span :class="rankingSort.campo === 'lucroLiq' ? 'text-gray-200' : 'text-gray-600 hover:text-gray-400'">Lucro líq. {{ sortIcon('lucroLiq') }}</span>
+                </th>
+                <th @click="toggleSort('valorFinal')" class="text-right pb-2 text-[10px] uppercase tracking-wider cursor-pointer select-none transition-colors">
+                  <span :class="rankingSort.campo === 'valorFinal' ? 'text-gray-200' : 'text-gray-600 hover:text-gray-400'">Valor final {{ sortIcon('valorFinal') }}</span>
+                </th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-800">
               <tr
-                v-for="(r, i) in resultados" :key="r.produto.id"
+                v-for="(r, i) in resultadosOrdenados" :key="r.produto.id"
                 class="hover:bg-gray-800/40 transition-colors"
                 :class="i === 0 ? 'bg-green-900/10' : ''"
               >
@@ -664,34 +840,36 @@
                     <p class="text-xs text-gray-500">{{ r.produto.instituicao }}</p>
                     <div class="flex flex-wrap gap-1 mt-1">
                       <span class="tag">{{ r.produto.tipo }}</span>
-                      <span v-if="r.calc.isentoIR" class="badge-green">Isento IR</span>
+                      <span v-if="r.calc.isentoIR" class="badge-green">IR Isento</span>
+                      <span v-else class="badge-red">IR {{ (r.calc.alpha * 100).toFixed(1) }}%</span>
                       <span v-if="r.calc.iofAliq > 0" class="badge-red">IOF {{ (r.calc.iofAliq*100).toFixed(0) }}%</span>
                       <span v-if="r.calc.fatorLimitante === 'PRODUTO'" class="badge-yellow">Vence antes</span>
                     </div>
                   </div>
                 </td>
+                <!-- Banco anuncia -->
                 <td class="py-4 pr-3 text-right">
                   <p class="text-yellow-400 font-bold">{{ r.calc.taxaBrutaAnualPct.toFixed(2) }}% a.a.</p>
                   <p class="text-xs text-gray-600">bruto anunciado</p>
                 </td>
-                <td class="py-4 pr-3 text-right">
-                  <p class="text-gray-300">{{ r.calc.prazoEfetivoDias }}d</p>
-                  <p class="text-xs text-gray-600">{{ formatDate(r.calc.dataEfetiva) }}</p>
-                </td>
-                <td class="py-4 pr-3 text-right">
-                  <p v-if="r.calc.isentoIR" class="text-green-400 font-semibold">Isento</p>
-                  <p v-else class="font-bold" :class="corIR(r.calc.alpha)">{{ (r.calc.alpha * 100).toFixed(1) }}%</p>
-                  <p v-if="!r.calc.isentoIR" class="text-xs text-red-500">{{ formatRS(r.calc.irValor) }}</p>
-                </td>
+                <!-- Ganho real -->
                 <td class="py-4 pr-3 text-right">
                   <p class="font-black text-lg" :class="i === 0 ? 'text-green-400' : 'text-gray-200'">
                     {{ r.calc.iLiqAnualPct.toFixed(2) }}% a.a.
                   </p>
                   <p class="text-xs text-gray-500">líquido real</p>
                 </td>
+                <!-- Retenção -->
                 <td class="py-4 pr-3 text-right">
-                  <p v-if="r.calc.isentoIR && r.calc.iofAliq === 0" class="text-green-400 text-sm font-semibold">R$ 0,00</p>
-                  <p v-else class="text-red-400 text-sm font-semibold">{{ formatRS(r.calc.iofValor + r.calc.irValor) }}</p>
+                  <span v-if="retencaoDias(r.produto)" class="text-red-400 font-semibold text-xs">
+                    🔒 {{ formatarRetencao(retencaoDias(r.produto)) }}
+                  </span>
+                  <span v-else class="text-green-400 text-xs font-semibold">Livre</span>
+                </td>
+                <!-- Prazo efetivo -->
+                <td class="py-4 pr-3 text-right">
+                  <p class="text-gray-300">{{ r.calc.prazoEfetivoDias }}d</p>
+                  <p class="text-xs text-gray-600">{{ formatDate(r.calc.dataEfetiva) }}</p>
                 </td>
                 <td class="py-4 pr-3 text-right">
                   <p class="text-green-300 font-semibold">{{ formatRS(r.calc.lucroLiq) }}</p>
@@ -707,7 +885,7 @@
         <!-- Cards -->
         <div v-else class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div
-            v-for="(r, i) in resultados" :key="r.produto.id"
+            v-for="(r, i) in resultadosVisiveis" :key="r.produto.id"
             class="bg-gray-800 rounded-xl p-4 space-y-3"
             :class="i === 0 ? 'ring-1 ring-green-600' : ''"
           >
@@ -755,6 +933,14 @@
             </div>
           </div>
         </div>
+
+        <!-- Ver todos ranking -->
+        <div v-if="resultados.length > 10" class="flex items-center justify-between pt-3 border-t border-gray-800 mt-3">
+          <p class="text-xs text-gray-600">Exibindo {{ resultadosVisiveis.length }} de {{ resultados.length }} produtos</p>
+          <button @click="verTodosRanking = !verTodosRanking" class="text-xs text-green-500 hover:text-green-400 transition-colors font-medium">
+            {{ verTodosRanking ? '↑ Ver menos' : `Ver todos os ${resultados.length} produtos ↓` }}
+          </button>
+        </div>
       </div>
 
       <!-- ── Análise detalhada ── -->
@@ -778,6 +964,7 @@
               <span v-if="r.calc.isentoIOF" class="badge-green">Isento IOF</span>
               <span v-if="r.produto.fgc" class="badge-blue">FGC</span>
               <span v-if="r.calc.fatorLimitante === 'PRODUTO'" class="badge-yellow">Vence em {{ formatDate(r.calc.dataEfetiva) }}</span>
+              <span v-if="retencaoBadge(r.produto.criterio_resgate, retencaoDias(r.produto))" class="badge-red">🔒 {{ retencaoBadge(r.produto.criterio_resgate, retencaoDias(r.produto)) }}</span>
             </div>
           </div>
 
@@ -873,9 +1060,30 @@
             </span>
           </div>
 
-          <p v-if="r.produto.notas" class="text-xs text-gray-600 border-t border-gray-800 pt-3">
-            📎 {{ r.produto.notas }}
-          </p>
+          <!-- Parecer Gerencial -->
+          <div class="border-t border-gray-800 pt-4 space-y-2">
+            <p class="text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-2">Parecer gerencial</p>
+            <div
+              v-for="(item, idx) in parecer(r)"
+              :key="idx"
+              class="flex items-start gap-2 text-xs rounded-lg px-3 py-2.5 leading-relaxed"
+              :class="{
+                'bg-green-900/20 text-green-300 border border-green-900/60': item.tipo === 'success',
+                'bg-yellow-900/20 text-yellow-300 border border-yellow-900/60': item.tipo === 'warning',
+                'bg-red-900/20 text-red-300 border border-red-900/60': item.tipo === 'danger',
+                'bg-blue-900/20 text-blue-300 border border-blue-900/60': item.tipo === 'info',
+              }"
+            >
+              <span class="shrink-0 font-bold mt-0.5">
+                {{ item.tipo === 'success' ? '✓' : item.tipo === 'danger' ? '✗' : item.tipo === 'warning' ? '⚠' : 'i' }}
+              </span>
+              <span>{{ item.texto }}</span>
+            </div>
+            <p v-if="r.produto.notas" class="text-xs text-gray-500 flex items-start gap-1.5 pt-1">
+              <span class="shrink-0">📎</span>
+              <span>{{ r.produto.notas }}</span>
+            </p>
+          </div>
         </div>
       </div>
 
@@ -908,8 +1116,19 @@ import { useMathJax } from '../composables/useMathJax.js'
 
 useMathJax()
 
-const amanha = new Date(Date.now() + 86400000).toISOString().slice(0, 10)
-const umAno  = new Date(Date.now() + 366 * 86400000).toISOString().slice(0, 10)
+function dataLocalISO(offsetDias = 0) {
+  const d = new Date()
+  d.setDate(d.getDate() + offsetDias)
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
+}
+function dataUmAnoISO() {
+  const d = new Date()
+  d.setDate(d.getDate() + 1)       // começa de amanhã
+  d.setFullYear(d.getFullYear() + 1)
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
+}
+const amanha = dataLocalISO(1)
+const umAno  = dataUmAnoISO()
 
 const cliente = ref({ nome: '', sobrenome: '', email: '' })
 
@@ -930,6 +1149,7 @@ const carregandoProdutos = ref(true)
 const salvandoParams     = ref(false)
 const erro               = ref(null)
 const vista              = ref('tabela')
+const vistaTop5          = ref('tabela')
 
 const mesAtual = computed(() =>
   new Date().toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
@@ -980,8 +1200,10 @@ const selicMensalEquiv = computed(() =>
 )
 
 // ── Marketplace helpers ───────────────────────────────────────────────────────
-const confirmadosSessao = ref(new Set())
-const bancoFiltro       = ref(null)
+const confirmadosSessao  = ref(new Set())
+const bancoFiltro        = ref(null)
+const verTodos           = ref(false)
+const verTodosRanking    = ref(false)
 
 const TIPOS_ISENTOS = ['LCI', 'LCA', 'CRI', 'CRA', 'DEBENTURE_INCENTIVADA']
 const TIPOS_TESOURO = ['TESOURO_SELIC', 'TESOURO_PREFIXADO', 'TESOURO_IPCA']
@@ -1020,11 +1242,15 @@ function getBancoCor(banco) {
   return _bancoCoresMap.value[banco] || 'bg-gray-800 text-gray-400 border-gray-700'
 }
 
-const produtosVisiveis = computed(() =>
-  bancoFiltro.value
-    ? todosProdutos.value.filter(p => p.instituicao === bancoFiltro.value)
-    : todosProdutos.value
-)
+const produtosVisiveis = computed(() => {
+  const ordenado = [...todosProdutos.value]
+    .sort((a, b) => (b.confirmacoes || 0) - (a.confirmacoes || 0))
+  const filtrado = bancoFiltro.value
+    ? ordenado.filter(p => p.instituicao === bancoFiltro.value)
+    : ordenado
+  // Quando há filtro de banco ativo ou verTodos, mostra tudo; senão, top 10
+  return (bancoFiltro.value || verTodos.value) ? filtrado : filtrado.slice(0, 10)
+})
 
 function custosDoTipo(tipo) {
   if (TIPOS_ISENTOS.includes(tipo)) {
@@ -1051,24 +1277,32 @@ function custosDoTipo(tipo) {
 
 function labelModalidadeMkt(modalidade) {
   const map = {
-    pos_fixado_cdi:  'Pós-fixado CDI',
-    pos_fixado_selic:'Pós-fixado Selic',
-    ipca_mais:       'IPCA+',
-    prefixado:       'Prefixado',
-    poupanca:        'Poupança',
+    pos_fixado_cdi:      'Pós-fixado CDI',
+    pos_fixado_cdi_mais: 'Pós-fixado CDI+',
+    pos_fixado_selic:    'Pós-fixado Selic',
+    hibrido_ipca:        'IPCA+',
+    ipca_mais:           'IPCA+',
+    prefixado:           'Prefixado',
+    poupanca:            'Poupança',
   }
   return map[modalidade] || modalidade
 }
 
 function sufixoTaxa(modalidade) {
-  if (modalidade === 'ipca_mais') return '+ IPCA a.a.'
+  if (modalidade === 'hibrido_ipca' || modalidade === 'ipca_mais') return '+ IPCA a.a.'
   if (modalidade === 'prefixado') return 'a.a. fixo'
   if (modalidade === 'poupanca') return 'a.a. est.'
+  if (modalidade === 'pos_fixado_cdi_mais') return '% spread a.a.'
   return '% do CDI'
 }
 
 const CRITERIOS_RESGATE = {
   liquidez_diaria:    { label: 'Liquidez diária',         cls: 'text-green-500' },
+  carencia_30d:       { label: 'Carência 30 dias',        cls: 'text-yellow-500' },
+  carencia_60d:       { label: 'Carência 60 dias',        cls: 'text-yellow-500' },
+  carencia_90d:       { label: 'Carência 90 dias',        cls: 'text-yellow-500' },
+  carencia_120d:      { label: 'Carência 120 dias',       cls: 'text-yellow-500' },
+  carencia_180d:      { label: 'Carência 180 dias',       cls: 'text-yellow-500' },
   carencia_6m:        { label: 'Carência 6 meses',        cls: 'text-yellow-500' },
   carencia_12m:       { label: 'Carência 12 meses',       cls: 'text-yellow-500' },
   carencia_36m:       { label: 'Carência 36 meses',       cls: 'text-orange-400' },
@@ -1079,6 +1313,135 @@ const CRITERIOS_RESGATE = {
 }
 function labelCriterio(c) {
   return CRITERIOS_RESGATE[c] || { label: c || '—', cls: 'text-gray-600' }
+}
+
+function formatarRetencao(dias) {
+  if (!dias || dias <= 0) return null
+  if (dias < 32) return `${dias}d`
+  if (dias < 365) {
+    const meses = Math.round(dias / 30.44)
+    return `${meses} ${meses === 1 ? 'mês' : 'meses'}`
+  }
+  const anos = Math.round((dias / 365) * 2) / 2
+  if (anos === 1) return '1 ano'
+  return Number.isInteger(anos)
+    ? `${anos} anos`
+    : `${anos.toString().replace('.', ',')} anos`
+}
+
+function retencaoDias(produto) {
+  const criterio = produto.criterio_resgate || 'vencimento'
+  if (['liquidez_diaria', 'tesouro_selic', 'mtm_diario'].includes(criterio)) return null
+  if (criterio === 'vencimento') {
+    if (!produto.vencimento) return null
+    return calcularDias(params.value.dataInicio, produto.vencimento)
+  }
+  const map = {
+    carencia_30d: 30, carencia_60d: 60, carencia_90d: 90,
+    carencia_120d: 120, carencia_180d: 180,
+    carencia_6m: 180, carencia_12m: 365, carencia_36m: 1095,
+  }
+  return map[criterio] || null
+}
+
+function retencaoBadge(criterio, dias) {
+  if (!criterio || ['liquidez_diaria', 'tesouro_selic', 'mtm_diario'].includes(criterio)) return null
+  if (criterio === 'mercado_secundario') return 'Mercado sec.'
+  const d = dias || retencaoDias({ criterio_resgate: criterio, vencimento: null })
+  return d ? `Retenção ${formatarRetencao(d)}` : 'Só no vencimento'
+}
+
+function parecer(r) {
+  const p       = r.produto
+  const calc    = r.calc
+  const aporte  = params.value.aportesMensais || 0
+  const retirada = params.value.retiradaMensal || 0
+  const principal = params.value.valorInvestido || 0
+  const criterio = p.criterio_resgate || 'vencimento'
+
+  const rendaLiqMensal = principal * (Math.pow(1 + calc.iLiqAnual, 1 / 12) - 1)
+
+  const liquidezDiaria = ['liquidez_diaria', 'tesouro_selic'].includes(criterio)
+  const mtmDiario      = criterio === 'mtm_diario'
+  const secundario     = criterio === 'mercado_secundario'
+  const comCarencia    = criterio.startsWith('carencia_')
+  const soVencimento   = criterio === 'vencimento'
+  const labelC         = labelCriterio(criterio).label
+
+  const itens = []
+
+  // ── Liquidez e retirada mensal ───────────────────────────────
+  if (retirada > 0) {
+    if (soVencimento) {
+      itens.push({ tipo: 'danger', texto: `Incompatível com retirada mensal: este produto só permite resgate no vencimento (${p.vencimento ? formatDate(p.vencimento) : 'sem data definida'}). As retiradas de ${formatRS(retirada)}/mês não são viáveis neste instrumento.` })
+    } else if (secundario) {
+      itens.push({ tipo: 'warning', texto: `Liquidez via mercado secundário B3 — sujeita a deságio (haircut) conforme taxas correntes. Não recomendado como fonte de retiradas mensais regulares de ${formatRS(retirada)}.` })
+    } else if (mtmDiario) {
+      itens.push({ tipo: 'warning', texto: `Liquidez mark-to-market: resgate antecipado em cenário de alta de juros pode resultar em valor inferior ao investido. Avalie o risco de mercado antes de usar como fonte de retirada de ${formatRS(retirada)}/mês.` })
+    } else if (comCarencia) {
+      itens.push({ tipo: 'danger', texto: `Incompatível com retirada mensal: este produto possui ${labelC} sem liquidez nesse período. As retiradas de ${formatRS(retirada)}/mês não são viáveis durante a carência. Após o término, liquidez diária disponível.` })
+      if (rendaLiqMensal >= retirada) {
+        itens.push({ tipo: 'success', texto: `Pós-carência: rendimento líquido mensal estimado de ${formatRS(rendaLiqMensal)} cobre a retirada de ${formatRS(retirada)}, com excedente de ${formatRS(rendaLiqMensal - retirada)}/mês para reinvestimento.` })
+      } else {
+        const deficit = retirada - rendaLiqMensal
+        const meses   = deficit > 0 ? Math.floor(principal / deficit) : '—'
+        itens.push({ tipo: 'warning', texto: `Pós-carência: rendimento líquido de ${formatRS(rendaLiqMensal)}/mês não cobre a retirada de ${formatRS(retirada)} (déficit de ${formatRS(deficit)}/mês). Consumo parcial do principal em ~${meses} meses.` })
+      }
+    } else if (liquidezDiaria) {
+      if (rendaLiqMensal >= retirada) {
+        itens.push({ tipo: 'success', texto: `Liquidez diária compatível com retirada mensal. Rendimento líquido estimado de ${formatRS(rendaLiqMensal)}/mês cobre integralmente os ${formatRS(retirada)} desejados, com excedente de ${formatRS(rendaLiqMensal - retirada)}/mês para reinvestimento.` })
+      } else {
+        const deficit = retirada - rendaLiqMensal
+        const meses   = deficit > 0 ? Math.floor(principal / deficit) : '—'
+        itens.push({ tipo: 'danger', texto: `Déficit de fluxo: rendimento líquido de ${formatRS(rendaLiqMensal)}/mês não cobre a retirada de ${formatRS(retirada)}/mês (falta ${formatRS(deficit)}/mês). O principal seria consumido em ~${meses} meses sem reposição.` })
+      }
+    }
+  } else {
+    if (liquidezDiaria) {
+      itens.push({ tipo: 'success', texto: `Liquidez diária — flexibilidade total para resgate sem penalidade, ideal para reserva de oportunidade ou posição tática.` })
+    } else if (soVencimento) {
+      itens.push({ tipo: 'info', texto: `Capital comprometido até ${p.vencimento ? formatDate(p.vencimento) : 'o vencimento'}. Adequado apenas para recursos sem previsão de uso antes dessa data.` })
+    } else if (comCarencia) {
+      itens.push({ tipo: 'info', texto: `${labelC} — capital com comprometimento inicial; liquidez diária disponível após o término da carência.` })
+    } else if (secundario) {
+      itens.push({ tipo: 'warning', texto: `Saída antecipada via mercado secundário B3 com possível deságio. Planeje o horizonte até o vencimento para evitar perdas.` })
+    } else if (mtmDiario) {
+      itens.push({ tipo: 'warning', texto: `Mark-to-market diário: o preço oscila conforme as taxas de juros de mercado. Resgates antecipados em cenário de alta podem resultar em perda de capital.` })
+    }
+  }
+
+  // ── Aportes mensais recorrentes ──────────────────────────────
+  if (aporte > 0) {
+    const minimo = p.minimo_rs || 0
+    if (minimo > 0 && aporte < minimo) {
+      const mesesAcumulo = Math.ceil(minimo / aporte)
+      itens.push({ tipo: 'warning', texto: `Aporte mensal planejado de ${formatRS(aporte)} é inferior ao mínimo por aplicação deste produto (${formatRS(minimo)}). Seria necessário acumular por ${mesesAcumulo} meses antes de cada nova aplicação.` })
+    } else {
+      itens.push({ tipo: 'info', texto: `Aportes mensais de ${formatRS(aporte)} exigem novas aplicações individuais — renda fixa não possui débito automático. Verifique disponibilidade e condições junto à ${p.instituicao}.` })
+    }
+  }
+
+  // ── Cobertura FGC ────────────────────────────────────────────
+  const LIMITE_FGC = 250000
+  if (p.fgc) {
+    if (principal <= LIMITE_FGC) {
+      itens.push({ tipo: 'success', texto: `FGC: cobertura integral — ${formatRS(principal)} está dentro do limite de ${formatRS(LIMITE_FGC)} por CPF por instituição.` })
+    } else {
+      const excesso = principal - LIMITE_FGC
+      itens.push({ tipo: 'danger', texto: `FGC: cobertura parcial — ${formatRS(excesso)} (${((excesso / principal) * 100).toFixed(1)}% do valor simulado) excede o limite de ${formatRS(LIMITE_FGC)} por CPF por instituição e fica sem garantia.` })
+    }
+  } else {
+    itens.push({ tipo: 'warning', texto: `Sem cobertura do FGC. Risco de crédito da emissora (${p.instituicao}). Avalie o rating e a solidez da instituição antes de alocar.` })
+  }
+
+  // ── Vantagem fiscal (isentos de IR) ─────────────────────────
+  if (calc.isentoIR) {
+    const irRef  = getIRAliquota(calc.prazoEfetivoDias)
+    const equiv  = calc.iLiqAnual / (1 - irRef)
+    itens.push({ tipo: 'success', texto: `Isento de IR: equivale a um CDB tributado rendendo ${(equiv * 100).toFixed(2)}% a.a. bruto (base: alíquota de ${(irRef * 100).toFixed(1)}% para o prazo simulado).` })
+  }
+
+  return itens
 }
 
 function diasRestantesNum(vencimento) {
@@ -1110,7 +1473,21 @@ function adicionarNaSimulacao(produto) {
   })
   if (!calc) return
   resultados.value = [...resultados.value, { produto, calc }]
-    .sort((a, b) => b.calc.iLiqAnual - a.calc.iLiqAnual)
+    .sort((a, b) => {
+      const retirada = params.value.retiradaMensal || 0
+      if (retirada > 0) {
+        const grp = r => {
+          const c = r.produto.criterio_resgate || 'vencimento'
+          if (['liquidez_diaria', 'tesouro_selic'].includes(c)) return 0
+          if (['mtm_diario', 'mercado_secundario'].includes(c))  return 1
+          if (c.startsWith('carencia_'))                         return 2
+          return 3
+        }
+        const ga = grp(a), gb = grp(b)
+        if (ga !== gb) return ga - gb
+      }
+      return b.calc.iLiqAnual - a.calc.iLiqAnual
+    })
 }
 
 async function confirmarProduto(produto) {
@@ -1191,6 +1568,46 @@ const prazoSolicitado = computed(() => {
 
 const melhor = computed(() => resultados.value[0] || null)
 
+const resultadosVisiveis = computed(() =>
+  verTodosRanking.value ? resultados.value : resultados.value.slice(0, 10)
+)
+
+const rankingSort = ref({ campo: 'iLiqAnual', dir: 'desc' })
+
+function toggleSort(campo) {
+  if (rankingSort.value.campo === campo) {
+    rankingSort.value.dir = rankingSort.value.dir === 'desc' ? 'asc' : 'desc'
+  } else {
+    rankingSort.value.campo = campo
+    rankingSort.value.dir = 'desc'
+  }
+}
+
+function sortIcon(campo) {
+  if (rankingSort.value.campo !== campo) return '↓↑'
+  return rankingSort.value.dir === 'desc' ? '↓' : '↑'
+}
+
+const resultadosOrdenados = computed(() => {
+  const lista = [...resultadosVisiveis.value]
+  const { campo, dir } = rankingSort.value
+  const m = dir === 'asc' ? 1 : -1
+  lista.sort((a, b) => {
+    switch (campo) {
+      case 'retencao':    return m * ((retencaoDias(a.produto) ?? 9999) - (retencaoDias(b.produto) ?? 9999))
+      case 'taxaBruta':   return m * (a.calc.taxaBrutaAnualPct - b.calc.taxaBrutaAnualPct)
+      case 'prazo':       return m * (a.calc.prazoEfetivoDias - b.calc.prazoEfetivoDias)
+      case 'ir':          return m * (a.calc.alpha - b.calc.alpha)
+      case 'iLiqAnual':   return m * (a.calc.iLiqAnual - b.calc.iLiqAnual)
+      case 'fisco':       return m * ((a.calc.iofValor + a.calc.irValor) - (b.calc.iofValor + b.calc.irValor))
+      case 'lucroLiq':    return m * (a.calc.lucroLiq - b.calc.lucroLiq)
+      case 'valorFinal':  return m * (a.calc.valorFinal - b.calc.valorFinal)
+      default:            return 0
+    }
+  })
+  return lista
+})
+
 const top5Mensal = computed(() => {
   const P = params.value.valorInvestido
   const ret = params.value.retiradaMensal || 0
@@ -1260,7 +1677,21 @@ function calcular() {
       return { produto, calc }
     })
     .filter(Boolean)
-    .sort((a, b) => b.calc.iLiqAnual - a.calc.iLiqAnual)
+    .sort((a, b) => {
+      const retirada = p.retiradaMensal || 0
+      if (retirada > 0) {
+        const grp = r => {
+          const c = r.produto.criterio_resgate || 'vencimento'
+          if (['liquidez_diaria', 'tesouro_selic'].includes(c)) return 0
+          if (['mtm_diario', 'mercado_secundario'].includes(c))  return 1
+          if (c.startsWith('carencia_'))                         return 2
+          return 3 // vencimento ou sem critério
+        }
+        const ga = grp(a), gb = grp(b)
+        if (ga !== gb) return ga - gb
+      }
+      return b.calc.iLiqAnual - a.calc.iLiqAnual
+    })
 }
 
 async function salvarParams() {
@@ -1299,10 +1730,10 @@ onMounted(async () => {
     if (saved) {
       params.value = {
         valorInvestido:  saved.valor_investido    ?? params.value.valorInvestido,
-        dataInicio:      saved.data_inicio         ?? params.value.dataInicio,
-        dataFimDesejada: saved.data_fim_planejada  ?? params.value.dataFimDesejada,
-        retiradaMensal:  saved.retirada_mensal     ?? 0,
-        aportesMensais:  saved.aportes_mensais     ?? 0,
+        dataInicio:      amanha,
+        dataFimDesejada: umAno,
+        retiradaMensal:  0,
+        aportesMensais:  0,
         cdi:             saved.cdi_anual            ?? params.value.cdi,
         ipca:            saved.ipca_anual           ?? params.value.ipca,
         selic:           saved.selic_anual          ?? params.value.selic,
