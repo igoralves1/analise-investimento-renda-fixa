@@ -344,7 +344,7 @@
                 <td class="py-3 pr-4 min-w-[130px]">
                   <span v-if="p.vencimento" class="text-sm text-gray-200 font-medium">{{ formatDate(p.vencimento) }}</span>
                   <span v-else class="text-xs text-green-400 font-semibold">Liquidez diária</span>
-                  <p v-if="p.vencimento" class="text-[11px] mt-0.5" :class="diasRestantesNum(p.vencimento) < 180 ? 'text-yellow-500' : 'text-gray-600'">
+                  <p v-if="p.vencimento" class="text-[11px] mt-0.5" :class="diasRestantesNum(p.vencimento) < 90 ? 'text-red-400' : diasRestantesNum(p.vencimento) < 210 ? 'text-yellow-500' : 'text-gray-600'">
                     {{ diasAteVencimento(p.vencimento) }}
                   </p>
                   <p v-if="p.notas" class="text-[10px] text-gray-700 mt-0.5 italic">{{ p.notas }}</p>
