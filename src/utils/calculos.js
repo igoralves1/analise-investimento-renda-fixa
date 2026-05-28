@@ -19,14 +19,16 @@ export const TIPOS_PRODUTO = [
   { value:'TESOURO_PREFIXADO',    label:'Tesouro Prefixado',                     grupo:'Tesouro Direto'},
   { value:'TESOURO_IPCA',         label:'Tesouro IPCA+',                         grupo:'Tesouro Direto'},
   { value:'POUPANCA',             label:'Poupança',                               grupo:'Bancário' },
+  { value:'LF',                   label:'LF — Letra Financeira',                  grupo:'Bancário' },
 ]
 
 export const MODALIDADES = [
-  { value:'prefixado',       label:'Pré-fixado (% a.a.)',       hint:'Taxa fixa anual. Ex: 14,03%' },
-  { value:'pos_fixado_cdi',  label:'Pós-fixado CDI (% do CDI)', hint:'% sobre o CDI. Ex: 102,5%' },
-  { value:'pos_fixado_selic',label:'Pós-fixado Selic (% Selic)',hint:'% sobre a Selic. Ex: 100,08%'},
-  { value:'hibrido_ipca',    label:'Híbrido IPCA+ (spread % a.a.)',hint:'Spread acima do IPCA. Ex: 7,68%'},
-  { value:'poupanca',        label:'Poupança (% a.a. fixa)',     hint:'Taxa bruta anual já calculada'},
+  { value:'prefixado',          label:'Pré-fixado (% a.a.)',          hint:'Taxa fixa anual. Ex: 14,03%' },
+  { value:'pos_fixado_cdi',     label:'Pós-fixado CDI (% do CDI)',    hint:'% sobre o CDI. Ex: 102,5%' },
+  { value:'pos_fixado_cdi_mais',label:'Pós-fixado CDI+ (spread % a.a.)',hint:'Spread sobre o CDI. Ex: 0,35 para CDI+0,35%'},
+  { value:'pos_fixado_selic',   label:'Pós-fixado Selic (% Selic)',   hint:'% sobre a Selic. Ex: 100,08%'},
+  { value:'hibrido_ipca',       label:'Híbrido IPCA+ (spread % a.a.)',hint:'Spread acima do IPCA. Ex: 7,68%'},
+  { value:'poupanca',           label:'Poupança (% a.a. fixa)',        hint:'Taxa bruta anual já calculada'},
 ]
 
 export function getIRAliquota(dias) {
@@ -51,7 +53,8 @@ export function taxaBrutaAnual(produto, { cdi, ipca, selic }) {
   const t = produto.taxa / 100
   switch (produto.modalidade) {
     case 'prefixado':        return t
-    case 'pos_fixado_cdi':   return t * (cdi / 100)
+    case 'pos_fixado_cdi':      return t * (cdi / 100)
+    case 'pos_fixado_cdi_mais': return (cdi / 100) + t  // CDI + spread (ex: 0.0035 para CDI+0,35%)
     case 'pos_fixado_selic': return t * (selic / 100)
     case 'hibrido_ipca':     return (1 + ipca / 100) * (1 + t) - 1
     case 'poupanca':         return t
