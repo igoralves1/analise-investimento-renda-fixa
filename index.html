@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RentaReal — Calculadora de Rentabilidade Líquida</title>
     <meta name="description" content="Descubra a taxa real líquida de impostos de qualquer investimento de renda fixa no Brasil. Sem pegadinhas, sem asteriscos." />
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['\\(', '\\)']],
+          displayMath: [['\\[', '\\]']],
+          packages: { '[+]': ['ams'] },
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        },
+        startup: { typeset: false },
+      }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   </head>
   <body>
     <div id="app"></div>

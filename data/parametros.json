@@ -1,7 +1,8 @@
 {
-  "valor_investido": 100000,
-  "data_inicio": "2026-05-27",
-  "data_fim_planejada": "2027-05-27",
+  "valor_investido": 600000,
+  "data_inicio": "2026-06-01",
+  "data_fim_planejada": "2027-07-01",
+  "retirada_mensal": 3000,
   "cdi_anual": 14.65,
   "ipca_anual": 5.5,
   "selic_anual": 14.5

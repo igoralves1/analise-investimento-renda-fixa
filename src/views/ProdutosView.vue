@@ -45,7 +45,11 @@
             </div>
             <div class="flex gap-2 shrink-0">
               <button class="btn-secondary text-xs px-3 py-1.5" @click="editar(p)">Editar</button>
-              <button class="btn-danger text-xs px-3 py-1.5" @click="confirmarExcluir(p)">Excluir</button>
+              <button
+                class="btn-danger text-xs px-3 py-1.5 opacity-40 cursor-not-allowed"
+                disabled
+                title="Exclusão desabilitada"
+              >Excluir</button>
             </div>
           </div>
         </div>

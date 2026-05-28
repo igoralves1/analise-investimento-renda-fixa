@@ -72,4 +72,14 @@ app.delete('/api/produtos/:id', (req, res) => {
   res.json({ ok: true })
 })
 
+app.post('/api/produtos/:id/confirmar', (req, res) => {
+  const data = readJSON('produtos.json') || { produtos: [] }
+  const produto = data.produtos.find(p => p.id === req.params.id)
+  if (!produto) return res.status(404).json({ error: 'Não encontrado' })
+  produto.confirmacoes = (produto.confirmacoes || 0) + 1
+  produto.ultima_confirmacao = new Date().toISOString().slice(0, 10)
+  writeJSON('produtos.json', data)
+  res.json({ confirmacoes: produto.confirmacoes, ultima_confirmacao: produto.ultima_confirmacao })
+})
+
 app.listen(PORT, () => console.log(`API rodando em http://localhost:${PORT}`))

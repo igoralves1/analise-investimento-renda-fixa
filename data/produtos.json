@@ -10,7 +10,9 @@
       "vencimento": "",
       "fgc": true,
       "minimo_rs": 1,
-      "notas": "Liquidez diária D+0"
+      "notas": "Liquidez diária D+0",
+      "confirmacoes": 3,
+      "ultima_confirmacao": "2026-05-20"
     },
     {
       "id": "2",
@@ -22,7 +24,9 @@
       "vencimento": "2026-11-24",
       "fgc": true,
       "minimo_rs": 100,
-      "notas": ""
+      "notas": "",
+      "confirmacoes": 7,
+      "ultima_confirmacao": "2026-05-25"
     },
     {
       "id": "3",
@@ -34,7 +38,9 @@
       "vencimento": "2026-11-23",
       "fgc": true,
       "minimo_rs": 1000,
-      "notas": "Via BTG"
+      "notas": "Via BTG",
+      "confirmacoes": 2,
+      "ultima_confirmacao": "2026-05-18"
     },
     {
       "id": "4",
@@ -46,7 +52,9 @@
       "vencimento": "2029-05-01",
       "fgc": true,
       "minimo_rs": 1000,
-      "notas": "Via XP"
+      "notas": "Via XP",
+      "confirmacoes": 5,
+      "ultima_confirmacao": "2026-05-22"
     },
     {
       "id": "5",
@@ -58,7 +66,9 @@
       "vencimento": "2031-03-01",
       "fgc": false,
       "minimo_rs": 100,
-      "notas": "Selic + 0,0823%"
+      "notas": "Selic + 0,0823%",
+      "confirmacoes": 12,
+      "ultima_confirmacao": "2026-05-26"
     },
     {
       "id": "6",
@@ -70,7 +80,9 @@
       "vencimento": "2028-01-01",
       "fgc": false,
       "minimo_rs": 100,
-      "notas": ""
+      "notas": "",
+      "confirmacoes": 8,
+      "ultima_confirmacao": "2026-05-24"
     },
     {
       "id": "7",
@@ -82,7 +94,9 @@
       "vencimento": "2027-05-27",
       "fgc": true,
       "minimo_rs": 1000,
-      "notas": "Via Nubank"
+      "notas": "Via Nubank",
+      "confirmacoes": 4,
+      "ultima_confirmacao": "2026-05-21"
     },
     {
       "id": "8",
@@ -94,7 +108,9 @@
       "vencimento": "",
       "fgc": true,
       "minimo_rs": 1,
-      "notas": "0,5% ao mês + TR"
+      "notas": "0,5% ao mês + TR",
+      "confirmacoes": 1,
+      "ultima_confirmacao": "2026-05-10"
     }
   ]
 }

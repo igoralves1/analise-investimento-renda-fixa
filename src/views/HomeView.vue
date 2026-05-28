@@ -123,30 +123,30 @@
         <p class="text-green-400 text-xs font-semibold tracking-widest uppercase mb-1">A fórmula correta</p>
         <h2 class="section-title">Como calcular o retorno líquido real</h2>
       </div>
-      <div class="card space-y-5 font-mono text-sm">
+      <div class="card space-y-6">
         <div class="space-y-1">
-          <p class="text-gray-500 text-xs not-italic">1. Rendimento bruto no período</p>
-          <p class="text-green-300">r_bruto = (1 + i_anual)^(d/365) − 1</p>
+          <p class="text-gray-500 text-xs">1. Rendimento bruto no período</p>
+          <MathFormula display tex="r_{bruto} = (1 + i_{anual})^{d/365} - 1" />
         </div>
         <div class="space-y-1">
-          <p class="text-gray-500 text-xs not-italic">2. Após IOF (primeiros 30 dias)</p>
-          <p class="text-green-300">r_ap_iof = r_bruto × (1 − α_iof)</p>
+          <p class="text-gray-500 text-xs">2. Após IOF (primeiros 30 dias)</p>
+          <MathFormula display tex="r_{ap,iof} = r_{bruto} \times (1 - \alpha_{IOF})" />
         </div>
         <div class="space-y-1">
-          <p class="text-gray-500 text-xs not-italic">3. Após IR (alíquota do prazo)</p>
-          <p class="text-green-300">r_liq = r_ap_iof × (1 − α_ir)</p>
+          <p class="text-gray-500 text-xs">3. Após IR (alíquota do prazo)</p>
+          <MathFormula display tex="r_{liq} = r_{ap,iof} \times (1 - \alpha_{IR})" />
         </div>
         <div class="space-y-1">
-          <p class="text-gray-500 text-xs not-italic">4. Taxa líquida anualizada</p>
-          <p class="text-green-300">i_liq = (1 + r_liq)^(365/d) − 1</p>
+          <p class="text-gray-500 text-xs">4. Taxa líquida anualizada</p>
+          <MathFormula display tex="i_{liq} = (1 + r_{liq})^{365/d} - 1" />
         </div>
-        <div class="border-t border-gray-700 pt-4 space-y-1">
-          <p class="text-gray-500 text-xs not-italic">Onde:</p>
-          <ul class="text-gray-400 text-xs space-y-0.5 not-italic">
-            <li><span class="text-green-400">d</span> = prazo efetivo = min(data_resgate, data_vencimento_produto)</li>
-            <li><span class="text-green-400">i_anual</span> = taxa bruta anual do produto</li>
-            <li><span class="text-green-400">α_iof</span> = alíquota IOF (0% se d ≥ 30)</li>
-            <li><span class="text-green-400">α_ir</span> = alíquota IR (0% se produto isento)</li>
+        <div class="border-t border-gray-700 pt-4 space-y-1.5">
+          <p class="text-gray-500 text-xs">Onde:</p>
+          <ul class="text-gray-400 text-xs space-y-1">
+            <li>\( d \) = prazo efetivo = \( \min(\text{data\_resgate},\, \text{data\_vencimento}) \)</li>
+            <li>\( i_{anual} \) = taxa bruta anual do produto</li>
+            <li>\( \alpha_{IOF} \) = alíquota IOF (0 se \( d \geq 30 \))</li>
+            <li>\( \alpha_{IR} \) = alíquota IR (0 se produto isento)</li>
           </ul>
         </div>
       </div>
@@ -196,7 +196,7 @@
           <tbody class="divide-y divide-gray-800">
             <tr v-for="m in modalidades" :key="m.label" class="hover:bg-gray-800/50 transition-colors">
               <td class="py-3 pr-6 text-gray-200 font-medium whitespace-nowrap">{{ m.label }}</td>
-              <td class="py-3 font-mono text-green-300 text-xs">{{ m.formula }}</td>
+              <td class="py-3 text-green-300"><MathFormula :tex="m.formula" /></td>
             </tr>
           </tbody>
         </table>
@@ -213,9 +213,9 @@
           a taxa do LCI/LCA precisa ser menor. A fórmula do break-even:
         </p>
       </div>
-      <div class="card font-mono text-sm space-y-2">
-        <p class="text-green-300">taxa_lci_equivalente = taxa_cdb_bruta × (1 − α_ir)</p>
-        <p class="text-gray-500 text-xs not-italic mt-1">
+      <div class="card space-y-2">
+        <MathFormula display tex="i_{LCI} = i_{CDB} \times (1 - \alpha_{IR})" />
+        <p class="text-gray-500 text-xs mt-1">
           Se o LCI/LCA pagar mais que esse valor, é melhor que o CDB no mesmo prazo.
         </p>
       </div>
@@ -275,6 +275,10 @@
 
 <script setup>
 import { RouterLink } from 'vue-router'
+import MathFormula from '../components/MathFormula.vue'
+import { useMathJax } from '../composables/useMathJax.js'
+
+useMathJax()
 
 const faixasIR = [
   { prazo: 'Até 180 dias',    aliquota: '22,5%', cor: 'text-red-400',    impacto: 'Perde 22,5% do lucro' },
@@ -331,11 +335,11 @@ const grupos = [
 ]
 
 const modalidades = [
-  { label: 'Pré-fixado',        formula: 'i = taxa_aa / 100' },
-  { label: 'Pós-fixado CDI',    formula: 'i = (pct_cdi/100) × cdi_atual' },
-  { label: 'Pós-fixado Selic',  formula: 'i = (pct_selic/100) × selic_atual' },
-  { label: 'Híbrido IPCA+',     formula: 'i = (1 + ipca) × (1 + spread) − 1' },
-  { label: 'Poupança',          formula: 'i = 0.5%/mês + TR  ≈  6,17% a.a.' },
+  { label: 'Pré-fixado',       formula: 'i = \\dfrac{taxa_{aa}}{100}' },
+  { label: 'Pós-fixado CDI',   formula: 'i = \\dfrac{pct_{CDI}}{100} \\times CDI_{atual}' },
+  { label: 'Pós-fixado Selic', formula: 'i = \\dfrac{pct_{Selic}}{100} \\times Selic_{atual}' },
+  { label: 'Híbrido IPCA+',    formula: 'i = (1 + IPCA) \\times (1 + spread) - 1' },
+  { label: 'Poupança',         formula: 'i = 0{,}5\\%/\\text{mês} + TR \\approx 6{,}17\\%\\,\\text{a.a.}' },
 ]
 
 const cdi = 14.65
