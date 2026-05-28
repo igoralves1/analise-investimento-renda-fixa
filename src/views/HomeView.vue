@@ -1,5 +1,6 @@
 <template>
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12 space-y-16">
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 py-12 space-y-16">
 
     <!-- Hero -->
     <section class="text-center space-y-4">
@@ -1094,6 +1095,7 @@
 import { RouterLink } from 'vue-router'
 import MathFormula from '../components/MathFormula.vue'
 import { useMathJax } from '../composables/useMathJax.js'
+
 
 useMathJax()
 

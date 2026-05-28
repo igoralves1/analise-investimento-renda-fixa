@@ -1,5 +1,6 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-8 no-print-padding">
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-8 no-print-padding">
 
     <!-- ── Parâmetros (oculto na impressão) ── -->
     <div class="no-print space-y-5">
