@@ -119,6 +119,36 @@
       "criterio_resgate": "liquidez_diaria",
       "confirmacoes": 1,
       "ultima_confirmacao": "2026-05-10"
+    },
+    {
+      "id": "9",
+      "nome": "CDB Nubank 100% CDI Liquidez Diária",
+      "instituicao": "Nubank",
+      "tipo": "CDB",
+      "modalidade": "pos_fixado_cdi",
+      "taxa": 100,
+      "vencimento": "2028-05-18",
+      "fgc": true,
+      "minimo_rs": 100,
+      "notas": "Resgate até 1 dia útil (D+1). Vencimento contratual 18/05/2028.",
+      "criterio_resgate": "liquidez_diaria",
+      "confirmacoes": 1,
+      "ultima_confirmacao": "2026-05-27"
+    },
+    {
+      "id": "10",
+      "nome": "CDB Porto Seguro 99,5% CDI",
+      "instituicao": "Porto Seguro",
+      "tipo": "CDB",
+      "modalidade": "pos_fixado_cdi",
+      "taxa": 99.5,
+      "vencimento": "2026-08-26",
+      "fgc": true,
+      "minimo_rs": 1000,
+      "notas": "Vence em ~91 dias — IR 22,5% (alíquota máxima, prazo ≤ 180 dias). Via Nubank.",
+      "criterio_resgate": "vencimento",
+      "confirmacoes": 1,
+      "ultima_confirmacao": "2026-05-27"
     }
   ]
 }
