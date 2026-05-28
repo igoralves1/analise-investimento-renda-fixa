@@ -98,6 +98,21 @@
               <input v-model="form.vencimento" type="date" class="input" />
               <p class="text-xs text-gray-600 mt-1">Deixe vazio para liquidez diária</p>
             </div>
+            <div class="col-span-2">
+              <label class="label">Critério de resgate</label>
+              <select v-model="form.criterio_resgate" class="input">
+                <option value="">Não informado</option>
+                <option value="liquidez_diaria">Liquidez diária — banco recompra à taxa contratada (pro-rata)</option>
+                <option value="carencia_6m">Carência 6 meses — LCI/LCA CDI ou prefixado (CMN Res. 5.215/2025)</option>
+                <option value="carencia_12m">Carência 12 meses — LCA IPCA+ (CMN Res. 5.215/2025)</option>
+                <option value="carencia_36m">Carência 36 meses — LCI IPCA+ (CMN Res. 5.215/2025)</option>
+                <option value="vencimento">Somente no vencimento</option>
+                <option value="mercado_secundario">Mercado secundário B3 (preço de mercado, com haircut)</option>
+                <option value="mtm_diario">Liquidez diária mark-to-market — Tesouro Prefixado / IPCA+</option>
+                <option value="tesouro_selic">Liquidez diária sem MTM — Tesouro Selic (D+1 via Pix)</option>
+              </select>
+              <p class="text-xs text-gray-600 mt-1">Define se e como o investidor pode resgatar antes do vencimento.</p>
+            </div>
             <div>
               <label class="label">Mínimo (R$)</label>
               <input v-model.number="form.minimo_rs" type="number" step="1" class="input" placeholder="100" />
@@ -165,7 +180,7 @@ const excluindo = ref(false)
 
 const formVazio = () => ({
   id: null, nome: '', instituicao: '', tipo: 'CDB', modalidade: 'pos_fixado_cdi',
-  taxa: '', vencimento: '', fgc: true, minimo_rs: 100, notas: '',
+  taxa: '', vencimento: '', fgc: true, minimo_rs: 100, notas: '', criterio_resgate: '',
 })
 const form = ref(formVazio())
 

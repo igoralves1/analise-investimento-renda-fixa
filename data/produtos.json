@@ -11,6 +11,7 @@
       "fgc": true,
       "minimo_rs": 1,
       "notas": "Liquidez diária D+0",
+      "criterio_resgate": "liquidez_diaria",
       "confirmacoes": 3,
       "ultima_confirmacao": "2026-05-20"
     },
@@ -25,6 +26,7 @@
       "fgc": true,
       "minimo_rs": 100,
       "notas": "",
+      "criterio_resgate": "vencimento",
       "confirmacoes": 7,
       "ultima_confirmacao": "2026-05-25"
     },
@@ -39,6 +41,7 @@
       "fgc": true,
       "minimo_rs": 1000,
       "notas": "Via BTG",
+      "criterio_resgate": "vencimento",
       "confirmacoes": 2,
       "ultima_confirmacao": "2026-05-18"
     },
@@ -53,6 +56,7 @@
       "fgc": true,
       "minimo_rs": 1000,
       "notas": "Via XP",
+      "criterio_resgate": "carencia_6m",
       "confirmacoes": 5,
       "ultima_confirmacao": "2026-05-22"
     },
@@ -67,6 +71,7 @@
       "fgc": false,
       "minimo_rs": 100,
       "notas": "Selic + 0,0823%",
+      "criterio_resgate": "tesouro_selic",
       "confirmacoes": 12,
       "ultima_confirmacao": "2026-05-26"
     },
@@ -81,6 +86,7 @@
       "fgc": false,
       "minimo_rs": 100,
       "notas": "",
+      "criterio_resgate": "mtm_diario",
       "confirmacoes": 8,
       "ultima_confirmacao": "2026-05-24"
     },
@@ -95,6 +101,7 @@
       "fgc": true,
       "minimo_rs": 1000,
       "notas": "Via Nubank",
+      "criterio_resgate": "vencimento",
       "confirmacoes": 4,
       "ultima_confirmacao": "2026-05-21"
     },
@@ -109,6 +116,7 @@
       "fgc": true,
       "minimo_rs": 1,
       "notas": "0,5% ao mês + TR",
+      "criterio_resgate": "liquidez_diaria",
       "confirmacoes": 1,
       "ultima_confirmacao": "2026-05-10"
     }

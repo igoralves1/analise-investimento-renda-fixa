@@ -341,11 +341,14 @@
                   <p class="text-[11px] text-gray-600">{{ sufixoTaxa(p.modalidade) }}</p>
                 </td>
                 <!-- Validade -->
-                <td class="py-3 pr-4 min-w-[130px]">
+                <td class="py-3 pr-4 min-w-[150px]">
                   <span v-if="p.vencimento" class="text-sm text-gray-200 font-medium">{{ formatDate(p.vencimento) }}</span>
-                  <span v-else class="text-xs text-green-400 font-semibold">Liquidez diária</span>
+                  <span v-else class="text-xs text-green-400 font-semibold">Sem vencimento</span>
                   <p v-if="p.vencimento" class="text-[11px] mt-0.5" :class="diasRestantesNum(p.vencimento) < 90 ? 'text-red-400' : diasRestantesNum(p.vencimento) < 210 ? 'text-yellow-500' : 'text-gray-600'">
                     {{ diasAteVencimento(p.vencimento) }}
+                  </p>
+                  <p v-if="p.criterio_resgate" class="text-[10px] mt-1 font-medium" :class="labelCriterio(p.criterio_resgate).cls">
+                    ↩ {{ labelCriterio(p.criterio_resgate).label }}
                   </p>
                   <p v-if="p.notas" class="text-[10px] text-gray-700 mt-0.5 italic">{{ p.notas }}</p>
                 </td>
@@ -1061,6 +1064,20 @@ function sufixoTaxa(modalidade) {
   if (modalidade === 'prefixado') return 'a.a. fixo'
   if (modalidade === 'poupanca') return 'a.a. est.'
   return '% do CDI'
+}
+
+const CRITERIOS_RESGATE = {
+  liquidez_diaria:    { label: 'Liquidez diária',         cls: 'text-green-500' },
+  carencia_6m:        { label: 'Carência 6 meses',        cls: 'text-yellow-500' },
+  carencia_12m:       { label: 'Carência 12 meses',       cls: 'text-yellow-500' },
+  carencia_36m:       { label: 'Carência 36 meses',       cls: 'text-orange-400' },
+  vencimento:         { label: 'Só no vencimento',        cls: 'text-gray-500' },
+  mercado_secundario: { label: 'Mercado sec. (B3)',        cls: 'text-red-400' },
+  mtm_diario:         { label: 'Mark-to-market diário',   cls: 'text-yellow-500' },
+  tesouro_selic:      { label: 'Liquidez D+1 (T. Selic)', cls: 'text-green-500' },
+}
+function labelCriterio(c) {
+  return CRITERIOS_RESGATE[c] || { label: c || '—', cls: 'text-gray-600' }
 }
 
 function diasRestantesNum(vencimento) {
