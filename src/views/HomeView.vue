@@ -1355,6 +1355,12 @@
             <p class="flex items-center gap-1.5 text-green-400"><span>✓</span> Crédito D+0</p>
           </div>
         </div>
+
+        <!-- Chart A -->
+        <div class="border-t border-gray-700/50 pt-4 space-y-1">
+          <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">📈 Projeção 12 meses — capital após retirada parcial R$3k no mês 1</p>
+          <MiniLineChart :series="chartA" :x-labels="xLabels" />
+        </div>
       </div>
 
       <!-- Cenário B: Mercado secundário -->
@@ -1517,6 +1523,12 @@
               </div>
             </div>
           </div>
+
+        <!-- Chart B -->
+        <div class="border-t border-gray-700/50 pt-4 space-y-1">
+          <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">📈 Projeção 12 meses — impacto permanente do haircut ao vender no mês 1</p>
+          <MiniLineChart :series="chartB" :x-labels="xLabels" />
+        </div>
         </div>
       </div>
 
@@ -1624,6 +1636,12 @@
               </div>
             </div>
           </div>
+
+        <!-- Chart C -->
+        <div class="border-t border-gray-700/50 pt-4 space-y-1">
+          <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">📈 Projeção 12 meses — liquidez diária vs. mercado secundário</p>
+          <MiniLineChart :series="chartC" :x-labels="xLabels" />
+        </div>
         </div>
       </div>
 
@@ -1813,6 +1831,12 @@
               </div>
             </div>
           </div>
+
+        <!-- Chart D -->
+        <div class="border-t border-gray-700/50 pt-4 space-y-1">
+          <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">📈 Projeção 12 meses — custo real do lock-up: saída forçada no mês 6</p>
+          <MiniLineChart :series="chartD" :x-labels="xLabels" />
+        </div>
         </div>
       </div>
 
@@ -2023,6 +2047,12 @@
             </div>
           </div>
         </div>
+
+        <!-- Chart E -->
+        <div class="border-t border-teal-700/40 pt-4 space-y-1">
+          <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">📈 Projeção 12 meses — retirada de R$4k/mês: o capital ainda cresce</p>
+          <MiniLineChart :series="chartE" :x-labels="xLabels" />
+        </div>
       </div>
     </section>
 
@@ -2041,6 +2071,7 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import MathFormula from '../components/MathFormula.vue'
+import MiniLineChart from '../components/MiniLineChart.vue'
 import { useMathJax } from '../composables/useMathJax.js'
 
 
@@ -2226,6 +2257,125 @@ const simE = (() => {
     mesesCDB: Math.floor(capCDB / retirada),
     equiv225, equiv200, equiv175, equiv150,
   }
+})()
+
+// ── Gráficos preditivos — 12 meses ───────────────────────────────────────
+const xLabels = ['Hoje','M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12']
+
+function buildSim(start, rPm, irRate, months, wFn = () => 0) {
+  let b = start
+  const pts = [b]
+  for (let m = 1; m <= months; m++) {
+    const gross = b * rPm
+    b = b + gross * (1 - irRate) - wFn(m)
+    if (b < 0) b = 0
+    pts.push(b)
+  }
+  return pts
+}
+
+const _r109 = Math.pow(1 + 14.65 / 100 * 1.09, 1 / 12) - 1
+const _r115 = Math.pow(1 + 14.65 / 100 * 1.15, 1 / 12) - 1
+const _r120 = Math.pow(1 + 14.65 / 100 * 1.20, 1 / 12) - 1
+const _r97  = Math.pow(1 + 14.65 / 100 * 0.97, 1 / 12) - 1
+
+// Cenário A — capital após retirada parcial de R$3k no mês 1
+const chartA = [
+  { label: 'Sem retirada (ref.)', color: '#4b5563', dashed: true, data: buildSim(600_000, _r109, 0.225, 12) },
+  { label: 'Com retirada R$3k',   color: '#22c55e', area: true,   data: buildSim(600_000, _r109, 0.225, 12, m => m === 1 ? 3_000 : 0) },
+]
+
+// Cenário B — impacto permanente do haircut ao vender no mês 1
+const chartB = (() => {
+  const simH = h => {
+    const d1 = 600_000 * (1 + _r109)
+    const sold = d1 * (1 - h)
+    const profit = sold - 600_000
+    const net = sold - (profit > 0 ? profit * 0.225 : 0)
+    return [600_000, ...buildSim(net, _r109, 0.225, 11)]
+  }
+  return [
+    { label: 'Sem haircut (ref.)', color: '#6b7280', dashed: true, data: simH(0) },
+    { label: 'Haircut 1,5%',       color: '#f97316',               data: simH(0.015) },
+    { label: 'Haircut 3%',         color: '#ef4444', area: true,   data: simH(0.03) },
+  ]
+})()
+
+// Cenário C — liq. diária vs. mercado secundário com haircut
+const chartC = (() => {
+  const stayInvested = buildSim(600_000, _r109, 0.225, 12)
+  const liqDiaria = (() => {
+    const d1 = 600_000 * (1 + _r109)
+    const net = d1 - (d1 - 600_000) * 0.225
+    return [600_000, ...buildSim(net, _r109, 0.225, 11)]
+  })()
+  const secH2 = (() => {
+    const d1 = 600_000 * (1 + _r109)
+    const sold = d1 * 0.98
+    const profit = sold - 600_000
+    const net = sold - (profit > 0 ? profit * 0.225 : 0)
+    return [600_000, ...buildSim(net, _r109, 0.225, 11)]
+  })()
+  return [
+    { label: 'Permanece investido',     color: '#6b7280', dashed: true, data: stayInvested },
+    { label: 'Liq. diária (Cenário C)', color: '#3b82f6', area: true,   data: liqDiaria },
+    { label: 'Sec. 2% haircut',          color: '#ef4444',               data: secH2 },
+  ]
+})()
+
+// Cenário D — custo do lock-up: saída forçada no mês 6 com 2,5% haircut
+const chartD = (() => {
+  const locked = (() => {
+    let b = 600_000
+    const pts = [b]
+    for (let m = 1; m <= 12; m++) { b += b * _r120; pts.push(b) }
+    return pts
+  })()
+  const liquid = buildSim(600_000, _r109, 0.225, 12)
+  const forced = (() => {
+    let b = 600_000
+    const pts = [b]
+    for (let m = 1; m <= 12; m++) {
+      if (m <= 6) {
+        b += b * _r120
+        if (m === 6) {
+          const sold = b * (1 - 0.025)
+          const profit = sold - 600_000
+          b = sold - (profit > 0 ? profit * 0.225 : 0)
+        }
+      } else {
+        b += b * _r109 * (1 - 0.225)
+      }
+      pts.push(b)
+    }
+    return pts
+  })()
+  return [
+    { label: 'Permanece (bloqueado)', color: '#eab308', area: true,   data: locked },
+    { label: 'Liq. diária (ref.)',    color: '#6b7280', dashed: true, data: liquid },
+    { label: 'Saída forçada mês 6',   color: '#ef4444',               data: forced },
+  ]
+})()
+
+// Cenário E — retirada de R$4k/mês: capital ainda cresce
+const chartE = (() => {
+  const hybrid = (() => {
+    let bCDB = 600_000 * 0.08, bLCA = 600_000 * 0.92
+    const pts = [600_000]
+    for (let m = 1; m <= 12; m++) {
+      const eb = bCDB * _r115, eir = eb * 0.225, elca = bLCA * _r97
+      bCDB += eb - eir - 4_000
+      if (bCDB < 0) { bLCA += bCDB; bCDB = 0 }
+      bLCA += elca
+      pts.push(bCDB + bLCA)
+    }
+    return pts
+  })()
+  const allCDB = buildSim(600_000, _r115, 0.225, 12, () => 4_000)
+  return [
+    { label: 'Híbrida CDB+LCA',    color: '#14b8a6', area: true,   data: hybrid },
+    { label: '100% CDB tributado',  color: '#6b7280', dashed: true, data: allCDB },
+  ]
 })()
 
 const cdi = 14.65
