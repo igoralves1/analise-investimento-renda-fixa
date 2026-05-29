@@ -295,8 +295,18 @@
           </p>
         </div>
 
+        <!-- Toggle Tabela / Cards -->
+        <div class="flex justify-end gap-2 text-xs no-print">
+          <button
+            v-for="v in ['tabela', 'cards']" :key="v"
+            class="px-3 py-1 rounded-lg transition-colors"
+            :class="vistaMercado === v ? 'bg-green-900/50 text-green-400' : 'text-gray-500 hover:text-gray-300'"
+            @click="vistaMercado = v"
+          >{{ v === 'tabela' ? 'Tabela' : 'Cards' }}</button>
+        </div>
+
         <!-- Tabela marketplace -->
-        <div class="overflow-x-auto">
+        <div v-if="vistaMercado === 'tabela'" class="overflow-x-auto">
           <table class="w-full text-sm">
             <thead>
               <tr class="border-b border-gray-700">
@@ -406,6 +416,117 @@
               <span v-else>
                 Exibindo {{ produtosVisiveis.length }} de {{ todosProdutos.length }} produtos · ordenados por confirmações
               </span>
+            </p>
+            <button
+              v-if="!bancoFiltro && todosProdutos.length > 10"
+              @click="verTodos = !verTodos"
+              class="text-xs text-green-500 hover:text-green-400 transition-colors font-medium"
+            >{{ verTodos ? '↑ Ver menos' : `Ver todos os ${todosProdutos.length} produtos ↓` }}</button>
+          </div>
+        </div>
+
+        <!-- Cards marketplace -->
+        <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div
+            v-for="p in produtosVisiveis"
+            :key="p.id"
+            class="card space-y-3 relative"
+            :class="produtoNaSimulacao(p.id) ? 'border-green-800/60 bg-green-900/5' : ''"
+          >
+            <!-- Header -->
+            <div class="flex items-start justify-between gap-2">
+              <div class="min-w-0">
+                <p class="font-semibold text-gray-100 text-sm leading-tight">{{ p.nome }}</p>
+                <div class="flex flex-wrap items-center gap-1.5 mt-1.5">
+                  <span
+                    class="text-[10px] font-semibold border px-2 py-0.5 rounded-full"
+                    :class="getBancoCor(p.instituicao)"
+                  >{{ p.instituicao }}</span>
+                  <span v-if="p.fgc" class="text-[10px] font-semibold bg-blue-900/50 text-blue-300 border border-blue-800 px-1.5 py-0.5 rounded-full">FGC</span>
+                  <span class="text-[10px] bg-gray-800 text-gray-400 border border-gray-700 px-2 py-0.5 rounded-full font-medium">{{ p.tipo }}</span>
+                </div>
+              </div>
+              <!-- Taxa -->
+              <div class="text-right shrink-0">
+                <p class="font-bold text-yellow-400 text-xl leading-tight">{{ p.taxa }}%</p>
+                <p class="text-[10px] text-gray-600">{{ sufixoTaxa(p.modalidade) }}</p>
+              </div>
+            </div>
+
+            <!-- Modalidade e custos -->
+            <div class="space-y-1.5">
+              <p class="text-[11px] text-gray-500">{{ labelModalidadeMkt(p.modalidade) }}</p>
+              <div class="flex flex-wrap gap-1">
+                <span
+                  v-for="c in custosDoTipo(p.tipo)"
+                  :key="c.label"
+                  class="text-[10px] border px-1.5 py-0.5 rounded-full"
+                  :class="c.cls"
+                >{{ c.label }}</span>
+                <span v-if="retencaoBadge(p.criterio_resgate, retencaoDias(p))"
+                  class="text-[10px] border px-1.5 py-0.5 rounded-full bg-red-900/40 text-red-400 border-red-800 font-semibold">
+                  🔒 {{ retencaoBadge(p.criterio_resgate, retencaoDias(p)) }}
+                </span>
+              </div>
+            </div>
+
+            <!-- Vencimento -->
+            <div class="flex items-center justify-between text-xs">
+              <div>
+                <span v-if="p.vencimento" class="text-gray-200 font-medium">{{ formatDate(p.vencimento) }}</span>
+                <span v-else class="text-green-400 font-semibold">Sem vencimento</span>
+                <p v-if="p.vencimento" class="text-[11px] mt-0.5" :class="diasRestantesNum(p.vencimento) < 90 ? 'text-red-400' : diasRestantesNum(p.vencimento) < 210 ? 'text-yellow-500' : 'text-gray-600'">
+                  {{ diasAteVencimento(p.vencimento) }}
+                </p>
+                <p v-if="p.criterio_resgate" class="text-[10px] mt-0.5 font-medium" :class="labelCriterio(p.criterio_resgate).cls">
+                  ↩ {{ labelCriterio(p.criterio_resgate).label }}
+                </p>
+              </div>
+              <!-- Confirmações -->
+              <div class="flex flex-col items-end gap-0.5">
+                <div class="flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" :class="(p.confirmacoes || 0) >= 5 ? 'text-green-400' : 'text-gray-500'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="font-bold text-sm" :class="(p.confirmacoes || 0) >= 5 ? 'text-green-400' : 'text-gray-400'">{{ p.confirmacoes || 0 }}</span>
+                </div>
+                <span class="text-[10px]" :class="(p.confirmacoes || 0) >= 5 ? 'text-green-600' : 'text-gray-600'">
+                  {{ (p.confirmacoes || 0) >= 5 ? 'Alta confiança' : (p.confirmacoes || 0) >= 2 ? 'Verificado' : 'Aguardando' }}
+                </span>
+              </div>
+            </div>
+
+            <p v-if="p.notas" class="text-[10px] text-gray-700 italic">{{ p.notas }}</p>
+
+            <!-- Ações -->
+            <div class="flex gap-2 pt-1 border-t border-gray-800">
+              <button
+                v-if="!confirmadosSessao.has(p.id)"
+                @click="confirmarProduto(p)"
+                class="flex-1 text-[11px] bg-gray-800 hover:bg-green-900/40 hover:text-green-400 text-gray-500 border border-gray-700 hover:border-green-800 px-2 py-1 rounded-lg transition-colors"
+              >Confirmar taxa</button>
+              <span v-else class="flex-1 text-center text-[11px] text-green-500 font-semibold py-1">✓ Confirmado</span>
+
+              <div v-if="produtoNaSimulacao(p.id)" class="flex-1 flex flex-col items-center gap-0.5">
+                <span class="text-[11px] text-green-400 font-semibold">✓ Na simulação</span>
+                <button @click="removerDaSessao(p.id)" class="text-[10px] text-gray-600 hover:text-red-400 transition-colors">Remover</button>
+              </div>
+              <button
+                v-else-if="resultados.length > 0"
+                @click="adicionarNaSimulacao(p)"
+                class="flex-1 text-[11px] text-gray-500 hover:text-green-400 transition-colors border border-gray-800 hover:border-green-800 px-2 py-1 rounded-lg"
+              >+ Incluir</button>
+            </div>
+          </div>
+
+          <!-- Rodapé dos cards -->
+          <div class="col-span-full flex items-center justify-between mt-1">
+            <p class="text-xs text-gray-600">
+              <span v-if="bancoFiltro">
+                Exibindo {{ produtosVisiveis.length }} produto(s) de <strong class="text-gray-400">{{ bancoFiltro }}</strong>.
+                <button @click="bancoFiltro = null; verTodos = false" class="text-green-500 hover:text-green-400 ml-1">Limpar filtro ↺</button>
+              </span>
+              <span v-else>Exibindo {{ produtosVisiveis.length }} de {{ todosProdutos.length }} produtos</span>
             </p>
             <button
               v-if="!bancoFiltro && todosProdutos.length > 10"
@@ -1155,6 +1276,7 @@ const salvandoParams     = ref(false)
 const erro               = ref(null)
 const vista              = ref('tabela')
 const vistaTop5          = ref('tabela')
+const vistaMercado       = ref('tabela')
 
 const mesAtual = computed(() =>
   new Date().toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
