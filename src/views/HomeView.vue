@@ -1815,6 +1815,215 @@
           </div>
         </div>
       </div>
+
+      <!-- Cenário E: Estratégia ideal — renda mensal sustentável -->
+      <div class="card space-y-5 border-teal-700/50">
+        <div class="flex items-center gap-2">
+          <span class="badge-teal">Cenário E</span>
+          <h3 class="font-semibold text-white">Estratégia ideal — R$4.000/mês com o capital crescendo</h3>
+        </div>
+
+        <!-- Por que é sustentável -->
+        <div class="bg-teal-900/20 border border-teal-700/40 rounded-2xl p-4 space-y-3">
+          <p class="text-teal-200 font-bold text-sm">A condição fundamental: seu rendimento mensal líquido é maior que a retirada.</p>
+          <p class="text-gray-300 text-sm">
+            Com R$&nbsp;{{ fmtRS(simE.principal) }} a {{ sim.cdiAaPct.toFixed(2) }}% a.a. (CDI), a carteira híbrida rende
+            <strong class="text-teal-400">R$&nbsp;{{ fmtRS(simE.totalNetM1) }} líquidos por mês</strong>.
+            Como R$&nbsp;{{ fmtRS(simE.totalNetM1) }} &gt; R$&nbsp;4.000, cada retirada é coberta pelos juros — e sobra para reinvestir.
+            O capital não erode. Cresce.
+          </p>
+          <div class="grid grid-cols-3 gap-3 text-center text-sm">
+            <div class="bg-gray-800/60 rounded-xl p-3">
+              <p class="text-gray-500 text-xs mb-1">Rendimento líquido/mês</p>
+              <p class="text-teal-400 font-bold text-lg">{{ fmtRS(simE.totalNetM1) }}</p>
+            </div>
+            <div class="bg-red-900/20 border border-red-800/30 rounded-xl p-3">
+              <p class="text-gray-500 text-xs mb-1">Retirada mensal</p>
+              <p class="text-red-400 font-bold text-lg">− {{ fmtRS(simE.retirada) }}</p>
+            </div>
+            <div class="bg-green-900/20 border border-green-800/30 rounded-xl p-3">
+              <p class="text-gray-500 text-xs mb-1">Saldo reinvestido</p>
+              <p class="text-green-400 font-bold text-lg">+ {{ fmtRS(simE.surplusM1) }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Os dois produtos -->
+        <div class="space-y-2">
+          <p class="text-gray-500 text-xs font-semibold uppercase tracking-wider">A estratégia — dois produtos, dois papéis</p>
+          <div class="grid sm:grid-cols-2 gap-3 text-sm">
+
+            <!-- CDB: caixa de saques -->
+            <div class="border border-gray-700 rounded-xl p-4 space-y-3">
+              <div class="flex items-center justify-between">
+                <p class="text-gray-400 text-xs font-semibold uppercase tracking-wider">Caixa de Saques</p>
+                <span class="text-yellow-400 text-xs font-bold">8% — R$&nbsp;{{ fmtRS(simE.capCDB) }}</span>
+              </div>
+              <div>
+                <p class="text-white font-bold">CDB Liquidez Diária</p>
+                <p class="text-yellow-400 font-semibold">115% CDI · {{ simE.taxaCDB_pct }}% a.a.</p>
+              </div>
+              <div class="space-y-1 text-xs text-gray-400">
+                <div class="flex justify-between"><span>Rendimento bruto/mês</span><span class="text-gray-200">{{ fmtRS(simE.rendCDB_bruto) }}</span></div>
+                <div class="flex justify-between"><span>IR 22,5%</span><span class="text-red-400">− {{ fmtRS(simE.rendCDB_ir) }}</span></div>
+                <div class="flex justify-between font-semibold border-t border-gray-700/40 pt-1"><span>Rendimento líquido/mês</span><span class="text-green-400">{{ fmtRS(simE.rendCDB_net) }}</span></div>
+              </div>
+              <p class="text-xs text-gray-500 border-t border-gray-700/40 pt-2">
+                Cobre <strong class="text-gray-300">{{ simE.mesesCDB }}+ meses</strong> de saques sem tocar na LCA. Crédito D+0.
+              </p>
+            </div>
+
+            <!-- LCA: motor de crescimento -->
+            <div class="border border-teal-700/60 bg-teal-950/20 rounded-xl p-4 space-y-3">
+              <div class="flex items-center justify-between">
+                <p class="text-gray-400 text-xs font-semibold uppercase tracking-wider">Motor de Crescimento</p>
+                <span class="text-teal-400 text-xs font-bold">92% — R$&nbsp;{{ fmtRS(simE.capLCA) }}</span>
+              </div>
+              <div>
+                <p class="text-white font-bold">LCA / LCI — Isento de IR</p>
+                <p class="text-teal-400 font-semibold">97% CDI · {{ simE.taxaLCA_pct }}% a.a.</p>
+              </div>
+              <div class="space-y-1 text-xs text-gray-400">
+                <div class="flex justify-between"><span>Rendimento líquido/mês</span><span class="text-teal-400 font-semibold">{{ fmtRS(simE.rendLCA) }}</span></div>
+                <div class="flex justify-between"><span>IR pago</span><span class="text-green-400 font-semibold">R$&nbsp;0,00 — isento</span></div>
+                <div class="flex justify-between border-t border-teal-700/30 pt-1 text-teal-500/70"><span>Carência mínima</span><span>90 dias (LCA)</span></div>
+              </div>
+              <p class="text-xs text-gray-500 border-t border-teal-700/30 pt-2">
+                <strong class="text-gray-300">Nunca tocado para saques.</strong> Todo excedente vai para cá. Cresce compondo sobre si mesmo.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fluxo mês 1 -->
+        <div class="space-y-2">
+          <p class="text-gray-500 text-xs font-semibold uppercase tracking-wider">Fluxo do mês 1 — o que acontece na prática</p>
+          <div class="space-y-1.5 text-sm">
+            <div class="flex items-start gap-3 bg-teal-900/10 border border-teal-800/30 rounded-xl px-4 py-3">
+              <span class="w-5 h-5 rounded-full bg-teal-900 text-teal-300 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+              <p class="text-gray-300">LCA rende <strong class="text-teal-400">{{ fmtRS(simE.rendLCA) }}</strong> — isento de IR. Reinvestido automaticamente.</p>
+            </div>
+            <div class="flex items-start gap-3 bg-gray-800/40 rounded-xl px-4 py-3">
+              <span class="w-5 h-5 rounded-full bg-yellow-900 text-yellow-300 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+              <p class="text-gray-300">CDB rende <strong class="text-yellow-400">{{ fmtRS(simE.rendCDB_bruto) }}</strong> bruto → IR <strong class="text-red-400">{{ fmtRS(simE.rendCDB_ir) }}</strong> → líquido: <strong class="text-green-400">{{ fmtRS(simE.rendCDB_net) }}</strong>.</p>
+            </div>
+            <div class="flex items-start gap-3 bg-red-900/10 border border-red-900/30 rounded-xl px-4 py-3">
+              <span class="w-5 h-5 rounded-full bg-red-900 text-red-300 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+              <p class="text-gray-300">Saque de <strong class="text-white">{{ fmtRS(simE.retirada) }}</strong> debitado do CDB (D+0, sem haircut, sem mercado secundário).</p>
+            </div>
+            <div class="flex items-start gap-3 bg-green-900/20 border border-green-700 rounded-xl px-4 py-3">
+              <span class="w-5 h-5 rounded-full bg-green-800 text-green-300 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">4</span>
+              <div>
+                <p class="text-gray-200 font-semibold">Saldo excedente: <strong class="text-green-400">+{{ fmtRS(simE.surplusM1) }}</strong> — reinvestido na LCA.</p>
+                <p class="text-gray-500 text-xs mt-0.5">IR total pago no mês: apenas R$&nbsp;{{ fmtRS(simE.rendCDB_ir) }} · IR sobre LCA: R$&nbsp;0,00</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Projeção 12 meses -->
+        <div class="space-y-2">
+          <p class="text-gray-500 text-xs font-semibold uppercase tracking-wider">Projeção 12 meses — estratégia híbrida vs. 100% CDB tributado</p>
+          <div class="grid sm:grid-cols-2 gap-3 text-sm">
+            <div class="bg-teal-900/20 border border-teal-700/50 rounded-xl p-4 space-y-2">
+              <p class="text-teal-300 font-bold text-xs uppercase tracking-wider mb-2">Esta estratégia (Cenário E)</p>
+              <div class="flex justify-between"><span class="text-gray-400">Capital inicial</span><span class="text-gray-200 font-mono">{{ fmtRS(simE.principal) }}</span></div>
+              <div class="flex justify-between"><span class="text-gray-400">Total retirado</span><span class="text-red-400 font-mono">− {{ fmtRS(simE.totalRetirado) }}</span></div>
+              <div class="flex justify-between"><span class="text-gray-400">IR total pago</span><span class="text-orange-300 font-mono">{{ fmtRS(simE.irAnual) }}</span></div>
+              <div class="flex justify-between font-bold border-t border-teal-700/40 pt-2">
+                <span class="text-teal-300">Capital após 12 meses</span>
+                <span class="text-teal-400 font-mono text-base">{{ fmtRS(simE.capital12) }}</span>
+              </div>
+              <div class="flex justify-between text-xs">
+                <span class="text-gray-500">Variação líquida do capital</span>
+                <span class="text-green-400 font-semibold">+ {{ fmtRS(simE.capital12 - simE.principal) }}</span>
+              </div>
+            </div>
+            <div class="bg-gray-800/40 border border-gray-700/40 rounded-xl p-4 space-y-2">
+              <p class="text-gray-400 font-bold text-xs uppercase tracking-wider mb-2">Comparação: 100% CDB tributado</p>
+              <div class="flex justify-between"><span class="text-gray-400">Capital inicial</span><span class="text-gray-200 font-mono">{{ fmtRS(simE.principal) }}</span></div>
+              <div class="flex justify-between"><span class="text-gray-400">Total retirado</span><span class="text-red-400 font-mono">− {{ fmtRS(simE.totalRetirado) }}</span></div>
+              <div class="flex justify-between"><span class="text-gray-400">IR total pago</span><span class="text-red-400 font-mono">{{ fmtRS(simE.irAnual2) }}</span></div>
+              <div class="flex justify-between font-bold border-t border-gray-700/40 pt-2">
+                <span class="text-gray-400">Capital após 12 meses</span>
+                <span class="text-gray-300 font-mono text-base">{{ fmtRS(simE.capital12_cdb) }}</span>
+              </div>
+              <div class="flex justify-between text-xs">
+                <span class="text-gray-500">Variação líquida do capital</span>
+                <span class="text-green-400 font-semibold">+ {{ fmtRS(simE.capital12_cdb - simE.principal) }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-green-900/20 border border-green-700/50 rounded-xl p-3 text-xs flex flex-wrap gap-x-6 gap-y-1">
+            <span class="text-gray-300">IR economizado no ano: <strong class="text-green-400">{{ fmtRS(simE.economiaIR) }}</strong></span>
+            <span class="text-gray-300">Capital adicional após 12 meses: <strong class="text-green-400">+ {{ fmtRS(simE.difCapital) }}</strong></span>
+          </div>
+        </div>
+
+        <!-- Explicação didática -->
+        <div class="rounded-2xl border border-teal-700/60 bg-teal-950/20 p-5 space-y-4 text-sm">
+          <p class="text-teal-300 font-bold text-base">Por que a LCA a 97% CDI bate o CDB a 115% CDI?</p>
+
+          <div class="space-y-2">
+            <p class="text-gray-300 leading-relaxed">
+              Para saques mensais (prazo ≤ 180 dias), o CDB paga <strong class="text-white">22,5% de IR</strong> sobre o lucro.
+              Para que um CDB tributado iguale uma LCA isenta a 97% CDI, ele precisaria pagar:
+            </p>
+            <div class="bg-gray-900/70 border border-teal-800/40 rounded-xl p-3 font-mono text-xs text-center text-teal-200">
+              97% CDI ÷ (1 − 22,5%) = 97% ÷ 0,775 = <strong class="text-teal-300">{{ simE.equiv225 }}% CDI bruto</strong>
+            </div>
+            <p class="text-gray-400 text-xs">Um CDB pagando 115% CDI rende <strong class="text-red-400">menos</strong> que uma LCA pagando 97% CDI — para saques curtos. O banco não vai te contar isso.</p>
+          </div>
+
+          <div class="space-y-2 border-t border-teal-800/40 pt-3">
+            <p class="text-teal-200 font-semibold text-xs uppercase tracking-wider">CDB mínimo equivalente à LCA 97% CDI — por faixa de IR</p>
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs">
+                <thead>
+                  <tr class="border-b border-gray-700 text-gray-500 text-[10px] uppercase tracking-wider">
+                    <th class="text-left pb-2 pr-4">Prazo</th>
+                    <th class="text-right pb-2 pr-4">IR</th>
+                    <th class="text-right pb-2">CDB mínimo para igualar LCA 97% CDI</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-800 text-gray-300">
+                  <tr><td class="py-2 pr-4">Até 180 dias</td><td class="py-2 pr-4 text-right text-red-400">22,5%</td><td class="py-2 text-right font-bold text-red-400">{{ simE.equiv225 }}% CDI</td></tr>
+                  <tr><td class="py-2 pr-4">181–360 dias</td><td class="py-2 pr-4 text-right text-orange-400">20,0%</td><td class="py-2 text-right font-bold text-orange-400">{{ simE.equiv200 }}% CDI</td></tr>
+                  <tr><td class="py-2 pr-4">361–720 dias</td><td class="py-2 pr-4 text-right text-yellow-400">17,5%</td><td class="py-2 text-right font-bold text-yellow-400">{{ simE.equiv175 }}% CDI</td></tr>
+                  <tr><td class="py-2 pr-4">Acima de 720 dias</td><td class="py-2 pr-4 text-right text-green-400">15,0%</td><td class="py-2 text-right font-bold text-green-400">{{ simE.equiv150 }}% CDI</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="space-y-3 border-t border-teal-800/40 pt-4">
+            <p class="text-teal-200 font-semibold">🎯 Como montar essa estratégia no marketplace</p>
+            <div class="space-y-2">
+              <div class="flex items-start gap-3 bg-gray-800/50 rounded-xl p-3">
+                <span class="text-yellow-400 font-black shrink-0">1</span>
+                <div class="text-xs">
+                  <p class="text-gray-200 font-semibold mb-0.5">Caixa de Saques — R$&nbsp;{{ fmtRS(simE.capCDB) }} em CDB liquidez diária</p>
+                  <p class="text-gray-400">Na calculadora: tipo <strong class="text-white">CDB</strong> · liquidez <strong class="text-white">diária</strong> · taxa mínima <strong class="text-white">110% CDI</strong>. Com FGC. Rende {{ fmtRS(simE.rendCDB_net) }}/mês líquido e cobre {{ simE.mesesCDB }}+ meses de saques sem tocar na LCA.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 bg-teal-900/20 border border-teal-800/30 rounded-xl p-3">
+                <span class="text-teal-400 font-black shrink-0">2</span>
+                <div class="text-xs">
+                  <p class="text-gray-200 font-semibold mb-0.5">Motor de Crescimento — R$&nbsp;{{ fmtRS(simE.capLCA) }} em LCA/LCI isento</p>
+                  <p class="text-gray-400">Na calculadora: tipo <strong class="text-white">LCA</strong> · carência <strong class="text-white">≤ 90 dias</strong> · taxa mínima <strong class="text-white">92% CDI</strong>. Uma LCA a 97% CDI vale o mesmo que um CDB a <strong class="text-white">{{ simE.equiv225 }}% CDI</strong> — produto que praticamente não existe no mercado.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 bg-green-900/20 border border-green-800/30 rounded-xl p-3">
+                <span class="text-green-400 font-black shrink-0">3</span>
+                <div class="text-xs">
+                  <p class="text-gray-200 font-semibold mb-0.5">Atenção: FGC cobre até R$250.000 por CPF por conglomerado</p>
+                  <p class="text-gray-400">Distribua os R$&nbsp;{{ fmtRS(simE.capLCA) }} em <strong class="text-white">pelo menos 3 instituições diferentes</strong> para manter a cobertura integral do FGC. Use o marketplace para comparar taxas em múltiplos bancos.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- CTA -->
@@ -1951,6 +2160,71 @@ const sim = (() => {
     retParcial, prop, lucroParcial, irParcial, jurosParcialLiq, cashRecebido,
     saldoRestante, saldoRestanteTotal, jurosSaldoRestante,
     dirtyPrice, cenarios,
+  }
+})()
+
+const simE = (() => {
+  const principal  = 600_000
+  const cdiAa      = 14.65 / 100
+  const retirada   = 4_000
+
+  const capCDB     = principal * 0.08   // caixa de saques — liquidez imediata
+  const capLCA     = principal * 0.92   // motor de crescimento — isento IR
+  const taxaCDB_aa = cdiAa * 1.15       // 115% CDI
+  const taxaLCA_aa = cdiAa * 0.97       // 97% CDI
+  const rateCDB_pm = Math.pow(1 + taxaCDB_aa, 1 / 12) - 1
+  const rateLCA_pm = Math.pow(1 + taxaLCA_aa, 1 / 12) - 1
+
+  // Mês 1
+  const rendCDB_bruto = capCDB * rateCDB_pm
+  const rendCDB_ir    = rendCDB_bruto * 0.225
+  const rendCDB_net   = rendCDB_bruto - rendCDB_ir
+  const rendLCA       = capLCA * rateLCA_pm
+  const totalNetM1    = rendCDB_net + rendLCA
+  const surplusM1     = totalNetM1 - retirada
+
+  // Simulação 12 meses — estratégia híbrida
+  let bCDB = capCDB, bLCA = capLCA, irAnual = 0
+  for (let m = 0; m < 12; m++) {
+    const eb   = bCDB * rateCDB_pm
+    const eir  = eb * 0.225
+    const elca = bLCA * rateLCA_pm
+    irAnual += eir
+    bCDB += eb - eir - retirada
+    if (bCDB < 0) { bLCA += bCDB; bCDB = 0 }
+    bLCA += elca
+  }
+  const capital12 = bCDB + bLCA
+
+  // Comparação: 100% CDB 115% CDI tributado
+  let bCDB2 = principal, irAnual2 = 0
+  for (let m = 0; m < 12; m++) {
+    const eb  = bCDB2 * rateCDB_pm
+    const eir = eb * 0.225
+    irAnual2 += eir
+    bCDB2 += eb - eir - retirada
+  }
+  const capital12_cdb = bCDB2
+
+  // Equivalência LCA 97% CDI isento × CDB tributado por faixa de IR
+  const equiv225 = +((taxaLCA_aa / 0.775 / cdiAa) * 100).toFixed(1)
+  const equiv200 = +((taxaLCA_aa / 0.800 / cdiAa) * 100).toFixed(1)
+  const equiv175 = +((taxaLCA_aa / 0.825 / cdiAa) * 100).toFixed(1)
+  const equiv150 = +((taxaLCA_aa / 0.850 / cdiAa) * 100).toFixed(1)
+
+  return {
+    principal, retirada, capCDB, capLCA,
+    taxaCDB_pct: +(taxaCDB_aa * 100).toFixed(2),
+    taxaLCA_pct: +(taxaLCA_aa * 100).toFixed(2),
+    rendCDB_bruto, rendCDB_ir, rendCDB_net, rendLCA,
+    totalNetM1, surplusM1,
+    capital12, irAnual,
+    capital12_cdb, irAnual2,
+    economiaIR: irAnual2 - irAnual,
+    difCapital: capital12 - capital12_cdb,
+    totalRetirado: retirada * 12,
+    mesesCDB: Math.floor(capCDB / retirada),
+    equiv225, equiv200, equiv175, equiv150,
   }
 })()
 

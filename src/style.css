@@ -34,6 +34,7 @@
   .badge-yellow { @apply inline-flex items-center gap-1 bg-yellow-900/50 text-yellow-400 border border-yellow-800 text-xs font-semibold px-2.5 py-1 rounded-full; }
   .badge-red    { @apply inline-flex items-center gap-1 bg-red-900/50 text-red-400 border border-red-800 text-xs font-semibold px-2.5 py-1 rounded-full; }
   .badge-blue   { @apply inline-flex items-center gap-1 bg-blue-900/50 text-blue-400 border border-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full; }
+  .badge-teal   { @apply inline-flex items-center gap-1 bg-teal-900/50 text-teal-400 border border-teal-800 text-xs font-semibold px-2.5 py-1 rounded-full; }
   .section-title { @apply text-2xl font-bold text-white mb-2; }
   .tag { @apply text-xs bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full; }
 }
