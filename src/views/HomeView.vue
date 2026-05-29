@@ -1225,6 +1225,91 @@
           </div>
         </div>
 
+        <!-- Explicação didática -->
+        <div class="rounded-2xl border border-orange-700/60 bg-orange-950/30 p-5 space-y-4 text-sm">
+          <p class="text-orange-300 font-bold text-base">Entendendo o cálculo — passo a passo, sem enrolação</p>
+
+          <!-- Por que 3.026 e não 3.000 -->
+          <div class="space-y-1.5">
+            <p class="text-orange-200 font-semibold">Por que você recebe R$&nbsp;{{ fmtRS(sim.cashRecebido) }} e não R$&nbsp;3.000?</p>
+            <p class="text-gray-300 leading-relaxed">
+              Porque o banco não devolve só o dinheiro que você pediu — ele devolve o dinheiro <strong class="text-white">mais os juros</strong>
+              que esse dinheiro rendeu enquanto ficou aplicado.
+              Você pediu R$&nbsp;3.000 de volta. Esses R$&nbsp;3.000 ficaram 30 dias rendendo junto com o restante.
+              Então você recebe: <strong class="text-white">R$&nbsp;3.000 de capital + R$&nbsp;{{ fmtRS(sim.jurosParcialLiq) }} de juros líquidos</strong> = R$&nbsp;{{ fmtRS(sim.cashRecebido) }}.
+            </p>
+          </div>
+
+          <!-- O elo entre os dois cálculos -->
+          <div class="space-y-1.5 border-t border-orange-800/40 pt-3">
+            <p class="text-orange-200 font-semibold">O elo entre "0,50%" e "R$&nbsp;{{ fmtRS(sim.lucroParcial) }}" — por que esses dois números se conectam</p>
+            <p class="text-gray-300 leading-relaxed">
+              O banco calcula os juros de <strong class="text-white">tudo junto</strong> — os R$&nbsp;600.000 renderam
+              <strong class="text-yellow-400">R$&nbsp;{{ fmtRS(sim.lucroBruto) }}</strong> em 30 dias.
+              Quando você pede R$&nbsp;3.000 de volta, está pedindo <strong class="text-white">0,50%</strong> do total.
+              Então você também leva 0,50% dos juros:
+              <strong class="text-yellow-400">R$&nbsp;{{ fmtRS(sim.lucroBruto) }}</strong> × 0,50% =
+              <strong class="text-white">R$&nbsp;{{ fmtRS(sim.lucroParcial) }}</strong> de juros brutos.
+              O governo retém 22,5% disso como IR:
+              <strong class="text-red-400">R$&nbsp;{{ fmtRS(sim.irParcial) }}</strong>.
+              Sobram <strong class="text-green-400">R$&nbsp;{{ fmtRS(sim.jurosParcialLiq) }}</strong> de juros líquidos para você.
+            </p>
+          </div>
+
+          <!-- Onde o banco ganha -->
+          <div class="space-y-3 border-t border-orange-800/40 pt-3">
+            <p class="text-orange-200 font-semibold">Onde está a cilada — e onde o banco ganha</p>
+
+            <div class="space-y-2">
+              <div class="flex items-start gap-3 bg-red-900/20 border border-red-800/30 rounded-xl p-3">
+                <span class="text-red-400 font-black text-lg shrink-0 leading-tight">1</span>
+                <div>
+                  <p class="text-gray-200 font-semibold text-xs uppercase tracking-wider mb-1">A taxa anunciada não é a que você recebe</p>
+                  <p class="text-gray-400 leading-relaxed">
+                    O banco anuncia <strong class="text-white">{{ sim.cdiAaPct.toFixed(2) }}% a.a.</strong> bruto.
+                    Mas como o saque é em 30 dias (menos de 180 dias), o IR é de 22,5%.
+                    Sua rentabilidade real é só <strong class="text-red-400">~{{ sim.rLiqAaPct }}% a.a. líquido</strong>.
+                    Quase 3 pontos percentuais a menos — e o banco não coloca isso no anúncio.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3 bg-red-900/20 border border-red-800/30 rounded-xl p-3">
+                <span class="text-red-400 font-black text-lg shrink-0 leading-tight">2</span>
+                <div>
+                  <p class="text-gray-200 font-semibold text-xs uppercase tracking-wider mb-1">Quanto mais cedo você saca, mais IR você paga</p>
+                  <p class="text-gray-400 leading-relaxed">
+                    O IR é <strong class="text-white">regressivo</strong> — diminui com o tempo.
+                    Em 30 dias: 22,5%. Em 181 dias: 20%. Em 361 dias: 17,5%. Em 721 dias: 15%.
+                    O banco anuncia o mesmo produto para todos os prazos, mas quem saca cedo paga o dobro de imposto de quem aguarda.
+                    <strong class="text-orange-300">Ele sabe disso. Você precisa saber também.</strong>
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3 bg-red-900/20 border border-red-800/30 rounded-xl p-3">
+                <span class="text-red-400 font-black text-lg shrink-0 leading-tight">3</span>
+                <div>
+                  <p class="text-gray-200 font-semibold text-xs uppercase tracking-wider mb-1">A armadilha da liquidez — o que acontece em produtos SEM liquidez diária</p>
+                  <p class="text-gray-400 leading-relaxed">
+                    Este cenário mostra o <strong class="text-white">melhor caso</strong>: um CDB com liquidez diária.
+                    Mas a maioria dos produtos que pagam taxas mais altas <strong class="text-red-400">não tem liquidez diária</strong>.
+                    Se você tivesse os mesmos R$&nbsp;600.000 num CDB sem liquidez e precisasse de R$&nbsp;3.000,
+                    o banco te devolveria <strong class="text-white">tudo — R$&nbsp;{{ fmtRS(sim.valorFinal) }}</strong> — e você perderia o contrato original.
+                    Aí você teria que reinvestir o restante em outro produto, provavelmente com taxa menor.
+                    Quem ganhou? O banco — que fecha um novo contrato com você.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-orange-400 text-xs font-semibold border-t border-orange-800/40 pt-3">
+              Resumo: o banco não mente. Mas omite o suficiente para que você tome a decisão errada.
+              Conhecer esses três pontos já coloca você à frente de 90% dos investidores.
+            </p>
+          </div>
+        </div>
+
         <!-- Confirmação do saldo restante -->
         <div class="bg-blue-950/40 border border-blue-800/50 rounded-xl p-4 space-y-3 text-sm">
           <p class="text-blue-300 font-semibold text-xs uppercase tracking-wider">Verificação — sua riqueza total não muda</p>
