@@ -1113,6 +1113,7 @@ import {
 } from '../utils/calculos.js'
 import MathFormula from '../components/MathFormula.vue'
 import { useMathJax } from '../composables/useMathJax.js'
+import { getProdutos, getParametros, saveParametros, confirmarProduto as confirmarProdutoLocal } from '../composables/useData.js'
 
 useMathJax()
 
@@ -1490,15 +1491,14 @@ function adicionarNaSimulacao(produto) {
     })
 }
 
-async function confirmarProduto(produto) {
+function confirmarProduto(produto) {
   if (confirmadosSessao.value.has(produto.id)) return
   try {
-    const res = await axios.post(`/api/produtos/${produto.id}/confirmar`)
-    produto.confirmacoes = res.data.confirmacoes
+    const res = confirmarProdutoLocal(produto.id)
+    produto.confirmacoes = res.confirmacoes
     confirmadosSessao.value = new Set([...confirmadosSessao.value, produto.id])
-    // Atualiza também no resultados se estiver lá
     const r = resultados.value.find(r => r.produto.id === produto.id)
-    if (r) r.produto.confirmacoes = res.data.confirmacoes
+    if (r) r.produto.confirmacoes = res.confirmacoes
   } catch (e) {
     console.error('Erro ao confirmar produto', e)
   }
@@ -1694,18 +1694,18 @@ function calcular() {
     })
 }
 
-async function salvarParams() {
+function salvarParams() {
   salvandoParams.value = true
   try {
-    await axios.post('/api/parametros', {
-      valor_investido:   params.value.valorInvestido,
-      data_inicio:       params.value.dataInicio,
-      data_fim_planejada:params.value.dataFimDesejada,
-      retirada_mensal:   params.value.retiradaMensal,
-      aportes_mensais:   params.value.aportesMensais,
-      cdi_anual:         params.value.cdi,
-      ipca_anual:        params.value.ipca,
-      selic_anual:       params.value.selic,
+    saveParametros({
+      valor_investido:    params.value.valorInvestido,
+      data_inicio:        params.value.dataInicio,
+      data_fim_planejada: params.value.dataFimDesejada,
+      retirada_mensal:    params.value.retiradaMensal,
+      aportes_mensais:    params.value.aportesMensais,
+      cdi_anual:          params.value.cdi,
+      ipca_anual:          params.value.ipca,
+      selic_anual:         params.value.selic,
     })
   } catch (e) {
     console.error('Erro ao salvar parâmetros', e)
@@ -1716,31 +1716,25 @@ async function salvarParams() {
 
 function imprimir() { window.print() }
 
-onMounted(async () => {
-  // Busca taxas do BCB em paralelo com os dados locais
+onMounted(() => {
   buscarTaxasBCB()
-
   try {
-    const [pRes, paramRes] = await Promise.all([
-      axios.get('/api/produtos'),
-      axios.get('/api/parametros'),
-    ])
-    todosProdutos.value = pRes.data
-    const saved = paramRes.data
+    todosProdutos.value = getProdutos()
+    const saved = getParametros()
     if (saved) {
       params.value = {
         valorInvestido:  saved.valor_investido    ?? params.value.valorInvestido,
         dataInicio:      amanha,
         dataFimDesejada: umAno,
-        retiradaMensal:  0,
-        aportesMensais:  0,
-        cdi:             saved.cdi_anual            ?? params.value.cdi,
-        ipca:            saved.ipca_anual           ?? params.value.ipca,
-        selic:           saved.selic_anual          ?? params.value.selic,
+        retiradaMensal:  saved.retirada_mensal    ?? 0,
+        aportesMensais:  saved.aportes_mensais    ?? 0,
+        cdi:             saved.cdi_anual          ?? params.value.cdi,
+        ipca:            saved.ipca_anual         ?? params.value.ipca,
+        selic:           saved.selic_anual        ?? params.value.selic,
       }
     }
   } catch (e) {
-    erro.value = 'Erro ao carregar dados. Certifique-se de que o servidor está rodando (npm run dev).'
+    erro.value = 'Erro ao carregar dados.'
   } finally {
     carregandoProdutos.value = false
   }

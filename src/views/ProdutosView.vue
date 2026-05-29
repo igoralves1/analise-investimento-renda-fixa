@@ -167,8 +167,8 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import axios from 'axios'
 import { TIPOS_PRODUTO, MODALIDADES, formatDate } from '../utils/calculos.js'
+import { getProdutos, addProduto, updateProduto, deleteProduto } from '../composables/useData.js'
 
 const produtos  = ref([])
 const carregando = ref(true)
@@ -209,13 +209,12 @@ const labelModalidade = v => MODALIDADES.find(m => m.value === v)?.label || v
 
 const hintTaxa = computed(() => MODALIDADES.find(m => m.value === form.value.modalidade)?.hint || '')
 
-async function carregar() {
+function carregar() {
   try {
     carregando.value = true
-    const res = await axios.get('/api/produtos')
-    produtos.value = res.data
+    produtos.value = getProdutos()
   } catch (e) {
-    erro.value = 'Erro ao carregar produtos. Certifique-se de que o servidor está rodando.'
+    erro.value = 'Erro ao carregar produtos.'
   } finally {
     carregando.value = false
   }
@@ -235,21 +234,21 @@ function fecharModal() {
   modal.value = false
 }
 
-async function salvar() {
+function salvar() {
   if (!form.value.nome || !form.value.taxa) return
   salvando.value = true
   try {
     if (form.value.id) {
-      await axios.put(`/api/produtos/${form.value.id}`, form.value)
+      const updated = updateProduto(form.value.id, form.value)
       const idx = produtos.value.findIndex(p => p.id === form.value.id)
-      if (idx !== -1) produtos.value[idx] = { ...form.value }
+      if (idx !== -1) produtos.value[idx] = { ...updated }
     } else {
-      const res = await axios.post('/api/produtos', form.value)
-      produtos.value.push(res.data)
+      const novo = addProduto(form.value)
+      produtos.value.push(novo)
     }
     fecharModal()
   } catch (e) {
-    alert('Erro ao salvar: ' + (e.response?.data?.error || e.message))
+    alert('Erro ao salvar: ' + e.message)
   } finally {
     salvando.value = false
   }
@@ -259,14 +258,14 @@ function confirmarExcluir(p) {
   paraExcluir.value = p
 }
 
-async function excluir() {
+function excluir() {
   excluindo.value = true
   try {
-    await axios.delete(`/api/produtos/${paraExcluir.value.id}`)
+    deleteProduto(paraExcluir.value.id)
     produtos.value = produtos.value.filter(p => p.id !== paraExcluir.value.id)
     paraExcluir.value = null
   } catch (e) {
-    alert('Erro ao excluir: ' + (e.response?.data?.error || e.message))
+    alert('Erro ao excluir: ' + e.message)
   } finally {
     excluindo.value = false
   }
