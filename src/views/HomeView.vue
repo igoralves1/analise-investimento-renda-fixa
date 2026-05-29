@@ -1330,7 +1330,6 @@
             </div>
           </div>
         </div>
-        </div>
 
         <!-- Confirmação do saldo restante -->
         <div class="bg-blue-950/40 border border-blue-800/50 rounded-xl p-4 space-y-3 text-sm">
