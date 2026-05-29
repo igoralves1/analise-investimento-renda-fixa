@@ -289,6 +289,10 @@
               ]"
             >{{ b.banco }} · {{ b.count }}</button>
           </div>
+          <p v-if="bancoFiltro" class="text-xs text-gray-500 pt-1">
+            Exibindo {{ produtosVisiveis.length }} produto(s) de <strong class="text-gray-300">{{ bancoFiltro }}</strong>.
+            <button @click="bancoFiltro = null; verTodos = false" class="text-green-500 hover:text-green-400 ml-1">Limpar filtro ↺</button>
+          </p>
         </div>
 
         <!-- Tabela marketplace -->
