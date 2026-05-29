@@ -3,33 +3,59 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12 space-y-16">
 
     <!-- Hero -->
-    <section class="text-center space-y-4">
-      <p class="text-green-400 text-sm font-semibold tracking-widest uppercase">Renda Fixa sem enganos</p>
-      <h1 class="text-4xl sm:text-5xl font-black text-white leading-tight">
-        O banco anuncia 109% CDI.<br>
-        <span class="text-green-400">Você recebe bem menos.</span>
-      </h1>
-      <p class="text-gray-400 text-lg max-w-2xl mx-auto">
-        Entenda por que a taxa anunciada nunca é a taxa real — e como calcular o retorno líquido verdadeiro antes de investir.
-      </p>
-      <div class="flex flex-wrap gap-3 justify-center pt-2">
-        <RouterLink to="/calculadora" class="btn-primary text-base px-6 py-3">Calcular agora</RouterLink>
-        <RouterLink to="/produtos" class="btn-secondary text-base px-6 py-3">Meus produtos</RouterLink>
+    <section class="space-y-8">
+      <div class="text-center space-y-5">
+        <div class="inline-flex items-center gap-2 bg-green-900/30 border border-green-800/50 rounded-full px-4 py-1.5 text-xs text-green-400 font-semibold tracking-wider uppercase">
+          O MarketPlace da Renda Fixa
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-black text-white leading-tight">
+          Você chega com o seu dinheiro.<br>
+          Os bancos competem pelas suas condições.<br>
+          <span class="text-green-400">Você é o chefe.</span>
+        </h1>
+        <p class="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
+          Mas para barganhar, você precisa de informação — e os bancos fazem de tudo para que você não a tenha.
+        </p>
+        <p class="text-gray-500 text-base max-w-3xl mx-auto leading-relaxed">
+          Taxa bruta, taxa líquida, carência, liquidez diária, mercado secundário, vencimento, IOF, IR regressivo,
+          resgate antecipado com haircut, rentabilidade mark-to-market...
+          Cada um desses conceitos pode ser a diferença entre um bom investimento e uma cilada.
+          E não é coincidência que os bancos não expliquem nenhum deles com clareza —
+          <strong class="text-white">quanto mais confuso, menos você questiona. Quanto menos você questiona, mais o banco lucra.</strong>
+        </p>
+        <p class="text-gray-500 text-base max-w-3xl mx-auto leading-relaxed">
+          Para completar: eles não publicam os produtos nem as taxas na internet. Deliberadamente.
+          Sem comparação pública, não há concorrência. Sem concorrência, não há pressão para oferecer condições melhores.
+        </p>
+        <div class="bg-green-950/50 border border-green-800/60 rounded-2xl p-5 max-w-2xl mx-auto text-left space-y-2">
+          <p class="text-green-300 font-bold text-lg">O Renda Fixa MarketPlace muda isso.</p>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Uma comunidade de investidores que compartilha as condições reais oferecidas pelos bancos — com taxa líquida calculada,
+            prazo, liquidez, carência e tudo que o gerente esqueceu de mencionar.
+            Você compara, simula, e chega à negociação sabendo exatamente o que o mercado oferece.
+          </p>
+          <p class="text-green-500 text-sm font-semibold italic">Informação que os bancos retêm. Comunidade que devolve.</p>
+        </div>
+        <div class="flex flex-wrap gap-3 justify-center pt-2">
+          <RouterLink to="/calculadora" class="btn-primary text-base px-6 py-3">Simular investimentos →</RouterLink>
+          <RouterLink to="/calculadora" class="btn-secondary text-base px-6 py-3">Ver o marketplace →</RouterLink>
+        </div>
       </div>
     </section>
 
-    <!-- O problema -->
+    <!-- Seção 1: O Primeiro Engano -->
     <section class="space-y-6">
       <div>
-        <p class="text-green-400 text-xs font-semibold tracking-widest uppercase mb-1">O problema</p>
-        <h2 class="section-title">Por que a taxa anunciada engana</h2>
-        <p class="text-gray-400">
-          Bancos e corretoras divulgam a <strong class="text-white">taxa bruta anual</strong> — antes do Imposto de Renda.
-          Mas o IR sobre renda fixa é <strong class="text-white">regressivo e depende do prazo</strong>:
-          quanto menos tempo você deixa o dinheiro aplicado, mais paga de imposto.
+        <p class="text-green-400 text-xs font-semibold tracking-widest uppercase mb-1">O primeiro engano</p>
+        <h2 class="section-title">A taxa anunciada não é a taxa que você recebe</h2>
+        <p class="text-gray-400 leading-relaxed">
+          Bancos e corretoras anunciam sempre a <strong class="text-white">taxa bruta anual</strong> — antes do Imposto de Renda.
+          O que não te contam é que o IR sobre renda fixa é <strong class="text-white">regressivo e depende do prazo</strong>:
+          quanto menos tempo o dinheiro fica aplicado, maior o imposto pago.
+          Dois produtos com a mesma taxa anunciada podem ter rentabilidades líquidas completamente diferentes.
+          O banco sabe disso. Conta com isso.
         </p>
       </div>
-
       <div class="card space-y-4">
         <h3 class="font-semibold text-white">Exemplo real: CDB 109% CDI com vencimento em 6 meses</h3>
         <div class="grid sm:grid-cols-2 gap-4 text-sm">
@@ -50,6 +76,133 @@
         </div>
       </div>
     </section>
+
+    <!-- Seção 2: O Segundo Engano -->
+    <section class="space-y-6">
+      <div>
+        <p class="text-green-400 text-xs font-semibold tracking-widest uppercase mb-1">O segundo engano</p>
+        <h2 class="section-title">Dezenas de produtos. Uma única intenção.</h2>
+        <p class="text-gray-400 leading-relaxed">
+          Não é por acaso que o seu banco oferece CDB, LCI, LCA, LC, CRI, CRA, LF, COE, Debêntures Incentivadas,
+          fundos DI, fundos multimercado, previdência privada — e mais uma dúzia de siglas que parecem ter saído de um manual técnico.
+        </p>
+      </div>
+      <div class="bg-red-950/30 border border-red-800/50 rounded-2xl p-5 space-y-3">
+        <p class="text-red-300 font-bold text-lg">Essa complexidade não existe para te dar opções. Existe para te confundir.</p>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          Quando um investidor não consegue comparar produtos, ele aceita o que o gerente recomenda.
+          E o gerente recomenda o que é mais lucrativo para o banco — não para você.
+          Carências obscuras, taxas de administração embutidas, condições de resgate confusas,
+          rentabilidades que só aparecem num simulador de doze campos.
+        </p>
+        <p class="text-red-400 text-sm font-semibold italic">
+          Tudo projetado para que você desista de entender e simplesmente assine.
+        </p>
+      </div>
+    </section>
+
+    <!-- Seção 3: O Terceiro Engano -->
+    <section class="space-y-6">
+      <div>
+        <p class="text-green-400 text-xs font-semibold tracking-widest uppercase mb-1">O terceiro engano</p>
+        <h2 class="section-title">Se você não sabe o que o concorrente oferece, não tem como barganhar</h2>
+        <p class="text-gray-400 leading-relaxed">
+          Os bancos não publicam suas taxas na internet. <strong class="text-white">Deliberadamente.</strong>
+          Se o Banco A soubesse que o Banco B está pagando 118% do CDI em CDB, teria que competir.
+          Como nenhum publica, nenhum precisa se esforçar.
+        </p>
+      </div>
+      <div class="bg-gray-800/60 border border-gray-700 rounded-2xl p-5">
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Resultado: você fica preso às condições do seu banco atual — não por falta de alternativas,
+          mas por falta de informação. Uma assimetria construída com cuidado, mantida com interesse.
+        </p>
+      </div>
+    </section>
+
+    <!-- Seção 4: A Virada -->
+    <section class="space-y-6">
+      <div>
+        <p class="text-green-400 text-xs font-semibold tracking-widest uppercase mb-1">A virada</p>
+        <h2 class="section-title">Comunidade contra os tubarões</h2>
+        <p class="text-gray-400 leading-relaxed">
+          O Linux não venceu com um exército corporativo. Venceu com uma comunidade que decidiu que
+          informação estratégica não deveria pertencer a poucos.
+          O <strong class="text-white">Renda Fixa MarketPlace</strong> funciona na mesma lógica.
+        </p>
+      </div>
+      <div class="space-y-4">
+        <p class="text-gray-400 text-sm leading-relaxed">
+          Investidores cadastram as condições reais que receberam dos seus bancos. Outros investidores confirmam.
+          A comunidade constrói, coletivamente, o banco de dados de taxas reais que os bancos nunca vão publicar
+          — e que os bancos não conseguem suprimir.
+        </p>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="bg-green-950/40 border border-green-800/50 rounded-2xl p-4 space-y-2">
+            <p class="text-green-400 font-bold">Validação coletiva</p>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Cada confirmação de outro usuário é um voto de confiança.
+              Produtos com 5 ou mais confirmações recebem o selo de <strong class="text-white">Alta Confiança</strong> —
+              validados por investidores reais, sem conflito de interesse, sem gerente no meio.
+            </p>
+          </div>
+          <div class="bg-gray-800/50 border border-gray-700 rounded-2xl p-4 space-y-2">
+            <p class="text-gray-200 font-bold">Resistente à manipulação</p>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Os bancos podem tentar inserir agentes para distorcer os dados.
+              Mas não conseguem distorcer o que uma comunidade inteira está validando.
+            </p>
+          </div>
+        </div>
+        <blockquote class="border-l-4 border-green-600 pl-4 text-gray-400 italic text-sm">
+          "Código aberto democratizou o software. Dados abertos vão democratizar o crédito."
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- Seção 5: Para o Investidor -->
+    <section class="space-y-6">
+      <div>
+        <p class="text-green-400 text-xs font-semibold tracking-widest uppercase mb-1">Para o investidor</p>
+        <h2 class="section-title">Informação é poder de barganha</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="card space-y-2">
+          <p class="text-white font-semibold">🔍 Compare de verdade</p>
+          <p class="text-gray-400 text-sm">Rentabilidade líquida real lado a lado, já descontando IR e IOF para o seu prazo específico. Sem letras miúdas.</p>
+        </div>
+        <div class="card space-y-2">
+          <p class="text-white font-semibold">📊 Simule o seu cenário</p>
+          <p class="text-gray-400 text-sm">Informe seu montante e prazo. Veja exatamente quanto cada produto rende no seu caso — não na propaganda do banco.</p>
+        </div>
+        <div class="card space-y-2">
+          <p class="text-white font-semibold">💼 Chegue armado ao banco</p>
+          <p class="text-gray-400 text-sm italic">"O banco X está pagando 118% do CDI líquido para 12 meses. O que você me oferece?"</p>
+          <p class="text-gray-500 text-xs">Ou o dinheiro vai. E ambos sabem disso.</p>
+        </div>
+        <div class="card space-y-2">
+          <p class="text-white font-semibold">🛡️ Confie no coletivo</p>
+          <p class="text-gray-400 text-sm">Informações validadas por múltiplos investidores reais. Sem gerente, sem assessor, sem conflito de interesse.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção 6: CTA -->
+    <section class="text-center space-y-4 py-6 border-y border-gray-800">
+      <h2 class="text-2xl font-bold text-white">O dinheiro é seu. A decisão também.</h2>
+      <p class="text-gray-400">Simule agora com taxas reais cadastradas por investidores como você — ou cadastre uma oferta que recebeu e fortaleça a comunidade.</p>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <RouterLink to="/calculadora" class="btn-primary text-base px-6 py-3">Simular meus investimentos →</RouterLink>
+        <RouterLink to="/calculadora" class="btn-secondary text-base px-6 py-3">Ver o marketplace →</RouterLink>
+      </div>
+    </section>
+
+    <!-- Divisor: conteúdo educacional -->
+    <div class="flex items-center gap-4">
+      <div class="flex-1 h-px bg-gray-800"></div>
+      <p class="text-xs text-gray-600 uppercase tracking-widest font-semibold shrink-0">Aprenda os conceitos</p>
+      <div class="flex-1 h-px bg-gray-800"></div>
+    </div>
 
     <!-- Tabela IR -->
     <section class="space-y-4">

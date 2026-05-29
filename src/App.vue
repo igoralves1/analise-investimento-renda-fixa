@@ -3,8 +3,7 @@
     <header class="sticky top-0 z-50 bg-gray-900/90 backdrop-blur border-b border-gray-800">
       <nav class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <RouterLink to="/" class="flex items-center gap-2">
-          <span class="text-green-400 font-black text-xl tracking-tight">Renda Fixa</span>
-          <span class="text-gray-500 text-sm hidden sm:block">/ sem enganos</span>
+          <span class="text-green-400 font-black text-xl tracking-tight">Renda Fixa</span><span class="text-white font-black text-xl tracking-tight">Market</span><span class="text-green-400 font-black text-xl tracking-tight">Place</span>
         </RouterLink>
         <div class="flex items-center gap-1">
           <RouterLink
