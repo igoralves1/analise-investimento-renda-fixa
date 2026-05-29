@@ -1308,6 +1308,28 @@
               Conhecer esses três pontos já coloca você à frente de 90% dos investidores.
             </p>
           </div>
+
+          <!-- Como escapar — Cenário A -->
+          <div class="space-y-2 border-t border-orange-800/40 pt-4">
+            <p class="text-green-400 font-bold text-sm flex items-center gap-2">
+              <span class="text-lg">🛡️</span> Como escapar desta cilada
+            </p>
+            <div class="space-y-2">
+              <div class="flex items-start gap-2 text-xs">
+                <span class="text-green-400 shrink-0 font-bold mt-0.5">▸</span>
+                <p class="text-gray-300"><strong class="text-white">Planeje o prazo antes de investir.</strong> Se sabe que vai resgatar em 30 dias, aceite o IR de 22,5%. Se pode esperar 181 dias, paga 20%. Se pode esperar 361 dias, paga 17,5%. Cada faixa de prazo tem um custo — escolha o seu com consciência.</p>
+              </div>
+              <div class="flex items-start gap-2 text-xs">
+                <span class="text-green-400 shrink-0 font-bold mt-0.5">▸</span>
+                <p class="text-gray-300"><strong class="text-white">Considere produtos isentos de IR (LCI/LCA).</strong> Para pessoa física, LCI e LCA não pagam IR. Uma LCA a 95% CDI pode render mais líquido do que um CDB a 110% CDI — dependendo do prazo. Use a calculadora para comparar.</p>
+              </div>
+              <div class="flex items-start gap-2 text-xs">
+                <span class="text-green-400 shrink-0 font-bold mt-0.5">▸</span>
+                <p class="text-gray-300"><strong class="text-white">Nunca compare taxas brutas.</strong> Exija sempre a taxa líquida para o seu prazo específico. O Renda Fixa MarketPlace exibe exatamente isso — taxa líquida já calculada, sem letras miúdas.</p>
+              </div>
+            </div>
+          </div>
+        </div>
         </div>
 
         <!-- Confirmação do saldo restante -->
@@ -1471,6 +1493,30 @@
               Regra prática: antes de assinar qualquer produto, pergunte ao banco — "se eu precisar sair antes, você recompra ou vou para mercado secundário?"
               Se a resposta for mercado secundário, pense muito bem antes de aceitar.
             </p>
+            <!-- Como escapar — Cenário B -->
+            <div class="space-y-2 border-t border-red-800/40 pt-4">
+              <p class="text-green-400 font-bold text-sm flex items-center gap-2">
+                <span class="text-lg">🛡️</span> Como escapar desta cilada
+              </p>
+              <div class="space-y-2">
+                <div class="flex items-start gap-2 text-xs">
+                  <span class="text-green-400 shrink-0 font-bold mt-0.5">▸</span>
+                  <p class="text-gray-300"><strong class="text-white">Exija por escrito se o banco recompra.</strong> Antes de investir, pergunte — e se a resposta for "mercado secundário", é uma aposta de liquidez, não um investimento seguro. Só aceite sabendo disso.</p>
+                </div>
+                <div class="flex items-start gap-2 text-xs">
+                  <span class="text-green-400 shrink-0 font-bold mt-0.5">▸</span>
+                  <p class="text-gray-300"><strong class="text-white">Desconfie de taxas 0,2–0,3% acima do mercado.</strong> Esse bônus quase sempre esconde ausência de liquidez garantida. O banco paga mais porque sabe que você vai ficar preso até o vencimento.</p>
+                </div>
+                <div class="flex items-start gap-2 text-xs">
+                  <span class="text-green-400 shrink-0 font-bold mt-0.5">▸</span>
+                  <p class="text-gray-300"><strong class="text-white">Só imobilize dinheiro que você não vai precisar.</strong> Produtos sem recompra são válidos — mas apenas para a fatia do patrimônio que você tem 100% de certeza de que não vai tocar até o vencimento.</p>
+                </div>
+                <div class="flex items-start gap-2 text-xs">
+                  <span class="text-green-400 shrink-0 font-bold mt-0.5">▸</span>
+                  <p class="text-gray-300"><strong class="text-white">Use o marketplace para comparar com liquidez real.</strong> Existem CDBs com liquidez diária pagando taxas competitivas. Compare a taxa líquida — não a bruta anunciada — antes de abrir mão da flexibilidade.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1551,6 +1597,30 @@
                     E comparado ao Cenário D (sem liquidez), você não ficou refém de resgatar tudo só para acessar uma parte.
                     Liquidez diária com recompra pelo banco é a base de qualquer estratégia de renda fixa bem construída.
                   </p>
+                </div>
+              </div>
+            </div>
+            <!-- Como escapar — Cenário C -->
+            <div class="space-y-2 border-t border-blue-800/40 pt-4">
+              <p class="text-green-400 font-bold text-sm flex items-center gap-2">
+                <span class="text-lg">🛡️</span> Como escapar desta cilada
+              </p>
+              <div class="space-y-2">
+                <div class="flex items-start gap-2 text-xs">
+                  <span class="text-green-400 shrink-0 font-bold mt-0.5">▸</span>
+                  <p class="text-gray-300"><strong class="text-white">Planeje o prazo antes de investir.</strong> IR de 22,5% cai para 20% depois de 181 dias, 17,5% depois de 361 dias e 15% depois de 720 dias. Esperar mais 151 dias neste cenário economizaria R$&nbsp;{{ fmtRS(sim.cashRecebido * 0.025) }} em imposto.</p>
+                </div>
+                <div class="flex items-start gap-2 text-xs">
+                  <span class="text-green-400 shrink-0 font-bold mt-0.5">▸</span>
+                  <p class="text-gray-300"><strong class="text-white">Considere LCI/LCA isento de IR.</strong> Para prazos longos, uma LCA a 95% CDI pode render mais líquido do que um CDB a 110% CDI — porque você não paga imposto nenhum. Use a calculadora para comparar a taxa líquida real.</p>
+                </div>
+                <div class="flex items-start gap-2 text-xs">
+                  <span class="text-green-400 shrink-0 font-bold mt-0.5">▸</span>
+                  <p class="text-gray-300"><strong class="text-white">Nunca compare taxas brutas entre produtos.</strong> CDB, LCI, LCA e Tesouro têm tributações diferentes. A comparação justa é sempre sobre o que entra no bolso — a taxa líquida depois de IR e IOF.</p>
+                </div>
+                <div class="flex items-start gap-2 text-xs">
+                  <span class="text-green-400 shrink-0 font-bold mt-0.5">▸</span>
+                  <p class="text-gray-300"><strong class="text-white">Use a calculadora do marketplace.</strong> Simule exatamente quanto você recebe líquido para cada prazo e cada tipo de produto. A diferença entre sacar hoje ou em 151 dias aparece em reais — não em percentual abstrato.</p>
                 </div>
               </div>
             </div>
@@ -1719,6 +1789,30 @@
               A proteção é simples: nunca invista mais do que pode imobilizar, e sempre mantenha uma reserva de emergência
               em produto com liquidez diária — mesmo que renda um pouco menos. A diferença de 0,3% a.a. não vale a armadilha do "tudo ou nada".
             </p>
+            <!-- Como escapar — Cenário D -->
+            <div class="space-y-2 border-t border-yellow-800/40 pt-4">
+              <p class="text-green-400 font-bold text-sm flex items-center gap-2">
+                <span class="text-lg">🛡️</span> Como escapar desta cilada
+              </p>
+              <div class="space-y-2">
+                <div class="flex items-start gap-2 text-xs">
+                  <span class="text-green-400 shrink-0 font-bold mt-0.5">▸</span>
+                  <p class="text-gray-300"><strong class="text-white">Fracione antes de investir.</strong> Em vez de um CDB de R$&nbsp;{{ fmtRS(sim.principal) }}, considere seis de R$&nbsp;{{ fmtRS(sim.principal / 6) }}. Se precisar de R$&nbsp;3.000, você resgata só uma fração — e os outros cinco continuam rendendo.</p>
+                </div>
+                <div class="flex items-start gap-2 text-xs">
+                  <span class="text-green-400 shrink-0 font-bold mt-0.5">▸</span>
+                  <p class="text-gray-300"><strong class="text-white">Mantenha reserva de emergência separada.</strong> Antes de imobilizar qualquer capital, garanta pelo menos 6 meses de despesas em produto com liquidez diária. Essa reserva não é para render — é para não forçar resgates ruins.</p>
+                </div>
+                <div class="flex items-start gap-2 text-xs">
+                  <span class="text-green-400 shrink-0 font-bold mt-0.5">▸</span>
+                  <p class="text-gray-300"><strong class="text-white">Existem CDBs com liquidez diária pagando bem.</strong> O marketplace mostra CDBs com liquidez diária a 113–115% CDI. A diferença de 0,3% a.a. que o banco te oferece para abrir mão da liquidez muitas vezes não compensa o risco do "tudo ou nada".</p>
+                </div>
+                <div class="flex items-start gap-2 text-xs">
+                  <span class="text-green-400 shrink-0 font-bold mt-0.5">▸</span>
+                  <p class="text-gray-300"><strong class="text-white">Nunca aceite a premissa "não vou precisar".</strong> A vida muda. A regra prática: só imobilize o dinheiro que ficaria intocado mesmo no pior cenário que você consegue imaginar. O restante, liquide primeiro.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
