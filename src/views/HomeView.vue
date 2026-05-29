@@ -1403,6 +1403,76 @@
             ou <strong class="text-white">{{ fmtRS(Math.abs(sim.cenarios[5].diffCDB)) }}</strong> com 3% de haircut.
           </p>
         </div>
+
+        <!-- Explicação didática Cenário B -->
+        <div class="rounded-2xl border border-red-700/60 bg-red-950/20 p-5 space-y-4 text-sm">
+          <p class="text-red-300 font-bold text-base">Entendendo o Cenário B — traduzido sem jargão</p>
+
+          <div class="space-y-1.5">
+            <p class="text-orange-200 font-semibold">O que é haircut?</p>
+            <p class="text-gray-300 leading-relaxed">
+              Imagine que você tem um bilhete que vale R$&nbsp;{{ fmtRS(sim.dirtyPrice) }} mas precisa de dinheiro agora.
+              Ninguém é obrigado a pagar o valor cheio — o comprador sabe que você precisa vender e exige um desconto.
+              Esse desconto é o <strong class="text-white">haircut</strong>.
+              No mercado financeiro, quando um CDB <strong class="text-white">não tem cláusula de recompra pelo banco</strong>,
+              você depende de encontrar um comprador na B3. Ele paga menos. Sempre.
+            </p>
+          </div>
+
+          <div class="space-y-1.5 border-t border-red-800/40 pt-3">
+            <p class="text-orange-200 font-semibold">Por que o desconto incide sobre R$&nbsp;{{ fmtRS(sim.dirtyPrice) }} e não sobre R$&nbsp;{{ fmtRS(sim.principal) }}?</p>
+            <p class="text-gray-300 leading-relaxed">
+              Porque o título já acumulou juros. O valor total do título hoje é capital + juros brutos =
+              <strong class="text-white">R$&nbsp;{{ fmtRS(sim.dirtyPrice) }}</strong> (o chamado "dirty price").
+              O haircut incide sobre esse valor cheio — então um desconto de 1% não é 1% de R$&nbsp;600.000.
+              É 1% de <strong class="text-white">R$&nbsp;{{ fmtRS(sim.dirtyPrice) }}</strong>.
+            </p>
+          </div>
+
+          <div class="space-y-3 border-t border-red-800/40 pt-3">
+            <p class="text-orange-200 font-semibold">As três ciladas desta situação</p>
+            <div class="space-y-2">
+              <div class="flex items-start gap-3 bg-red-900/20 border border-red-800/30 rounded-xl p-3">
+                <span class="text-red-400 font-black text-lg shrink-0 leading-tight">1</span>
+                <div>
+                  <p class="text-gray-200 font-semibold text-xs uppercase tracking-wider mb-1">Perde capital com haircut pequeno</p>
+                  <p class="text-gray-400 leading-relaxed">
+                    Com apenas <strong class="text-white">1,12% de haircut</strong> você já recebe menos do que os R$&nbsp;{{ fmtRS(sim.principal) }} que colocou.
+                    Ficou 30 dias com R$&nbsp;{{ fmtRS(sim.principal) }} investidos a {{ sim.cdiAaPct.toFixed(2) }}% a.a. e ainda saiu no prejuízo.
+                    O haircut comeu tanto os juros quanto parte do capital.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 bg-red-900/20 border border-red-800/30 rounded-xl p-3">
+                <span class="text-red-400 font-black text-lg shrink-0 leading-tight">2</span>
+                <div>
+                  <p class="text-gray-200 font-semibold text-xs uppercase tracking-wider mb-1">Quando não há lucro, não há IR — mas isso não é bom</p>
+                  <p class="text-gray-400 leading-relaxed">
+                    Na tabela acima, quando o haircut é alto o suficiente para você ter prejuízo, o IR some (aparece "—").
+                    Parece vantagem, mas não é: você pagou R$&nbsp;{{ fmtRS(sim.principal) }} e recebeu menos.
+                    Não pagar IR sobre prejuízo não é benefício — é consequência de ter perdido dinheiro.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 bg-red-900/20 border border-red-800/30 rounded-xl p-3">
+                <span class="text-red-400 font-black text-lg shrink-0 leading-tight">3</span>
+                <div>
+                  <p class="text-gray-200 font-semibold text-xs uppercase tracking-wider mb-1">O banco te atraiu com 0,2% a mais na taxa</p>
+                  <p class="text-gray-400 leading-relaxed">
+                    Produtos sem cláusula de recompra frequentemente pagam uma taxa ligeiramente maior — 0,1% a 0,3% a.a. a mais.
+                    O banco usa isso como isca. Você aceita porque parece vantagem.
+                    Mas se precisar sair antes do vencimento, esses 0,2% extras não cobrem nem de longe o haircut de 1,5% ou 3%.
+                    <strong class="text-orange-300">O banco não tem obrigação. Você que se vire.</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <p class="text-red-400 text-xs font-semibold border-t border-red-800/40 pt-3">
+              Regra prática: antes de assinar qualquer produto, pergunte ao banco — "se eu precisar sair antes, você recompra ou vou para mercado secundário?"
+              Se a resposta for mercado secundário, pense muito bem antes de aceitar.
+            </p>
+          </div>
+        </div>
       </div>
 
       <!-- Cenário C: Saque total com liquidez diária -->
@@ -1428,6 +1498,64 @@
           </div>
         </div>
         <p class="text-xs text-gray-600">Sem haircut, sem mercado secundário, sem espera. O banco credita o valor no mesmo dia.</p>
+
+        <!-- Explicação didática Cenário C -->
+        <div class="rounded-2xl border border-blue-700/60 bg-blue-950/20 p-5 space-y-4 text-sm">
+          <p class="text-blue-300 font-bold text-base">Entendendo o Cenário C — o melhor caso possível, e o que ainda te custa dinheiro</p>
+
+          <div class="space-y-1.5">
+            <p class="text-blue-200 font-semibold">O que aconteceu aqui?</p>
+            <p class="text-gray-300 leading-relaxed">
+              Você investiu R$&nbsp;{{ fmtRS(sim.principal) }}, esperou 30 dias e resgatou tudo.
+              O banco devolveu seu capital de volta inteiro + os juros que renderam, já descontado o IR.
+              Sem haircut, sem mercado secundário, sem burocracia. É o cenário ideal de liquidez diária funcionando perfeitamente.
+            </p>
+          </div>
+
+          <div class="space-y-3 border-t border-blue-800/40 pt-3">
+            <p class="text-blue-200 font-semibold">O que ainda te custou dinheiro — mesmo no melhor cenário</p>
+            <div class="space-y-2">
+              <div class="flex items-start gap-3 bg-blue-900/20 border border-blue-800/30 rounded-xl p-3">
+                <span class="text-blue-400 font-black text-lg shrink-0 leading-tight">1</span>
+                <div>
+                  <p class="text-gray-200 font-semibold text-xs uppercase tracking-wider mb-1">O IR de 22,5% por sair cedo</p>
+                  <p class="text-gray-400 leading-relaxed">
+                    Seus juros brutos foram R$&nbsp;{{ fmtRS(sim.lucroBruto) }}.
+                    O governo reteve R$&nbsp;{{ fmtRS(sim.ir) }} de IR — porque o resgate foi em 30 dias (menos de 180 dias).
+                    Se você tivesse esperado mais 151 dias (total 181 dias), o IR cairia para 20% e você guardaria
+                    <strong class="text-white">R$&nbsp;{{ fmtRS(sim.lucroBruto * (0.225 - 0.20)) }} a mais</strong>.
+                    Esperar quase 5 meses a mais vale dinheiro.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 bg-blue-900/20 border border-blue-800/30 rounded-xl p-3">
+                <span class="text-blue-400 font-black text-lg shrink-0 leading-tight">2</span>
+                <div>
+                  <p class="text-gray-200 font-semibold text-xs uppercase tracking-wider mb-1">A diferença entre taxa bruta e taxa líquida</p>
+                  <p class="text-gray-400 leading-relaxed">
+                    O banco anunciou <strong class="text-white">{{ sim.cdiAaPct.toFixed(2) }}% a.a.</strong>
+                    Você recebeu <strong class="text-green-400">{{ sim.rLiqAaPct }}% a.a. líquido</strong>.
+                    Essa diferença de {{ (sim.cdiAaPct - parseFloat(sim.rLiqAaPct)).toFixed(2) }} pontos percentuais é o custo do IR de 22,5%.
+                    Sobre R$&nbsp;{{ fmtRS(sim.principal) }}, equivale a R$&nbsp;{{ fmtRS(sim.ir) }} pagos ao fisco em apenas 30 dias.
+                    O banco não anuncia isso no cartaz.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 bg-green-900/20 border border-green-800/30 rounded-xl p-3">
+                <span class="text-green-400 font-black text-lg shrink-0 leading-tight">✓</span>
+                <div>
+                  <p class="text-gray-200 font-semibold text-xs uppercase tracking-wider mb-1">Por que esse cenário ainda é o melhor</p>
+                  <p class="text-gray-400 leading-relaxed">
+                    Comparado ao Cenário B (mercado secundário), você economizou até
+                    <strong class="text-white">R$&nbsp;{{ fmtRS(Math.abs(sim.cenarios[5].diffCDB)) }}</strong> só por ter escolhido um produto com cláusula de recompra.
+                    E comparado ao Cenário D (sem liquidez), você não ficou refém de resgatar tudo só para acessar uma parte.
+                    Liquidez diária com recompra pelo banco é a base de qualquer estratégia de renda fixa bem construída.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Cenário D: Sem liquidez diária — resgate forçado total -->
@@ -1519,6 +1647,79 @@
             <li class="flex gap-2"><span class="text-yellow-400 shrink-0">▸</span><span>Use <strong class="text-white">produto com liquidez diária</strong> para a reserva de caixa e produtos de vencimento fixo para o restante.</span></li>
             <li class="flex gap-2"><span class="text-yellow-400 shrink-0">▸</span><span>Mantenha uma <strong class="text-white">reserva de emergência separada</strong> antes de imobilizar capital em vencimentos longos.</span></li>
           </ul>
+        </div>
+
+        <!-- Explicação didática Cenário D -->
+        <div class="rounded-2xl border border-yellow-700/60 bg-yellow-950/20 p-5 space-y-4 text-sm">
+          <p class="text-yellow-300 font-bold text-base">Entendendo o Cenário D — a cilada mais silenciosa de todas</p>
+
+          <div class="space-y-1.5">
+            <p class="text-yellow-200 font-semibold">Por que essa é a situação mais perigosa na prática?</p>
+            <p class="text-gray-300 leading-relaxed">
+              Nos Cenários A, B e C, o investidor decide resgatar porque quer.
+              No Cenário D, o investidor <strong class="text-white">precisa</strong> de dinheiro — e descobre que está preso.
+              Essa situação é muito mais comum do que parece. Uma emergência médica, um conserto urgente,
+              uma oportunidade de negócio. Coisas que acontecem na vida real, fora do planejamento.
+            </p>
+          </div>
+
+          <div class="space-y-3 border-t border-yellow-800/40 pt-3">
+            <p class="text-yellow-200 font-semibold">Como o banco te convenceu a aceitar esse produto</p>
+            <div class="space-y-2">
+              <div class="flex items-start gap-3 bg-yellow-900/20 border border-yellow-800/30 rounded-xl p-3">
+                <span class="text-yellow-400 font-black text-lg shrink-0 leading-tight">1</span>
+                <div>
+                  <p class="text-gray-200 font-semibold text-xs uppercase tracking-wider mb-1">A isca dos 0,3% a mais</p>
+                  <p class="text-gray-400 leading-relaxed">
+                    O CDB sem liquidez diária paga uma taxa ligeiramente maior — digamos, 115% CDI em vez de 113% CDI.
+                    O gerente enfatiza isso. Você pensa: "não vou precisar do dinheiro em 12 meses, então vale a pena."
+                    Essa frase — <em>"não vou precisar"</em> — é onde a armadilha se fecha.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 bg-yellow-900/20 border border-yellow-800/30 rounded-xl p-3">
+                <span class="text-yellow-400 font-black text-lg shrink-0 leading-tight">2</span>
+                <div>
+                  <p class="text-gray-200 font-semibold text-xs uppercase tracking-wider mb-1">O problema do "tudo ou nada"</p>
+                  <p class="text-gray-400 leading-relaxed">
+                    Você precisava de R$&nbsp;3.000. Tem R$&nbsp;{{ fmtRS(sim.valorFinal) }} no banco.
+                    Mas o banco não fracionou seu título — é um contrato único.
+                    Suas opções são: <strong class="text-white">não pegar nada</strong> (esperar o vencimento) ou
+                    <strong class="text-white">pegar tudo</strong> (R$&nbsp;{{ fmtRS(sim.valorFinal) }}) e perder o contrato.
+                    Não existe meio-termo. Para acessar R$&nbsp;3.000, você é forçado a mexer em R$&nbsp;{{ fmtRS(sim.valorFinal) }}.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 bg-yellow-900/20 border border-yellow-800/30 rounded-xl p-3">
+                <span class="text-yellow-400 font-black text-lg shrink-0 leading-tight">3</span>
+                <div>
+                  <p class="text-gray-200 font-semibold text-xs uppercase tracking-wider mb-1">O custo invisível: perder os próximos 11 meses de juros</p>
+                  <p class="text-gray-400 leading-relaxed">
+                    Se você resgatar agora, recebe os juros de 30 dias. Mas perde os juros dos próximos 11 meses.
+                    Com R$&nbsp;{{ fmtRS(sim.principal) }} a {{ sim.cdiAaPct.toFixed(2) }}% a.a., os 11 meses seguintes renderiam aproximadamente
+                    <strong class="text-white">R$&nbsp;{{ fmtRS(sim.principal * (Math.pow(1 + sim.cdiAaPct/100, 335/365) - 1) * 0.775) }}</strong> líquidos.
+                    Tudo isso perdido porque você precisava de R$&nbsp;3.000 e não tinha um produto fracionado ou reserva separada.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 bg-red-900/20 border border-red-800/30 rounded-xl p-3">
+                <span class="text-red-400 font-black text-lg shrink-0 leading-tight">4</span>
+                <div>
+                  <p class="text-gray-200 font-semibold text-xs uppercase tracking-wider mb-1">O banco se beneficia duas vezes</p>
+                  <p class="text-gray-400 leading-relaxed">
+                    Primeiro quando você investe sem liquidez — o banco usa seu dinheiro por 12 meses com mais segurança.
+                    Segundo quando você resgata antecipado — você reinveste o dinheiro num novo produto,
+                    possivelmente com taxa menor (as taxas mudam), e o banco fecha um novo contrato.
+                    <strong class="text-orange-300">Dois negócios pelo preço de um, às suas custas.</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <p class="text-yellow-400 text-xs font-semibold border-t border-yellow-800/40 pt-3">
+              A proteção é simples: nunca invista mais do que pode imobilizar, e sempre mantenha uma reserva de emergência
+              em produto com liquidez diária — mesmo que renda um pouco menos. A diferença de 0,3% a.a. não vale a armadilha do "tudo ou nada".
+            </p>
+          </div>
         </div>
       </div>
     </section>
