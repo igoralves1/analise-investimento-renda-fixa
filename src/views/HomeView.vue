@@ -2763,6 +2763,271 @@
       </div>
     </section>
 
+    <!-- ── Cenário I: A estratégia profissional ────────────────────────────── -->
+    <section class="space-y-5">
+
+      <!-- Cabeçalho do cenário -->
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="text-gray-500 font-mono text-xs bg-gray-800 px-2.5 py-1 rounded-full">Cenário I</span>
+        <span class="badge-amber">Estratégia avançada</span>
+        <span class="badge-blue">FGC maximizado</span>
+        <span class="badge-yellow">Mercado secundário</span>
+      </div>
+
+      <div>
+        <h2 class="section-title">A estratégia profissional: FGC + deságio no mercado secundário</h2>
+        <p class="text-gray-400 leading-relaxed">
+          Um investidor sofisticado com R$ 600.000,00 não alocaria tudo num único banco nem esperaria
+          pelas taxas de balcão. Ele dividiria o capital em <strong class="text-white">três instituições</strong>,
+          usaria o mercado secundário para comprar CDBs com deságio e garantiria cobertura total do FGC
+          em cada posição.
+        </p>
+      </div>
+
+      <!-- Divisão dos R$ 600 k -->
+      <div class="card space-y-5">
+        <h3 class="font-semibold text-white">Divisão do capital — cobertura FGC completa</h3>
+
+        <div class="grid sm:grid-cols-3 gap-4">
+          <!-- Banco A -->
+          <div class="bg-blue-900/20 border border-blue-800/50 rounded-xl p-4 space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-xs">A</span>
+              <span class="text-blue-300 font-semibold text-sm">Banco A</span>
+            </div>
+            <p class="text-blue-100 font-black text-2xl">R$ 100k</p>
+            <p class="text-blue-400 text-xs leading-relaxed">Fundo de saques — líquido, CDB com liquidez diária ou Tesouro Selic. Cobre 24 meses de retiradas (R$ 4.000 × 24).</p>
+            <div class="border-t border-blue-800/50 pt-2 space-y-1 text-xs text-blue-300">
+              <div class="flex justify-between"><span>Taxa efetiva</span><span class="font-semibold">109% CDI</span></div>
+              <div class="flex justify-between"><span>Rend. liq./mês</span><span class="font-semibold">{{ fmtRS(simI.bankANetMes) }}</span></div>
+              <div class="flex justify-between"><span>Saldo em 12 m</span><span class="font-semibold">{{ fmtRS(simI.bankA12) }}</span></div>
+            </div>
+          </div>
+
+          <!-- Banco B -->
+          <div class="bg-amber-900/20 border border-amber-800/50 rounded-xl p-4 space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="w-7 h-7 rounded-full bg-amber-600 flex items-center justify-center text-white font-black text-xs">B</span>
+              <span class="text-amber-300 font-semibold text-sm">Banco B</span>
+            </div>
+            <p class="text-amber-100 font-black text-2xl">R$ 250k</p>
+            <p class="text-amber-400 text-xs leading-relaxed">CDBs de mercado secundário com deságio. Muitos títulos pequenos — reduz risco de liquidez própria. Limite FGC máximo.</p>
+            <div class="border-t border-amber-800/50 pt-2 space-y-1 text-xs text-amber-300">
+              <div class="flex justify-between"><span>Taxa efetiva (est.)</span><span class="font-semibold">~130% CDI</span></div>
+              <div class="flex justify-between"><span>FGC coberto</span><span class="font-semibold text-green-400">✓ 100%</span></div>
+              <div class="flex justify-between"><span>Saldo em 12 m</span><span class="font-semibold">{{ fmtRS(simI.bankBC12 / 2) }}</span></div>
+            </div>
+          </div>
+
+          <!-- Banco C -->
+          <div class="bg-amber-900/20 border border-amber-800/50 rounded-xl p-4 space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="w-7 h-7 rounded-full bg-amber-500 flex items-center justify-center text-white font-black text-xs">C</span>
+              <span class="text-amber-300 font-semibold text-sm">Banco C</span>
+            </div>
+            <p class="text-amber-100 font-black text-2xl">R$ 250k</p>
+            <p class="text-amber-400 text-xs leading-relaxed">Mesmo princípio do Banco B. Segunda instituição separada garante cobertura FGC independente. Diversificação total de risco de crédito.</p>
+            <div class="border-t border-amber-800/50 pt-2 space-y-1 text-xs text-amber-300">
+              <div class="flex justify-between"><span>Taxa efetiva (est.)</span><span class="font-semibold">~130% CDI</span></div>
+              <div class="flex justify-between"><span>FGC coberto</span><span class="font-semibold text-green-400">✓ 100%</span></div>
+              <div class="flex justify-between"><span>Saldo em 12 m</span><span class="font-semibold">{{ fmtRS(simI.bankBC12 / 2) }}</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Totais -->
+        <div class="bg-gray-800/60 rounded-xl p-4 grid sm:grid-cols-4 gap-4 text-center">
+          <div>
+            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Capital inicial</p>
+            <p class="text-white font-black text-lg">R$ 600.000</p>
+          </div>
+          <div>
+            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Saldo em 12 meses</p>
+            <p class="text-amber-400 font-black text-lg">{{ fmtRS(simI.total12) }}</p>
+          </div>
+          <div>
+            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Saldo em 24 meses</p>
+            <p class="text-amber-400 font-black text-lg">{{ fmtRS(simI.total24) }}</p>
+          </div>
+          <div>
+            <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Vantagem vs CDB simples</p>
+            <p class="text-green-400 font-black text-lg">+{{ fmtRS(simI.advantage12) }}</p>
+            <p class="text-gray-600 text-xs">em 12 meses</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Como funciona o deságio -->
+      <div class="card space-y-4">
+        <h3 class="font-semibold text-white">Como o deságio do mercado secundário funciona</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          No mercado secundário, você compra CDBs de outros investidores que <em>precisam vender antes do vencimento</em>.
+          Quem vende aceita receber menos do que o título vale — o chamado <strong class="text-white">deságio</strong>.
+          Para você, comprador, esse desconto se traduz numa rentabilidade efetiva maior do que a taxa original do papel.
+        </p>
+
+        <div class="bg-gray-800/60 rounded-xl p-4 space-y-3 text-sm">
+          <p class="text-gray-300 font-semibold">Exemplo concreto:</p>
+          <div class="grid sm:grid-cols-3 gap-3 text-center">
+            <div class="bg-gray-900 rounded-lg p-3">
+              <p class="text-gray-500 text-xs mb-1">Título original</p>
+              <p class="text-white font-bold">CDB 110% CDI</p>
+              <p class="text-gray-400 text-xs">Vence em 18 meses</p>
+              <p class="text-gray-400 text-xs">Valor justo: R$ 25.000</p>
+            </div>
+            <div class="bg-red-900/30 rounded-lg p-3 border border-red-800/50">
+              <p class="text-red-400 text-xs mb-1">Vendedor (urgência)</p>
+              <p class="text-white font-bold">Vende por R$ 23.800</p>
+              <p class="text-red-400 text-xs">Desconto de 4,8%</p>
+              <p class="text-gray-400 text-xs">Necessidade de liquidez</p>
+            </div>
+            <div class="bg-green-900/30 rounded-lg p-3 border border-green-800/50">
+              <p class="text-green-400 text-xs mb-1">Comprador (você)</p>
+              <p class="text-white font-bold">Recebe R$ 25.000</p>
+              <p class="text-green-400 text-xs">+R$ 1.200 de ganho extra</p>
+              <p class="text-gray-400 text-xs">≈ 130–140% CDI efetivo</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-yellow-900/20 border border-yellow-800/50 rounded-xl p-4 text-sm text-yellow-300 space-y-2">
+          <p class="font-semibold">⚠️ O que analisar antes de comprar no secundário:</p>
+          <ul class="space-y-1 text-yellow-200/80 list-none">
+            <li>✦ <strong>Solidez do emissor:</strong> o FGC cobre até R$ 250k por CPF por instituição — mas o FGC só paga após a decretação de intervenção ou liquidação. Há um intervalo de meses sem acesso ao capital.</li>
+            <li>✦ <strong>Prazo restante:</strong> prefira vencimentos dentro do seu horizonte de investimento (≤ 24 meses no cenário atual).</li>
+            <li>✦ <strong>IR já incorrido:</strong> o IR é cobrado sobre o ganho total desde a emissão original — não apenas sobre o período que você ficou com o papel.</li>
+            <li>✦ <strong>Liquidez de saída:</strong> se você precisar vender antes do vencimento, também entrará no secundário como vendedor. Quanto mais diversificado (muitos títulos pequenos), menor o impacto de um eventual deságio de saída.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Por que diversificar dentro de B e C -->
+      <div class="card space-y-4">
+        <h3 class="font-semibold text-white">Por que comprar muitos CDBs pequenos em vez de um grande?</h3>
+        <div class="grid sm:grid-cols-2 gap-4 text-sm">
+          <div class="bg-red-900/20 border border-red-800/40 rounded-xl p-4 space-y-2">
+            <p class="text-red-300 font-semibold">❌ Concentração: 1 CDB de R$ 250k</p>
+            <ul class="text-gray-400 space-y-1 list-none">
+              <li>• Se você precisar de R$ 50k de volta, precisa vender o título inteiro</li>
+              <li>• Deságio calculado sobre R$ 250k — perda maior em valor absoluto</li>
+              <li>• Se o emissor tiver problema: R$ 250k travados até o FGC pagar</li>
+              <li>• Nenhuma flexibilidade de gestão</li>
+            </ul>
+          </div>
+          <div class="bg-green-900/20 border border-green-800/40 rounded-xl p-4 space-y-2">
+            <p class="text-green-300 font-semibold">✓ Diversificação: 10 CDBs de R$ 25k cada</p>
+            <ul class="text-gray-400 space-y-1 list-none">
+              <li>• Precisa de R$ 50k? Vende apenas 2 títulos, os outros continuam rendendo</li>
+              <li>• Deságio de saída sobre R$ 25k — impacto percentualmente equivalente, mas controlável</li>
+              <li>• Pode escalonar vencimentos: alguns em 6 m, outros em 12 m, 18 m, 24 m</li>
+              <li>• Maior liquidez real na prática</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resultados projetados -->
+      <div class="card space-y-4">
+        <h3 class="font-semibold text-white">Resultados projetados — Estratégia I</h3>
+        <div class="grid sm:grid-cols-2 gap-6">
+          <div class="space-y-3">
+            <p class="text-gray-500 text-xs uppercase tracking-wider font-semibold">12 meses</p>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between border-b border-gray-800 pb-1">
+                <span class="text-gray-400">Banco A (R$100k, R$4k/mês)</span>
+                <span class="text-blue-400 font-semibold">{{ fmtRS(simI.bankA12) }}</span>
+              </div>
+              <div class="flex justify-between border-b border-gray-800 pb-1">
+                <span class="text-gray-400">Bancos B+C (R$500k, s/ retirada)</span>
+                <span class="text-amber-400 font-semibold">{{ fmtRS(simI.bankBC12) }}</span>
+              </div>
+              <div class="flex justify-between border-b border-gray-800 pb-1">
+                <span class="text-gray-400">Saques realizados</span>
+                <span class="text-red-400 font-semibold">−R$ 48.000</span>
+              </div>
+              <div class="flex justify-between pt-1">
+                <span class="text-white font-semibold">Total patrimonial</span>
+                <span class="text-amber-300 font-black text-base">{{ fmtRS(simI.total12) }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <p class="text-gray-500 text-xs uppercase tracking-wider font-semibold">24 meses (ao final)</p>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between border-b border-gray-800 pb-1">
+                <span class="text-gray-400">Banco A (esgotado ~mês 24)</span>
+                <span class="text-blue-400 font-semibold">{{ fmtRS(simI.bankA24) }}</span>
+              </div>
+              <div class="flex justify-between border-b border-gray-800 pb-1">
+                <span class="text-gray-400">Bancos B+C (sem retiradas)</span>
+                <span class="text-amber-400 font-semibold">{{ fmtRS(simI.bankBC24) }}</span>
+              </div>
+              <div class="flex justify-between border-b border-gray-800 pb-1">
+                <span class="text-gray-400">Total sacado em 24 meses</span>
+                <span class="text-red-400 font-semibold">−{{ fmtRS(simI.totalRetirado24) }}</span>
+              </div>
+              <div class="flex justify-between pt-1">
+                <span class="text-white font-semibold">Total patrimonial</span>
+                <span class="text-amber-300 font-black text-base">{{ fmtRS(simI.total24) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comparação vs estratégia simples -->
+        <div class="border-t border-gray-700 pt-4">
+          <p class="text-gray-500 text-xs uppercase tracking-wider mb-3 font-semibold">Estratégia I vs abordagem simples (tudo em CDB 109% CDI com saques)</p>
+          <div class="grid sm:grid-cols-3 gap-3 text-center text-sm">
+            <div class="bg-gray-800/60 rounded-lg p-3">
+              <p class="text-gray-500 text-xs mb-1">CDB 109% c/ saques</p>
+              <p class="text-white font-bold">{{ fmtRS(simI.simpleAll12) }}</p>
+              <p class="text-gray-500 text-xs">em 12 meses</p>
+            </div>
+            <div class="bg-amber-900/30 rounded-lg p-3 border border-amber-800/40">
+              <p class="text-amber-400 text-xs mb-1">Estratégia I (total)</p>
+              <p class="text-amber-300 font-bold">{{ fmtRS(simI.total12) }}</p>
+              <p class="text-gray-500 text-xs">em 12 meses</p>
+            </div>
+            <div class="bg-green-900/30 rounded-lg p-3 border border-green-800/40">
+              <p class="text-green-400 text-xs mb-1">Vantagem do deságio</p>
+              <p class="text-green-300 font-bold">+{{ fmtRS(simI.advantage12) }}</p>
+              <p class="text-gray-500 text-xs">ganho adicional em 12 m</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart I -->
+        <div class="border-t border-amber-700/40 pt-4 space-y-1">
+          <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">📈 Projeção 12 meses — Estratégia I (total) vs CDB simples vs Banco A</p>
+          <MiniLineChart :series="chartI" :x-labels="xLabels" />
+        </div>
+      </div>
+
+      <!-- Riscos e cuidados -->
+      <div class="bg-red-950/30 border border-red-800/50 rounded-2xl p-5 space-y-3">
+        <p class="text-red-300 font-bold text-base">⚠️ Riscos que esta estratégia não elimina</p>
+        <div class="grid sm:grid-cols-2 gap-4 text-sm text-gray-400">
+          <div class="space-y-1">
+            <p class="text-white font-medium">Risco de timing do FGC</p>
+            <p>O FGC não é imediato. Em caso de intervenção, o capital fica bloqueado por meses. Bancos B e C não devem ser os únicos suportes de liquidez — por isso o Banco A é essencial.</p>
+          </div>
+          <div class="space-y-1">
+            <p class="text-white font-medium">Risco de análise do emissor</p>
+            <p>CDBs no secundário com deságio grande podem sinalizar stress financeiro do emissor. Avalie o rating, o porte e as notícias recentes antes de comprar — não compre só pelo rendimento.</p>
+          </div>
+          <div class="space-y-1">
+            <p class="text-white font-medium">Risco de IR acumulado</p>
+            <p>O IR sobre CDB no secundário incide sobre o ganho total desde a emissão original. Se o papel foi emitido há poucos meses, a alíquota pode ser 22,5% — mesmo que você compre faltando 20 meses para vencer.</p>
+          </div>
+          <div class="space-y-1">
+            <p class="text-white font-medium">Risco de liquidez de saída</p>
+            <p>Se você precisar vender antes do vencimento, entrará como vendedor no secundário e sofrerá deságio. A diversificação em muitos títulos pequenos reduz — mas não elimina — esse risco.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
     <!-- CTA -->
     <section class="text-center space-y-4 pb-4">
       <h2 class="text-2xl font-bold text-white">Pronto para calcular sem enganos?</h2>
@@ -3367,6 +3632,55 @@ const chartH = [
   { label: 'CDB 109% R$4k/mês', color: '#f59e0b',
     data: buildSim(600_000, _r109, 0.225, 12, () => 4_000) },
 ]
+
+// ─── Cenário I: FGC + Mercado Secundário ────────────────────────────────────
+// CDB de mercado secundário com deságio → rentabilidade efetiva ~130% CDI
+const _r130 = Math.pow(1 + 14.65 / 100 * 1.30, 1 / 12) - 1
+
+const simI = (() => {
+  const bankAstart  = 100_000   // fundo de saques — líquido, 24 meses
+  const bankBCstart = 500_000   // mercado secundário — R$250k Banco B + R$250k Banco C
+  const retirada    = 4_000
+  const ir          = 0.225
+
+  const bankA12pts  = buildSim(bankAstart,  _r109, ir, 12, () => retirada)
+  const bankBC12pts = buildSim(bankBCstart, _r130, ir, 12)
+  const simpleAll12 = buildSim(600_000,     _r109, ir, 12, () => retirada)
+
+  const bankA24pts  = buildSim(bankAstart,  _r109, ir, 24, () => retirada)
+  const bankBC24pts = buildSim(bankBCstart, _r130, ir, 24)
+
+  const bankA12  = bankA12pts[12]
+  const bankBC12 = bankBC12pts[12]
+  const total12  = bankA12 + bankBC12
+
+  const bankA24  = bankA24pts[24]
+  const bankBC24 = bankBC24pts[24]
+  const total24  = bankA24 + bankBC24
+
+  return {
+    bankAstart, bankBCstart,
+    bankA12, bankBC12, total12,
+    simpleAll12: simpleAll12[12],
+    advantage12: total12 - simpleAll12[12],
+    bankA24, bankBC24, total24,
+    bankANetMes:  bankAstart  * _r109 * (1 - ir),
+    bankBCNetMes: bankBCstart * _r130 * (1 - ir),
+    totalRetirado24: retirada * 24,
+  }
+})()
+
+const chartI = (() => {
+  const bankA     = buildSim(100_000, _r109, 0.225, 12, () => 4_000)
+  const bankBC    = buildSim(500_000, _r130, 0.225, 12)
+  const total     = bankA.map((v, i) => v + bankBC[i])
+  const simpleAll = buildSim(600_000, _r109, 0.225, 12, () => 4_000)
+  return [
+    { label: 'Estratégia I (total)',   color: '#f59e0b', area: true,   data: total },
+    { label: 'CDB 109% c/ R$4k/mês',  color: '#6b7280', dashed: true, data: simpleAll },
+    { label: 'Banco A (caixa liq.)',   color: '#3b82f6',               data: bankA },
+  ]
+})()
 
 const cdi = 14.65
 const equivalencias = [
