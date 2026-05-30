@@ -415,6 +415,143 @@
       </div>
     </section>
 
+    <!-- Armadilha do marketplace: quem emite o CDB? -->
+    <section class="space-y-6">
+      <div>
+        <p class="text-green-400 text-xs font-semibold tracking-widest uppercase mb-1">O quarto engano</p>
+        <h2 class="section-title">O CDB que você vê no app do BTG pode não ser do BTG</h2>
+        <p class="text-gray-400 leading-relaxed">
+          Quando você abre o app de um banco grande ou corretora e vê uma lista de CDBs com taxas de
+          <strong class="text-white">109%, 115%, 120% do CDI</strong>, a primeira pergunta que você deveria fazer
+          não é "quanto rende?" — é <strong class="text-white">"quem está emitindo esse papel?"</strong>
+        </p>
+      </div>
+
+      <!-- Primário vs Secundário -->
+      <div class="card space-y-5">
+        <h3 class="font-semibold text-white">Mercado primário vs secundário: a diferença que o banco não explica</h3>
+
+        <div class="grid sm:grid-cols-2 gap-4 text-sm">
+          <div class="bg-blue-900/20 border border-blue-800/40 rounded-xl p-4 space-y-2">
+            <p class="text-blue-300 font-semibold">📦 Mercado primário (99% do que você vê)</p>
+            <p class="text-gray-400 leading-relaxed">
+              Um banco pequeno precisa captar dinheiro. Ele <em>emite um CDB novo</em> e contrata o BTG, a XP ou o
+              Nubank para distribuí-lo para os clientes deles. O BTG é só o <strong class="text-white">vendedor</strong> —
+              o seu credor, de fato, é o banco pequeno emissor.
+            </p>
+            <div class="bg-blue-900/30 rounded-lg p-2 text-xs text-blue-300 space-y-0.5">
+              <p>Emissor → BTG (distribuidor) → Você</p>
+              <p class="text-gray-500">BTG ganha comissão. Risco é do emissor.</p>
+            </div>
+          </div>
+          <div class="bg-amber-900/20 border border-amber-800/40 rounded-xl p-4 space-y-2">
+            <p class="text-amber-300 font-semibold">🔄 Mercado secundário (raro, mas existe)</p>
+            <p class="text-gray-400 leading-relaxed">
+              Outro investidor precisa vender o CDB que já tem. A corretora conecta comprador e vendedor e
+              ganha um spread. O título já existe — você está comprando de outra pessoa, geralmente
+              com <strong class="text-white">deságio</strong> (como explicado no Cenário I).
+            </p>
+            <div class="bg-amber-900/30 rounded-lg p-2 text-xs text-amber-300 space-y-0.5">
+              <p>Investidor A → BTG (intermediário) → Você</p>
+              <p class="text-gray-500">Oportunidade de comprar com desconto.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-800/60 rounded-xl p-4 text-sm text-gray-300 leading-relaxed">
+          <strong class="text-white">Analogia direta:</strong> comprar no primário é como comprar um carro
+          <em>0 km</em> numa concessionária que revende várias montadoras. O preço é o de tabela e quem
+          fabricou foi outra empresa. Comprar no secundário é comprar um carro <em>usado</em> de outro dono,
+          negociando o preço — com potencial de desconto, mas exigindo mais análise.
+        </div>
+      </div>
+
+      <!-- Por que taxas altas -->
+      <div class="card space-y-4">
+        <h3 class="font-semibold text-white">Por que bancos pequenos pagam mais? Existe motivo.</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          Se o Banco Master oferece 115% do CDI e o Itaú oferece 98%, isso não é generosidade.
+          É o mercado cobrando um <strong class="text-white">prêmio de risco</strong>: o Banco Master
+          precisa pagar mais porque os investidores exigem uma compensação pelo risco maior de crédito.
+        </p>
+
+        <div class="grid sm:grid-cols-3 gap-3 text-center text-sm">
+          <div class="bg-green-900/20 border border-green-800/40 rounded-xl p-3 space-y-1">
+            <p class="text-green-400 font-semibold">Itaú — 98% CDI</p>
+            <p class="text-gray-400 text-xs">Banco "grande demais para quebrar". Risco baixíssimo percebido pelo mercado.</p>
+            <span class="badge-green text-xs">Baixo risco</span>
+          </div>
+          <div class="bg-yellow-900/20 border border-yellow-800/40 rounded-xl p-3 space-y-1">
+            <p class="text-yellow-400 font-semibold">Banco médio — 109% CDI</p>
+            <p class="text-gray-400 text-xs">Sólido, mas menor e menos diversificado. Prêmio razoável pelo risco.</p>
+            <span class="badge-yellow text-xs">Risco moderado</span>
+          </div>
+          <div class="bg-red-900/20 border border-red-800/40 rounded-xl p-3 space-y-1">
+            <p class="text-red-400 font-semibold">Banco pequeno — 120%+ CDI</p>
+            <p class="text-gray-400 text-xs">Alta taxa = mercado exigindo prêmio elevado. Pode render mais — ou pode ter problemas.</p>
+            <span class="badge-red text-xs">Risco elevado</span>
+          </div>
+        </div>
+
+        <div class="bg-red-950/40 border border-red-800/60 rounded-xl p-4 space-y-2 text-sm">
+          <p class="text-red-300 font-bold">O caso Banco Master — a armadilha se concretizou</p>
+          <p class="text-gray-400 leading-relaxed">
+            Em 2024–2025, plataformas como XP e BTG distribuíram massivamente CDBs do Banco Master com
+            taxas altas e o argumento "tem FGC". Quando o banco entrou em dificuldades, milhares de
+            investidores descobriram que <strong class="text-white">FGC não é instantâneo</strong> —
+            o processo de pagamento pode levar meses, durante os quais o capital fica bloqueado.
+            Quem precisava do dinheiro antes da resolução ficou sem acesso.
+          </p>
+          <p class="text-red-400 text-xs font-semibold">
+            A taxa era boa. O risco não estava no folheto. E a plataforma que vendeu ganhou a comissão de qualquer forma.
+          </p>
+        </div>
+      </div>
+
+      <!-- Como se proteger -->
+      <div class="card space-y-4">
+        <h3 class="font-semibold text-white">Como se proteger: 3 perguntas antes de comprar qualquer CDB</h3>
+        <div class="space-y-3">
+          <div class="flex gap-3 items-start bg-gray-800/60 rounded-xl p-4">
+            <span class="text-green-400 font-black text-lg shrink-0">1</span>
+            <div>
+              <p class="text-white font-semibold text-sm">Quem é o EMISSOR — não quem está vendendo?</p>
+              <p class="text-gray-400 text-xs mt-1">
+                No extrato, no contrato e na nota de corretagem, o emissor deve aparecer.
+                Pesquise o nome do banco emissor no site do Banco Central
+                (<strong class="text-green-400">bcb.gov.br → Instituições</strong>) e verifique se há
+                restrições, processos administrativos ou intervenções em andamento.
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-3 items-start bg-gray-800/60 rounded-xl p-4">
+            <span class="text-green-400 font-black text-lg shrink-0">2</span>
+            <div>
+              <p class="text-white font-semibold text-sm">O meu total nessa instituição está dentro do limite do FGC?</p>
+              <p class="text-gray-400 text-xs mt-1">
+                Limite: <strong class="text-white">R$ 250.000 por CPF por CNPJ emissor</strong>
+                (não por plataforma distribuidora). Se você tem R$ 100k no CDB do Banco X distribuído
+                pelo BTG <em>e</em> R$ 200k no CDB do mesmo Banco X distribuído pela XP,
+                você tem R$ 300k expostos ao Banco X — e R$ 50k fora da cobertura.
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-3 items-start bg-gray-800/60 rounded-xl p-4">
+            <span class="text-green-400 font-black text-lg shrink-0">3</span>
+            <div>
+              <p class="text-white font-semibold text-sm">Eu preciso desse dinheiro antes do vencimento?</p>
+              <p class="text-gray-400 text-xs mt-1">
+                Em caso de intervenção do FGC, o acesso ao capital fica suspenso por meses.
+                Se o banco A do Cenário I (fundo de saques) está num emissor em stress,
+                você não tem de onde retirar os R$ 4.000 mensais enquanto espera.
+                <strong class="text-white">Liquidez de emergência nunca deve depender de banco de risco elevado.</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Resgate antecipado -->
     <section class="space-y-6">
       <div>
