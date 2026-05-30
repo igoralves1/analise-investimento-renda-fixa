@@ -2056,6 +2056,475 @@
       </div>
     </section>
 
+    <!-- Divisor: Tesouro Direto -->
+    <div class="flex items-center gap-4">
+      <div class="flex-1 h-px bg-gray-800"></div>
+      <p class="text-xs text-gray-600 uppercase tracking-widest font-semibold shrink-0">Tesouro Direto — você como credor do Estado</p>
+      <div class="flex-1 h-px bg-gray-800"></div>
+    </div>
+
+    <!-- Introdução Tesouro Direto -->
+    <section class="space-y-6">
+      <div>
+        <p class="text-indigo-400 text-xs font-semibold tracking-widest uppercase mb-1">O que é o Tesouro Direto?</p>
+        <h2 class="section-title">Você emprestando dinheiro diretamente ao governo federal</h2>
+        <p class="text-gray-400 leading-relaxed">
+          O <strong class="text-white">Tesouro Direto</strong> é o programa do governo federal que permite a <strong class="text-white">qualquer pessoa física</strong>
+          comprar títulos da dívida pública brasileira diretamente — sem intermediário bancário.
+          Você se torna um credor do Estado: empresta dinheiro à União e recebe de volta com juros.
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-4 text-sm">
+        <div class="bg-indigo-950/40 border border-indigo-800/50 rounded-2xl p-4 space-y-2">
+          <p class="text-indigo-300 font-bold">🏛️ Risco de crédito zero</p>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            O governo federal detém o monopólio da emissão de moeda e o poder de tributar toda a economia.
+            É tecnicamente impossível o Tesouro Nacional dar calote num título em Reais — ele pode emitir mais moeda
+            se necessário. É o ativo de menor risco do país.
+          </p>
+        </div>
+        <div class="bg-gray-800/50 border border-gray-700 rounded-2xl p-4 space-y-2">
+          <p class="text-gray-200 font-bold">💰 Aportes a partir de R$&nbsp;30</p>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            Democrático por definição: qualquer pessoa com CPF e conta numa corretora habilitada pode investir.
+            Transparência total de taxas. Liquidez garantida pelo Tesouro Nacional (recompra diária).
+          </p>
+        </div>
+        <div class="bg-yellow-950/40 border border-yellow-800/50 rounded-2xl p-4 space-y-2">
+          <p class="text-yellow-300 font-bold">⚠️ Alerta: marcação a mercado</p>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            Com exceção do Tesouro Selic, os títulos pré-fixados e IPCA+ sofrem variação de preço diária
+            com as expectativas de juros. Se você vender antes do vencimento, pode receber mais ou menos
+            do que o esperado. A taxa contratada só é garantida no vencimento.
+          </p>
+        </div>
+      </div>
+      <div class="card overflow-x-auto space-y-2">
+        <p class="text-gray-400 text-xs font-semibold uppercase tracking-wider">Os três títulos disponíveis — características e quando usar</p>
+        <table class="w-full text-sm mt-2">
+          <thead>
+            <tr class="text-gray-500 text-xs uppercase tracking-wider border-b border-gray-800">
+              <th class="text-left py-2 pr-4">Título</th>
+              <th class="text-left py-2 pr-4">Indexador</th>
+              <th class="text-left py-2 pr-4">Liquidez</th>
+              <th class="text-left py-2 pr-4">Risco MtM</th>
+              <th class="text-left py-2">Ideal para</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-800 text-xs">
+            <tr class="hover:bg-gray-800/40">
+              <td class="py-3 pr-4 font-bold text-indigo-300">Tesouro Selic</td>
+              <td class="py-3 pr-4 text-gray-300">100% Selic</td>
+              <td class="py-3 pr-4 text-green-400">D+1 sem risco</td>
+              <td class="py-3 pr-4 text-green-400">Praticamente zero</td>
+              <td class="py-3 text-gray-400">Reserva de emergência, saques regulares</td>
+            </tr>
+            <tr class="hover:bg-gray-800/40">
+              <td class="py-3 pr-4 font-bold text-purple-300">Tesouro IPCA+</td>
+              <td class="py-3 pr-4 text-gray-300">IPCA + taxa real (~7,8%)</td>
+              <td class="py-3 pr-4 text-yellow-400">D+1 com MtM</td>
+              <td class="py-3 pr-4 text-yellow-400">Médio (até o vencimento)</td>
+              <td class="py-3 text-gray-400">Previdência, independência financeira</td>
+            </tr>
+            <tr class="hover:bg-gray-800/40">
+              <td class="py-3 pr-4 font-bold text-emerald-300">Tesouro Pré-fixado</td>
+              <td class="py-3 pr-4 text-gray-300">Taxa fixa definida na compra</td>
+              <td class="py-3 pr-4 text-yellow-400">D+1 com MtM</td>
+              <td class="py-3 pr-4 text-yellow-400">Médio (antes do vencimento)</td>
+              <td class="py-3 text-gray-400">Topo do ciclo de juros, aposta na queda da Selic</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="text-xs text-gray-600 pt-1 border-t border-gray-800">
+          Fonte: Tesouro Nacional (tesourodireto.com.br) · Taxa CDI = 14,65% a.a. · IPCA projetado = 5,5% a.a. · Tesouro IPCA+ taxa real = ~7,8% a.a.
+        </p>
+      </div>
+    </section>
+
+    <!-- Cenário F: Tesouro Selic -->
+    <section class="space-y-6">
+      <div class="card space-y-5 border-indigo-800/40">
+        <div class="flex items-center gap-2">
+          <span class="badge-indigo">Cenário F</span>
+          <h3 class="font-semibold text-white">Tesouro Selic — R$&nbsp;4.000/mês com o menor risco do mercado</h3>
+        </div>
+
+        <!-- O que é -->
+        <div class="bg-indigo-950/30 border border-indigo-700/40 rounded-2xl p-4 space-y-3">
+          <p class="text-indigo-200 font-bold text-sm">O que é o Tesouro Selic?</p>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            É o título público <strong class="text-white">pós-fixado</strong> do governo federal, atrelado à taxa Selic.
+            Funciona de forma análoga a um CDB com liquidez diária, mas com duas diferenças fundamentais:
+            <strong class="text-indigo-300">risco de crédito zero</strong> (quem garante é o governo, não um banco)
+            e <strong class="text-indigo-300">sem risco de marcação a mercado</strong> — o preço sobe todos os dias,
+            sem oscilações para baixo, independente do cenário de juros.
+          </p>
+          <div class="grid sm:grid-cols-2 gap-3 text-xs">
+            <div class="bg-green-900/20 border border-green-800/40 rounded-xl p-3 space-y-1">
+              <p class="text-green-400 font-semibold">✓ Vantagens</p>
+              <ul class="text-gray-400 space-y-0.5">
+                <li>▸ Resgate em D+1 via Pix (dias úteis)</li>
+                <li>▸ Nunca perde valor nominal</li>
+                <li>▸ Sem FGC necessário (risco soberano)</li>
+                <li>▸ A taxa atual ({{ simF.taxaAa.toFixed(2) }}% a.a.) supera qualquer poupança</li>
+              </ul>
+            </div>
+            <div class="bg-yellow-900/20 border border-yellow-800/40 rounded-xl p-3 space-y-1">
+              <p class="text-yellow-400 font-semibold">⚠ Atenção</p>
+              <ul class="text-gray-400 space-y-0.5">
+                <li>▸ IR regressivo igual ao CDB (22,5% → 15%)</li>
+                <li>▸ Taxa segue a Selic — se o Copom cortar juros, o rendimento cai</li>
+                <li>▸ Taxa de custódia B3: 0,20% a.a. (cobrada automaticamente)</li>
+                <li>▸ Saldo não tem cobertura do FGC</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key metrics -->
+        <div class="grid grid-cols-3 gap-3 text-sm text-center">
+          <div class="bg-gray-800/60 rounded-xl p-3">
+            <p class="text-gray-500 text-xs mb-1">Taxa atual</p>
+            <p class="text-indigo-400 font-black text-xl">{{ simF.taxaAa.toFixed(2) }}%</p>
+            <p class="text-gray-600 text-xs">a.a. (100% Selic)</p>
+          </div>
+          <div class="bg-green-900/20 border border-green-800/30 rounded-xl p-3">
+            <p class="text-gray-500 text-xs mb-1">Rendimento líq./mês</p>
+            <p class="text-green-400 font-black text-xl">{{ fmtRS(simF.rendNet) }}</p>
+            <p class="text-gray-600 text-xs">após IR 22,5%</p>
+          </div>
+          <div class="bg-teal-900/20 border border-teal-800/30 rounded-xl p-3">
+            <p class="text-gray-500 text-xs mb-1">Excedente após R$4k</p>
+            <p class="text-teal-400 font-black text-xl">+{{ fmtRS(simF.surplus) }}</p>
+            <p class="text-gray-600 text-xs">reinvestido todo mês</p>
+          </div>
+        </div>
+
+        <!-- Comparação com poupança -->
+        <div class="bg-red-950/30 border border-red-800/40 rounded-xl p-4 space-y-2 text-sm">
+          <p class="text-red-300 font-bold">Tesouro Selic vs Poupança — a diferença que os bancos não te contam</p>
+          <div class="grid sm:grid-cols-2 gap-4 text-xs text-gray-400">
+            <div class="space-y-1">
+              <p class="text-indigo-300 font-semibold">Tesouro Selic ({{ simF.taxaAa.toFixed(2) }}% a.a.)</p>
+              <div class="flex justify-between"><span>Rendimento líq./mês</span><span class="text-white font-mono">{{ fmtRS(simF.rendNet) }}</span></div>
+              <div class="flex justify-between"><span>Capital após 12 meses (c/ R$4k/mês)</span><span class="text-green-400 font-mono">{{ fmtRS(simF.capital12) }}</span></div>
+            </div>
+            <div class="space-y-1">
+              <p class="text-gray-400 font-semibold">Poupança (~6,17% a.a., isenta IR)</p>
+              <div class="flex justify-between"><span>Rendimento líq./mês</span><span class="text-white font-mono">{{ fmtRS(600_000 * _poupPm) }}</span></div>
+              <div class="flex justify-between"><span>Capital após 12 meses (c/ R$4k/mês)</span><span class="text-red-400 font-mono">{{ fmtRS(buildSim(600_000, _poupPm, 0, 12, () => 4_000)[12]) }}</span></div>
+            </div>
+          </div>
+          <p class="text-red-400 text-xs font-semibold pt-1 border-t border-red-800/30">
+            A Poupança rende menos da metade da Selic. Com R$4k/mês de saques, a Poupança consome o capital.
+            O Tesouro Selic cresce. Essa diferença é de
+            <strong class="text-white">{{ fmtRS(simF.capital12 - buildSim(600_000, _poupPm, 0, 12, () => 4_000)[12]) }}</strong>
+            após 12 meses.
+          </p>
+        </div>
+
+        <!-- Quando usar -->
+        <div class="rounded-2xl border border-indigo-700/50 bg-indigo-950/20 p-5 space-y-4 text-sm">
+          <p class="text-indigo-300 font-bold text-base">Quando o Tesouro Selic é a melhor escolha</p>
+          <div class="space-y-2">
+            <div class="flex items-start gap-3 bg-gray-800/50 rounded-xl p-3">
+              <span class="text-indigo-400 font-black shrink-0">1</span>
+              <div class="text-xs">
+                <p class="text-gray-200 font-semibold mb-0.5">Reserva de emergência — sem discussão</p>
+                <p class="text-gray-400">Para o dinheiro que precisa estar disponível em 24h no pior cenário, o Tesouro Selic é imbatível. Resgate em D+1, sem risco de mercado, sem haircut, rendendo mais de 14% a.a. bruto. Nenhum outro produto combina essa liquidez com esse retorno e esse risco zero.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 bg-gray-800/50 rounded-xl p-3">
+              <span class="text-indigo-400 font-black shrink-0">2</span>
+              <div class="text-xs">
+                <p class="text-gray-200 font-semibold mb-0.5">Saques mensais regulares sem penalidade</p>
+                <p class="text-gray-400">Com R$600k, o rendimento líquido de {{ fmtRS(simF.rendNet) }}/mês cobre os R$4.000 de retirada e ainda sobra {{ fmtRS(simF.surplus) }} para reinvestir. Capital após 12 meses: <strong class="text-white">{{ fmtRS(simF.capital12) }}</strong> — o patrimônio cresceu {{ fmtRS(simF.varCapital) }} mesmo sacando todo mês.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 bg-gray-800/50 rounded-xl p-3">
+              <span class="text-indigo-400 font-black shrink-0">3</span>
+              <div class="text-xs">
+                <p class="text-gray-200 font-semibold mb-0.5">Enquanto decide onde investir</p>
+                <p class="text-gray-400">Recebeu uma herança? Vendeu um imóvel? Precisa decidir onde alocar R$600k mas não quer correr riscos enquanto pesquisa? O Tesouro Selic é o "estacionamento" mais seguro e rentável do Brasil enquanto você avalia as opções.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart F -->
+        <div class="border-t border-indigo-700/40 pt-4 space-y-1">
+          <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">📈 Projeção 12 meses — Tesouro Selic vs Poupança: R$4k/mês mostra a divergência real</p>
+          <MiniLineChart :series="chartF" :x-labels="xLabels" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Cenário G: Tesouro IPCA+ -->
+    <section class="space-y-6">
+      <div class="card space-y-5 border-purple-800/40">
+        <div class="flex items-center gap-2">
+          <span class="badge-purple">Cenário G</span>
+          <h3 class="font-semibold text-white">Tesouro IPCA+ — Seu poder de compra protegido para sempre</h3>
+        </div>
+
+        <!-- O que é -->
+        <div class="bg-purple-950/30 border border-purple-700/40 rounded-2xl p-4 space-y-3">
+          <p class="text-purple-200 font-bold text-sm">O que é o Tesouro IPCA+?</p>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            É o título <strong class="text-white">híbrido</strong> do Tesouro Nacional: paga
+            <strong class="text-purple-300">IPCA + taxa real fixa</strong> (atualmente ~7,8% a.a.).
+            Isso significa que seu rendimento <em>real</em> é garantido independente da inflação futura —
+            se o IPCA subir para 10%, você recebe 10% + 7,8%. Se cair para 3%, você recebe 3% + 7,8%.
+            É o único ativo que garante a <strong class="text-white">manutenção permanente do poder de compra</strong>
+            com rentabilidade real positiva contratada.
+          </p>
+          <div class="bg-gray-900/60 border border-purple-800/30 rounded-xl p-3 text-xs">
+            <p class="text-purple-300 font-semibold mb-1">Como o rendimento é calculado:</p>
+            <div class="font-mono text-center text-purple-200 py-1">
+              (1 + IPCA) × (1 + 7,8%) − 1 = (1,055 × 1,078) − 1 ≈ {{ (simG.taxaAaNom).toFixed(2) }}% a.a. nominal
+            </div>
+            <p class="text-gray-500 text-center mt-1">Com IPCA projetado de 5,5% a.a. (FOCUS/BCB)</p>
+          </div>
+        </div>
+
+        <!-- Key metrics -->
+        <div class="grid grid-cols-3 gap-3 text-sm text-center">
+          <div class="bg-gray-800/60 rounded-xl p-3">
+            <p class="text-gray-500 text-xs mb-1">Taxa nominal atual</p>
+            <p class="text-purple-400 font-black text-xl">~{{ simG.taxaAaNom.toFixed(2) }}%</p>
+            <p class="text-gray-600 text-xs">a.a. (IPCA 5,5% + 7,8% real)</p>
+          </div>
+          <div class="bg-green-900/20 border border-green-800/30 rounded-xl p-3">
+            <p class="text-gray-500 text-xs mb-1">Rendimento líq./mês</p>
+            <p class="text-green-400 font-black text-xl">{{ fmtRS(simG.rendNet) }}</p>
+            <p class="text-gray-600 text-xs">após IR 22,5%</p>
+          </div>
+          <div class="bg-teal-900/20 border border-teal-800/30 rounded-xl p-3">
+            <p class="text-gray-500 text-xs mb-1">Capital após 12 meses</p>
+            <p class="text-teal-400 font-black text-xl">{{ fmtRS(simG.capital12) }}</p>
+            <p class="text-gray-600 text-xs">+{{ fmtRS(simG.varCapital) }} vs capital inicial</p>
+          </div>
+        </div>
+
+        <!-- Marcação a mercado -->
+        <div class="rounded-2xl border border-orange-700/50 bg-orange-950/25 p-5 space-y-3 text-sm">
+          <p class="text-orange-300 font-bold text-base">⚠ O alerta mais importante do IPCA+: marcação a mercado</p>
+          <p class="text-gray-300 leading-relaxed">
+            O IPCA+ é o investimento ideal para o <strong class="text-white">longo prazo</strong> — mas tem um risco que muitos investidores descobrem da pior forma.
+            Se você precisar vender antes do vencimento, receberá o <strong class="text-white">preço de mercado</strong> do dia, não a taxa contratada.
+          </p>
+          <div class="grid sm:grid-cols-2 gap-3 text-xs">
+            <div class="bg-red-900/20 border border-red-800/30 rounded-xl p-3 space-y-1">
+              <p class="text-red-400 font-semibold">Se a taxa de juros sobe após sua compra:</p>
+              <p class="text-gray-400">O preço do seu título cai no mercado secundário. Se vender antes do vencimento, pode ter <strong class="text-red-300">rentabilidade negativa</strong> — mesmo que o título em si esteja "rendendo".</p>
+              <p class="text-red-500 font-semibold">Regra: Selic sobe → preço do IPCA+ cai.</p>
+            </div>
+            <div class="bg-green-900/20 border border-green-800/30 rounded-xl p-3 space-y-1">
+              <p class="text-green-400 font-semibold">Se a taxa de juros cai após sua compra:</p>
+              <p class="text-gray-400">O preço sobe acima do valor contratado. Se vender antes do vencimento, realiza um <strong class="text-green-300">lucro extra</strong> — acima da taxa acordada.</p>
+              <p class="text-green-500 font-semibold">Regra: Selic cai → preço do IPCA+ sobe.</p>
+            </div>
+          </div>
+          <div class="bg-orange-900/20 border border-orange-800/40 rounded-xl p-3 text-xs">
+            <p class="text-orange-200 font-semibold">A solução é simples: compre somente se puder levar ao vencimento.</p>
+            <p class="text-gray-400 mt-1">Tesouro IPCA+ 2035, 2040, 2045 — para quem tem horizonte de 10+ anos.
+              Para quem precisa de flexibilidade de saque, o Tesouro Selic é mais adequado.</p>
+          </div>
+        </div>
+
+        <!-- Por que o IPCA+ supera o CDB no longo prazo -->
+        <div class="rounded-2xl border border-purple-700/50 bg-purple-950/20 p-5 space-y-3 text-sm">
+          <p class="text-purple-300 font-bold text-base">Por que o IPCA+ supera qualquer CDB no longo prazo</p>
+          <div class="space-y-2">
+            <div class="flex items-start gap-3 bg-gray-800/50 rounded-xl p-3">
+              <span class="text-purple-400 font-black shrink-0">1</span>
+              <div class="text-xs">
+                <p class="text-gray-200 font-semibold mb-0.5">Proteção contra inflação: o CDB não tem</p>
+                <p class="text-gray-400">Um CDB a 109% CDI paga hoje 109% × 14,65% = ~15,97% bruto. Mas se a Selic cair para 10% e a inflação subir para 8%, seu CDB rende 109% × 10% = 10,9% bruto. Com inflação a 8%, o ganho real é mísero. O IPCA+ de 7,8% real garantiu 7,8% acima da inflação — qualquer que seja ela.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 bg-gray-800/50 rounded-xl p-3">
+              <span class="text-purple-400 font-black shrink-0">2</span>
+              <div class="text-xs">
+                <p class="text-gray-200 font-semibold mb-0.5">A taxa real de 7,8% a.a. é historicamente excepcional</p>
+                <p class="text-gray-400">O Brasil figura constantemente no topo mundial em juros reais. Taxas reais de 7-8% a.a. garantidas pelo governo são raras globalmente. Em 2026, com a Selic em 14,65% e IPCA a 5,5%, o IPCA+ 2035 a IPCA+7,8% representa uma janela histórica de bloqueio de rentabilidade real para décadas.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 bg-gray-800/50 rounded-xl p-3">
+              <span class="text-purple-400 font-black shrink-0">3</span>
+              <div class="text-xs">
+                <p class="text-gray-200 font-semibold mb-0.5">Para R$4k/mês de saques: funciona, mas com margem estreita</p>
+                <p class="text-gray-400">Com R$600k a {{ simG.taxaAaNom.toFixed(2) }}% nominal, o rendimento líquido mensal é <strong class="text-white">{{ fmtRS(simG.rendNet) }}</strong> — acima dos R$4.000 por <strong class="text-white">{{ fmtRS(simG.surplus) }}</strong>. Capital após 12 meses: <strong class="text-white">{{ fmtRS(simG.capital12) }}</strong>. Funciona, mas a margem é menor que no Tesouro Selic atual (Selic excepcionalmente alta).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart G -->
+        <div class="border-t border-purple-700/40 pt-4 space-y-1">
+          <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">📈 Projeção 12 meses — IPCA+ vs CDB 109% CDI: R$4k/mês — o CDB ganha hoje, mas perde no longo prazo</p>
+          <MiniLineChart :series="chartG" :x-labels="xLabels" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Cenário H: Tesouro Pré-fixado -->
+    <section class="space-y-6">
+      <div class="card space-y-5 border-emerald-800/40">
+        <div class="flex items-center gap-2">
+          <span class="badge-emerald">Cenário H</span>
+          <h3 class="font-semibold text-white">Tesouro Pré-fixado — Bloqueando a taxa mais alta da história antes que a Selic caia</h3>
+        </div>
+
+        <!-- O que é -->
+        <div class="bg-emerald-950/30 border border-emerald-700/40 rounded-2xl p-4 space-y-3">
+          <p class="text-emerald-200 font-bold text-sm">O que é o Tesouro Pré-fixado?</p>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            É o título público com <strong class="text-white">taxa fixa e imutável</strong> definida no momento da compra.
+            Se você comprar hoje a <strong class="text-emerald-300">13,5% a.a.</strong>, receberá exatamente essa taxa
+            independente do que acontecer com a Selic, a inflação ou a economia — desde que mantenha o título
+            até o vencimento. É uma aposta explícita: você acredita que as taxas de hoje são altas e que vão cair.
+          </p>
+          <div class="bg-gray-900/60 border border-emerald-800/30 rounded-xl p-3 text-xs space-y-1.5">
+            <p class="text-emerald-300 font-semibold">A lógica da estratégia — por que comprar Pré-fixado agora?</p>
+            <p class="text-gray-400">A Selic está em <strong class="text-white">14,65% a.a.</strong> — nível historicamente elevado, pressionado pelo teto do ciclo de aperto monetário.
+              O mercado projeta queda gradual nos próximos anos. Se você comprar Tesouro Pré a 13,5% hoje
+              e a Selic cair para 10%, seu título continuará pagando 13,5%.
+              O investidor que entrou depois a 10% ganha menos. <strong class="text-emerald-300">Você ganhou mais — para sempre, até o vencimento.</strong>
+            </p>
+          </div>
+        </div>
+
+        <!-- Key metrics -->
+        <div class="grid grid-cols-3 gap-3 text-sm text-center">
+          <div class="bg-gray-800/60 rounded-xl p-3">
+            <p class="text-gray-500 text-xs mb-1">Taxa garantida</p>
+            <p class="text-emerald-400 font-black text-xl">{{ simH.taxaAa.toFixed(1) }}%</p>
+            <p class="text-gray-600 text-xs">a.a. — taxa fixa</p>
+          </div>
+          <div class="bg-green-900/20 border border-green-800/30 rounded-xl p-3">
+            <p class="text-gray-500 text-xs mb-1">Rendimento líq./mês</p>
+            <p class="text-green-400 font-black text-xl">{{ fmtRS(simH.rendNet) }}</p>
+            <p class="text-gray-600 text-xs">após IR 22,5%</p>
+          </div>
+          <div class="bg-teal-900/20 border border-teal-800/30 rounded-xl p-3">
+            <p class="text-gray-500 text-xs mb-1">Capital após 12 meses</p>
+            <p class="text-teal-400 font-black text-xl">{{ fmtRS(simH.capital12) }}</p>
+            <p class="text-gray-600 text-xs">+{{ fmtRS(simH.varCapital) }} vs capital inicial</p>
+          </div>
+        </div>
+
+        <!-- O duplo fio da navalha -->
+        <div class="rounded-2xl border border-orange-700/50 bg-orange-950/25 p-5 space-y-3 text-sm">
+          <p class="text-orange-300 font-bold text-base">⚠ Marcação a mercado — o fio de navalha do Pré-fixado</p>
+          <p class="text-gray-300 leading-relaxed text-sm">
+            O Pré-fixado tem <strong class="text-white">risco de marcação a mercado bilateral</strong>:
+            pode ser seu maior aliado ou seu pior inimigo — dependendo da direção dos juros e de quando você sai.
+          </p>
+          <div class="grid sm:grid-cols-2 gap-4 text-xs">
+            <div class="space-y-2">
+              <div class="bg-green-900/20 border border-green-800/30 rounded-xl p-3 space-y-1">
+                <p class="text-green-400 font-bold">Cenário favorável: Selic cai para 10%</p>
+                <p class="text-gray-400">Você está com 13,5% garantido. O mercado passou a oferecer 10%.
+                  Quem quiser comprar seu título vai pagar <em>mais caro</em> por ele (pois rende mais que o mercado).
+                  Se vender antes do vencimento: <strong class="text-green-300">lucro extra acima da taxa contratada</strong>.</p>
+                <p class="text-green-500 font-semibold">→ Possível ganho de 5–15% além do esperado</p>
+              </div>
+              <div class="bg-red-900/20 border border-red-800/30 rounded-xl p-3 space-y-1">
+                <p class="text-red-400 font-bold">Cenário adverso: Selic sobe para 17%</p>
+                <p class="text-gray-400">Você tem 13,5%. O mercado passou a oferecer 17%.
+                  Quem quiser comprar seu título vai pagar <em>menos</em> (pois rende menos que o mercado).
+                  Se vender antes do vencimento: <strong class="text-red-300">perda sobre o valor de compra</strong>.</p>
+                <p class="text-red-500 font-semibold">→ Possível perda nominal se vender antes</p>
+              </div>
+            </div>
+            <div class="bg-gray-800/50 border border-gray-700 rounded-xl p-3 space-y-3 text-xs">
+              <p class="text-gray-300 font-semibold">A regra de ouro do Pré-fixado:</p>
+              <div class="space-y-1.5">
+                <div class="flex items-start gap-2">
+                  <span class="text-emerald-400 shrink-0 font-bold mt-0.5">▸</span>
+                  <p class="text-gray-400"><strong class="text-white">Se vai levar ao vencimento:</strong> risco zero de MtM. Você recebe exatamente 13,5% a.a. Seja qual for a Selic no caminho.</p>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-yellow-400 shrink-0 font-bold mt-0.5">▸</span>
+                  <p class="text-gray-400"><strong class="text-white">Se precisar sair antes:</strong> depende da direção dos juros. Se Selic caiu: ganho. Se Selic subiu: perda. A incerteza é real.</p>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-red-400 shrink-0 font-bold mt-0.5">▸</span>
+                  <p class="text-gray-400"><strong class="text-white">Para saques mensais regulares:</strong> o Pré-fixado <em>não é o ideal</em>. Cada saque é uma venda parcial a preço de mercado. Use o Tesouro Selic para saques e o Pré-fixado para a parte que vai ficar parada até o vencimento.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comparação dos três -->
+        <div class="card space-y-3 border-gray-700/60">
+          <p class="text-gray-400 text-xs font-semibold uppercase tracking-wider">Comparação direta — R$600k com R$4k/mês de saques durante 12 meses</p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs">
+              <thead>
+                <tr class="text-gray-500 text-[10px] uppercase tracking-wider border-b border-gray-800">
+                  <th class="text-left py-2 pr-3">Produto</th>
+                  <th class="text-right py-2 pr-3">Taxa a.a.</th>
+                  <th class="text-right py-2 pr-3">Rend. líq./mês</th>
+                  <th class="text-right py-2 pr-3">Capital 12 meses</th>
+                  <th class="text-left py-2">Risco MtM</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-800">
+                <tr class="hover:bg-gray-800/40">
+                  <td class="py-2.5 pr-3 text-indigo-300 font-semibold">Tesouro Selic</td>
+                  <td class="py-2.5 pr-3 text-right text-gray-300">{{ simF.taxaAa.toFixed(2) }}%</td>
+                  <td class="py-2.5 pr-3 text-right text-green-400">{{ fmtRS(simF.rendNet) }}</td>
+                  <td class="py-2.5 pr-3 text-right text-green-400 font-semibold">{{ fmtRS(simF.capital12) }}</td>
+                  <td class="py-2.5 text-green-400 text-[10px]">Zero</td>
+                </tr>
+                <tr class="hover:bg-gray-800/40">
+                  <td class="py-2.5 pr-3 text-purple-300 font-semibold">Tesouro IPCA+ (~{{ simG.taxaAaNom.toFixed(1) }}%)</td>
+                  <td class="py-2.5 pr-3 text-right text-gray-300">~{{ simG.taxaAaNom.toFixed(2) }}%</td>
+                  <td class="py-2.5 pr-3 text-right text-green-400">{{ fmtRS(simG.rendNet) }}</td>
+                  <td class="py-2.5 pr-3 text-right text-green-400 font-semibold">{{ fmtRS(simG.capital12) }}</td>
+                  <td class="py-2.5 text-yellow-400 text-[10px]">Médio (longo prazo)</td>
+                </tr>
+                <tr class="hover:bg-gray-800/40">
+                  <td class="py-2.5 pr-3 text-emerald-300 font-semibold">Tesouro Pré-fixado</td>
+                  <td class="py-2.5 pr-3 text-right text-gray-300">{{ simH.taxaAa.toFixed(1) }}%</td>
+                  <td class="py-2.5 pr-3 text-right text-green-400">{{ fmtRS(simH.rendNet) }}</td>
+                  <td class="py-2.5 pr-3 text-right text-green-400 font-semibold">{{ fmtRS(simH.capital12) }}</td>
+                  <td class="py-2.5 text-yellow-400 text-[10px]">Médio (antes do vencto.)</td>
+                </tr>
+                <tr class="hover:bg-gray-800/40 bg-gray-800/20">
+                  <td class="py-2.5 pr-3 text-yellow-300 font-semibold">CDB 109% CDI</td>
+                  <td class="py-2.5 pr-3 text-right text-gray-300">~15,97%</td>
+                  <td class="py-2.5 pr-3 text-right text-yellow-400">{{ fmtRS(600_000 * _r109 * 0.775) }}</td>
+                  <td class="py-2.5 pr-3 text-right text-yellow-400 font-semibold">{{ fmtRS(buildSim(600_000, _r109, 0.225, 12, () => 4_000)[12]) }}</td>
+                  <td class="py-2.5 text-green-400 text-[10px]">Baixo (liq. diária)</td>
+                </tr>
+                <tr class="hover:bg-gray-800/40">
+                  <td class="py-2.5 pr-3 text-gray-500 font-semibold">Poupança</td>
+                  <td class="py-2.5 pr-3 text-right text-gray-500">~6,17%</td>
+                  <td class="py-2.5 pr-3 text-right text-red-400">{{ fmtRS(600_000 * _poupPm) }}</td>
+                  <td class="py-2.5 pr-3 text-right text-red-400 font-semibold">{{ fmtRS(buildSim(600_000, _poupPm, 0, 12, () => 4_000)[12]) }}</td>
+                  <td class="py-2.5 text-green-400 text-[10px]">Zero</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-xs text-gray-600 border-t border-gray-800 pt-2">
+            Simulação com CDI = 14,65% a.a. · IPCA projetado = 5,5% a.a. · Tesouro IPCA+ = IPCA + 7,8% · Tesouro Pré = 13,5% a.a.
+            IR = 22,5% aplicado uniformemente para comparação. Poupança isenta de IR.
+          </p>
+        </div>
+
+        <!-- Chart H -->
+        <div class="border-t border-emerald-700/40 pt-4 space-y-1">
+          <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">📈 Projeção 12 meses — Pré-fixado 13,5% vs CDB 109% CDI: R$4k/mês</p>
+          <MiniLineChart :series="chartH" :x-labels="xLabels" />
+        </div>
+      </div>
+    </section>
+
     <!-- CTA -->
     <section class="text-center space-y-4 pb-4">
       <h2 class="text-2xl font-bold text-white">Pronto para calcular sem enganos?</h2>
@@ -2063,6 +2532,226 @@
       <RouterLink to="/calculadora" class="btn-primary text-base px-8 py-3 inline-block">
         Abrir calculadora
       </RouterLink>
+    </section>
+
+    <!-- ── Referências ─────────────────────────────────────────────────────── -->
+    <section class="space-y-6 border-t border-gray-800 pt-10">
+      <div>
+        <p class="text-gray-500 text-xs font-semibold tracking-widest uppercase mb-1">Fontes e referências</p>
+        <h2 class="text-xl font-bold text-white">Dados analisados e monitorados diariamente</h2>
+        <p class="text-gray-500 text-sm mt-1">
+          Todos os valores exibidos nesta página — taxas, projeções, IPCA, CDI, Selic, IR — são atualizados com base
+          nestas fontes oficiais e verificadas. Clique em qualquer link para acessar os dados originais.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+
+        <!-- ANBIMA -->
+        <a href="https://data.anbima.com.br" target="_blank" rel="noopener noreferrer"
+           class="group block bg-gray-900 border border-gray-800 hover:border-blue-700/60 rounded-2xl p-5 space-y-2 transition-all">
+          <div class="flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-blue-400 bg-blue-900/40 border border-blue-800/50 px-2 py-0.5 rounded-full">[1]</span>
+                <p class="text-white font-semibold group-hover:text-blue-300 transition-colors">ANBIMA Data</p>
+              </div>
+              <p class="text-blue-400 text-xs font-mono">data.anbima.com.br</p>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600 group-hover:text-blue-400 shrink-0 mt-1 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            Estoque total de investimentos de pessoas físicas no Brasil (R$8,58 tri).
+            Volume por categoria: LCI/LCA, CDB, Fundos, Poupança. Base para dimensionamento do mercado de renda fixa.
+          </p>
+          <p class="text-gray-600 text-[10px]">Monitoramento: diário · Dados usados: estoque por produto, spread de taxas</p>
+        </a>
+
+        <!-- E-Investidor Estadão -->
+        <a href="https://einvestidor.estadao.com.br" target="_blank" rel="noopener noreferrer"
+           class="group block bg-gray-900 border border-gray-800 hover:border-blue-700/60 rounded-2xl p-5 space-y-2 transition-all">
+          <div class="flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-blue-400 bg-blue-900/40 border border-blue-800/50 px-2 py-0.5 rounded-full">[2]</span>
+                <p class="text-white font-semibold group-hover:text-blue-300 transition-colors">E-Investidor — Estadão</p>
+              </div>
+              <p class="text-blue-400 text-xs font-mono">einvestidor.estadao.com.br</p>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600 group-hover:text-blue-400 shrink-0 mt-1 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            Dados sobre a base de 60,6 milhões de investidores ativos no Brasil. Caderneta de Poupança: R$961,4 bi.
+            Análises de tendência em renda fixa e comparativos entre produtos financeiros.
+          </p>
+          <p class="text-gray-600 text-[10px]">Monitoramento: semanal · Dados usados: base de investidores, estoque Poupança</p>
+        </a>
+
+        <!-- Tesouro Nacional -->
+        <a href="https://www.tesourodireto.com.br" target="_blank" rel="noopener noreferrer"
+           class="group block bg-gray-900 border border-gray-800 hover:border-green-700/60 rounded-2xl p-5 space-y-2 transition-all">
+          <div class="flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 border border-green-800/50 px-2 py-0.5 rounded-full">[3]</span>
+                <p class="text-white font-semibold group-hover:text-green-300 transition-colors">Tesouro Direto — Tesouro Nacional</p>
+              </div>
+              <p class="text-green-400 text-xs font-mono">tesourodireto.com.br · thot-arquivos.tesouro.gov.br</p>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600 group-hover:text-green-400 shrink-0 mt-1 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            Taxas diárias de todos os títulos públicos: Tesouro Selic, IPCA+, Pré-fixado.
+            Relatórios mensais da Dívida Pública Federal (DPF). Composição de detentores da dívida.
+            Base para os Cenários F, G e H desta página.
+          </p>
+          <p class="text-gray-600 text-[10px]">Monitoramento: diário · Dados usados: taxas dos títulos públicos, DPF mensal</p>
+        </a>
+
+        <!-- Economia UOL / Banco Central -->
+        <a href="https://economia.uol.com.br" target="_blank" rel="noopener noreferrer"
+           class="group block bg-gray-900 border border-gray-800 hover:border-blue-700/60 rounded-2xl p-5 space-y-2 transition-all">
+          <div class="flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-blue-400 bg-blue-900/40 border border-blue-800/50 px-2 py-0.5 rounded-full">[4]</span>
+                <p class="text-white font-semibold group-hover:text-blue-300 transition-colors">Economia UOL</p>
+              </div>
+              <p class="text-blue-400 text-xs font-mono">economia.uol.com.br</p>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600 group-hover:text-blue-400 shrink-0 mt-1 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            Vantagens competitivas do Tesouro Direto no contexto macro. Análise de juros reais brasileiros
+            em comparação global. Histórico da quitação com o FMI (2005) e formação da dívida doméstica.
+          </p>
+          <p class="text-gray-600 text-[10px]">Monitoramento: semanal · Dados usados: contexto macro, histórico da dívida</p>
+        </a>
+
+        <!-- Governo Federal / Receita Federal -->
+        <a href="https://www.gov.br/receitafederal" target="_blank" rel="noopener noreferrer"
+           class="group block bg-gray-900 border border-gray-800 hover:border-yellow-700/60 rounded-2xl p-5 space-y-2 transition-all">
+          <div class="flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-yellow-400 bg-yellow-900/40 border border-yellow-800/50 px-2 py-0.5 rounded-full">[5]</span>
+                <p class="text-white font-semibold group-hover:text-yellow-300 transition-colors">Receita Federal — gov.br</p>
+              </div>
+              <p class="text-yellow-400 text-xs font-mono">gov.br/receitafederal</p>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600 group-hover:text-yellow-400 shrink-0 mt-1 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            Tabela regressiva de IR para renda fixa (Lei nº 11.033/2004): 22,5% → 20% → 17,5% → 15%.
+            IOF sobre resgates nos primeiros 30 dias. Arrecadação de IRRF sobre rendimentos de capital
+            (R$40–55 bi/ano). Base legal de todas as simulações tributárias desta página.
+          </p>
+          <p class="text-gray-600 text-[10px]">Monitoramento: contínuo · Dados usados: tabela IR, IOF, alíquotas vigentes</p>
+        </a>
+
+        <!-- G1 Globo -->
+        <a href="https://g1.globo.com/economia" target="_blank" rel="noopener noreferrer"
+           class="group block bg-gray-900 border border-gray-800 hover:border-red-700/60 rounded-2xl p-5 space-y-2 transition-all">
+          <div class="flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-red-400 bg-red-900/40 border border-red-800/50 px-2 py-0.5 rounded-full">[6]</span>
+                <p class="text-white font-semibold group-hover:text-red-300 transition-colors">G1 Globo — Economia</p>
+              </div>
+              <p class="text-red-400 text-xs font-mono">g1.globo.com/economia</p>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600 group-hover:text-red-400 shrink-0 mt-1 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            Carga tributária bruta do Brasil: 32,40% do PIB (recorde histórico). Contexto sobre o paradoxo fiscal:
+            queda de 1% na Selic economiza ~R$40 bi em despesas de juros ao governo.
+            Cenário da dívida bruta acima de R$10,3 tri (78–80% do PIB).
+          </p>
+          <p class="text-gray-600 text-[10px]">Monitoramento: semanal · Dados usados: carga tributária, custo da dívida</p>
+        </a>
+
+        <!-- Banco Central do Brasil -->
+        <a href="https://www.bcb.gov.br/estatisticas/tabelahistoricametas" target="_blank" rel="noopener noreferrer"
+           class="group block bg-gray-900 border border-gray-800 hover:border-green-700/60 rounded-2xl p-5 space-y-2 transition-all">
+          <div class="flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 border border-green-800/50 px-2 py-0.5 rounded-full">[7]</span>
+                <p class="text-white font-semibold group-hover:text-green-300 transition-colors">Banco Central do Brasil — BCB</p>
+              </div>
+              <p class="text-green-400 text-xs font-mono">bcb.gov.br · SGS série 4389 (CDI)</p>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600 group-hover:text-green-400 shrink-0 mt-1 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            Taxa CDI histórica (SGS série 4389) — base de todas as simulações de CDB desta página.
+            Taxa Selic meta e efetiva definida pelo Copom. Projeções FOCUS (IPCA, Selic).
+            A taxa de 14,65% a.a. usada nos Cenários A–H vem diretamente desta base.
+          </p>
+          <p class="text-gray-600 text-[10px]">Monitoramento: diário · Dados usados: CDI atual (14,65%), Selic meta, FOCUS IPCA</p>
+        </a>
+
+        <!-- CMN / CVM -->
+        <a href="https://www.gov.br/fazenda/pt-br/orgaos/cmn" target="_blank" rel="noopener noreferrer"
+           class="group block bg-gray-900 border border-gray-800 hover:border-purple-700/60 rounded-2xl p-5 space-y-2 transition-all">
+          <div class="flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-purple-400 bg-purple-900/40 border border-purple-800/50 px-2 py-0.5 rounded-full">[8]</span>
+                <p class="text-white font-semibold group-hover:text-purple-300 transition-colors">CMN — Conselho Monetário Nacional</p>
+              </div>
+              <p class="text-purple-400 text-xs font-mono">gov.br/fazenda · Resolução CMN 5.215/2025</p>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600 group-hover:text-purple-400 shrink-0 mt-1 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed">
+            Resolução CMN 5.215/2025 — regras atualizadas de carência mínima para LCI e LCA:
+            6 meses (CDI/pré), 12 meses (LCA IPCA+), 36 meses (LCI IPCA+).
+            Base legal das restrições de liquidez exibidas nos Cenários D e E desta página.
+          </p>
+          <p class="text-gray-600 text-[10px]">Monitoramento: quando há alteração regulatória · Dados usados: prazos de carência obrigatórios</p>
+        </a>
+
+      </div>
+
+      <!-- Nota metodológica -->
+      <div class="bg-gray-800/40 border border-gray-700 rounded-2xl p-5 space-y-3 text-xs">
+        <p class="text-gray-400 font-semibold uppercase tracking-wider text-[10px]">Nota metodológica</p>
+        <div class="grid sm:grid-cols-2 gap-4 text-gray-500 leading-relaxed">
+          <div class="space-y-1.5">
+            <p><strong class="text-gray-300">CDI utilizado:</strong> 14,65% a.a. (última leitura disponível, BCB SGS série 4389, abril/2026).</p>
+            <p><strong class="text-gray-300">IPCA projetado:</strong> 5,5% a.a. (mediana FOCUS/BCB para 2026).</p>
+            <p><strong class="text-gray-300">Tesouro IPCA+:</strong> taxa real de 7,8% a.a. (leitura média dos títulos IPCA+ 2035 disponíveis em maio/2026).</p>
+            <p><strong class="text-gray-300">Tesouro Pré-fixado:</strong> 13,5% a.a. (leitura dos títulos Pré 2027 em maio/2026).</p>
+          </div>
+          <div class="space-y-1.5">
+            <p><strong class="text-gray-300">IR aplicado:</strong> 22,5% uniformemente nas simulações de saques mensais (≤ 180 dias por retirada). Tabela regressiva vigente (Lei 11.033/2004).</p>
+            <p><strong class="text-gray-300">Poupança:</strong> 0,5%/mês + TR ≈ 6,17% a.a., isenta de IR para pessoa física.</p>
+            <p><strong class="text-gray-300">Frequência de atualização:</strong> os valores são revisados sempre que o Copom altera a Selic ou quando o FOCUS/BCB divulga nova mediana de IPCA.</p>
+          </div>
+        </div>
+        <p class="text-gray-600 border-t border-gray-700 pt-3">
+          Esta página tem finalidade educacional. As simulações são baseadas em dados históricos e projeções — não constituem oferta de investimento nem garantia de rentabilidade futura.
+          Os resultados reais podem variar conforme a instituição financeira, o produto específico contratado e as condições de mercado na data do investimento.
+        </p>
+      </div>
+
     </section>
 
   </div>
@@ -2377,6 +3066,69 @@ const chartE = (() => {
     { label: '100% CDB tributado',  color: '#6b7280', dashed: true, data: allCDB },
   ]
 })()
+
+// ── Tesouro Direto — Cenários F · G · H ──────────────────────────────────
+const _tSelicPm    = Math.pow(1 + 14.65 / 100, 1 / 12) - 1           // Tesouro Selic ≈ 100% Selic
+const _ipca55      = 5.5  / 100
+const _real78      = 7.8  / 100
+const _tIPCAplusAa = (1 + _ipca55) * (1 + _real78) - 1               // ≈ 13,41% nominal
+const _tIPCAplusPm = Math.pow(1 + _tIPCAplusAa, 1 / 12) - 1
+const _tPre135Aa   = 13.5 / 100
+const _tPre135Pm   = Math.pow(1 + _tPre135Aa, 1 / 12) - 1
+const _poupPm      = Math.pow(1 + 0.0617, 1 / 12) - 1                // Poupança ≈ 6,17% a.a.
+
+const simF = (() => {
+  const principal = 600_000, retirada = 4_000, ir = 0.225
+  const rendNet = principal * _tSelicPm * (1 - ir)
+  const pts     = buildSim(principal, _tSelicPm, ir, 12, () => retirada)
+  return { rendNet, surplus: rendNet - retirada, taxaAa: 14.65, capital12: pts[12], varCapital: pts[12] - principal }
+})()
+
+const simG = (() => {
+  const principal = 600_000, retirada = 4_000, ir = 0.225
+  const rendNet = principal * _tIPCAplusPm * (1 - ir)
+  const pts     = buildSim(principal, _tIPCAplusPm, ir, 12, () => retirada)
+  return { rendNet, surplus: rendNet - retirada,
+           taxaAaNom: +(_tIPCAplusAa * 100).toFixed(2), taxaReal: +(_real78 * 100).toFixed(1),
+           capital12: pts[12], varCapital: pts[12] - principal }
+})()
+
+const simH = (() => {
+  const principal = 600_000, retirada = 4_000, ir = 0.225
+  const rendNet = principal * _tPre135Pm * (1 - ir)
+  const pts     = buildSim(principal, _tPre135Pm, ir, 12, () => retirada)
+  return { rendNet, surplus: rendNet - retirada, taxaAa: 13.5, capital12: pts[12], varCapital: pts[12] - principal }
+})()
+
+// Chart F — Tesouro Selic: referência vs saques vs Poupança
+const chartF = [
+  { label: 'T. Selic (ref.)',    color: '#6b7280', dashed: true,
+    data: buildSim(600_000, _tSelicPm, 0.225, 12) },
+  { label: 'T. Selic R$4k/mês', color: '#6366f1', area: true,
+    data: buildSim(600_000, _tSelicPm, 0.225, 12, () => 4_000) },
+  { label: 'Poupança R$4k/mês', color: '#9ca3af',
+    data: buildSim(600_000, _poupPm, 0, 12, () => 4_000) },
+]
+
+// Chart G — Tesouro IPCA+ vs CDB 109% CDI com saques
+const chartG = [
+  { label: 'IPCA+ (ref.)',       color: '#6b7280', dashed: true,
+    data: buildSim(600_000, _tIPCAplusPm, 0.225, 12) },
+  { label: 'IPCA+ R$4k/mês',    color: '#a855f7', area: true,
+    data: buildSim(600_000, _tIPCAplusPm, 0.225, 12, () => 4_000) },
+  { label: 'CDB 109% R$4k/mês', color: '#f59e0b',
+    data: buildSim(600_000, _r109, 0.225, 12, () => 4_000) },
+]
+
+// Chart H — Tesouro Pré-fixado 13,5% vs CDB 109% CDI com saques
+const chartH = [
+  { label: 'Pré 13,5% (ref.)',   color: '#6b7280', dashed: true,
+    data: buildSim(600_000, _tPre135Pm, 0.225, 12) },
+  { label: 'Pré 13,5% R$4k/mês',color: '#10b981', area: true,
+    data: buildSim(600_000, _tPre135Pm, 0.225, 12, () => 4_000) },
+  { label: 'CDB 109% R$4k/mês', color: '#f59e0b',
+    data: buildSim(600_000, _r109, 0.225, 12, () => 4_000) },
+]
 
 const cdi = 14.65
 const equivalencias = [
