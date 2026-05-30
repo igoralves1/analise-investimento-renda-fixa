@@ -419,7 +419,7 @@
     <section class="space-y-6">
       <div>
         <p class="text-green-400 text-xs font-semibold tracking-widest uppercase mb-1">O quarto engano</p>
-        <h2 class="section-title">O CDB que você vê no app do BTG pode não ser do BTG</h2>
+        <h2 class="section-title">O CDB que você vê na plataforma pode não ser daquela instituição</h2>
         <p class="text-gray-400 leading-relaxed">
           Quando você abre o app de um banco grande ou corretora e vê uma lista de CDBs com taxas de
           <strong class="text-white">109%, 115%, 120% do CDI</strong>, a primeira pergunta que você deveria fazer
@@ -435,13 +435,13 @@
           <div class="bg-blue-900/20 border border-blue-800/40 rounded-xl p-4 space-y-2">
             <p class="text-blue-300 font-semibold">📦 Mercado primário (99% do que você vê)</p>
             <p class="text-gray-400 leading-relaxed">
-              Um banco pequeno precisa captar dinheiro. Ele <em>emite um CDB novo</em> e contrata o BTG, a XP ou o
-              Nubank para distribuí-lo para os clientes deles. O BTG é só o <strong class="text-white">vendedor</strong> —
+              Um banco pequeno precisa captar dinheiro. Ele <em>emite um CDB novo</em> e contrata uma plataforma
+              grande para distribuí-lo para os clientes dela. A plataforma é só o <strong class="text-white">vendedor</strong> —
               o seu credor, de fato, é o banco pequeno emissor.
             </p>
             <div class="bg-blue-900/30 rounded-lg p-2 text-xs text-blue-300 space-y-0.5">
-              <p>Emissor → BTG (distribuidor) → Você</p>
-              <p class="text-gray-500">BTG ganha comissão. Risco é do emissor.</p>
+              <p>Banco Emissor → Plataforma (distribuidor) → Você</p>
+              <p class="text-gray-500">Plataforma ganha comissão. Risco é do emissor.</p>
             </div>
           </div>
           <div class="bg-amber-900/20 border border-amber-800/40 rounded-xl p-4 space-y-2">
@@ -452,7 +452,7 @@
               com <strong class="text-white">deságio</strong> (como explicado no Cenário I).
             </p>
             <div class="bg-amber-900/30 rounded-lg p-2 text-xs text-amber-300 space-y-0.5">
-              <p>Investidor A → BTG (intermediário) → Você</p>
+              <p>Investidor A → Plataforma (intermediário) → Você</p>
               <p class="text-gray-500">Oportunidade de comprar com desconto.</p>
             </div>
           </div>
@@ -470,14 +470,14 @@
       <div class="card space-y-4">
         <h3 class="font-semibold text-white">Por que bancos pequenos pagam mais? Existe motivo.</h3>
         <p class="text-gray-400 text-sm leading-relaxed">
-          Se o Banco Master oferece 115% do CDI e o Itaú oferece 98%, isso não é generosidade.
-          É o mercado cobrando um <strong class="text-white">prêmio de risco</strong>: o Banco Master
+          Se um banco pequeno oferece 115% do CDI e um banco tradicional de grande porte oferece 98%, isso não é generosidade.
+          É o mercado cobrando um <strong class="text-white">prêmio de risco</strong>: o banco menor
           precisa pagar mais porque os investidores exigem uma compensação pelo risco maior de crédito.
         </p>
 
         <div class="grid sm:grid-cols-3 gap-3 text-center text-sm">
           <div class="bg-green-900/20 border border-green-800/40 rounded-xl p-3 space-y-1">
-            <p class="text-green-400 font-semibold">Itaú — 98% CDI</p>
+            <p class="text-green-400 font-semibold">Banco grande — 98% CDI</p>
             <p class="text-gray-400 text-xs">Banco "grande demais para quebrar". Risco baixíssimo percebido pelo mercado.</p>
             <span class="badge-green text-xs">Baixo risco</span>
           </div>
@@ -494,11 +494,11 @@
         </div>
 
         <div class="bg-red-950/40 border border-red-800/60 rounded-xl p-4 space-y-2 text-sm">
-          <p class="text-red-300 font-bold">O caso Banco Master — a armadilha se concretizou</p>
+          <p class="text-red-300 font-bold">Quando a armadilha se fecha: um caso real</p>
           <p class="text-gray-400 leading-relaxed">
-            Em 2024–2025, plataformas como XP e BTG distribuíram massivamente CDBs do Banco Master com
-            taxas altas e o argumento "tem FGC". Quando o banco entrou em dificuldades, milhares de
-            investidores descobriram que <strong class="text-white">FGC não é instantâneo</strong> —
+            Em 2024–2025, grandes plataformas de investimento distribuíram massivamente CDBs de um banco
+            de médio porte com taxas elevadas e o argumento "tem FGC". Quando o banco entrou em dificuldades,
+            milhares de investidores descobriram que <strong class="text-white">FGC não é instantâneo</strong> —
             o processo de pagamento pode levar meses, durante os quais o capital fica bloqueado.
             Quem precisava do dinheiro antes da resolução ficou sem acesso.
           </p>
@@ -530,8 +530,8 @@
               <p class="text-white font-semibold text-sm">O meu total nessa instituição está dentro do limite do FGC?</p>
               <p class="text-gray-400 text-xs mt-1">
                 Limite: <strong class="text-white">R$ 250.000 por CPF por CNPJ emissor</strong>
-                (não por plataforma distribuidora). Se você tem R$ 100k no CDB do Banco X distribuído
-                pelo BTG <em>e</em> R$ 200k no CDB do mesmo Banco X distribuído pela XP,
+                (não por plataforma distribuidora). Se você tem R$ 100k no CDB do Banco Emissor X
+                via Plataforma A <em>e</em> R$ 200k no CDB do mesmo Banco Emissor X via Plataforma B,
                 você tem R$ 300k expostos ao Banco X — e R$ 50k fora da cobertura.
               </p>
             </div>
