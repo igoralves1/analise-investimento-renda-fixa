@@ -3140,6 +3140,92 @@
         </div>
       </div>
 
+      <!-- Nota: quanto de deságio esperar na prática -->
+      <div class="bg-gray-900 border border-gray-700 rounded-2xl p-5 space-y-4">
+        <p class="text-gray-300 font-semibold text-sm">📌 Nota: quanto deságio você pode realmente encontrar no secundário?</p>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          O deságio no mercado secundário não é uniforme — ele depende de <strong class="text-white">duas variáveis independentes</strong>:
+          o <em>risco de crédito do emissor</em> e a <em>urgência de quem está vendendo</em>.
+          Entendê-las evita expectativas irreais sobre a rentabilidade efetiva.
+        </p>
+
+        <div class="grid sm:grid-cols-2 gap-4 text-sm">
+          <!-- Variável 1: risco do emissor -->
+          <div class="space-y-3">
+            <p class="text-white font-semibold text-xs uppercase tracking-wider">Variável 1 — Risco do emissor</p>
+            <div class="bg-green-900/20 border border-green-800/40 rounded-xl p-3 space-y-1">
+              <p class="text-green-300 font-semibold">Bancos grandes e sólidos</p>
+              <p class="text-gray-400 text-xs leading-relaxed">
+                Muitos compradores disponíveis → pouca necessidade de desconto para atrair interesse.
+                Deságio típico: <strong class="text-white">0,1% a 0,5% ao ano</strong> sobre o prazo restante.
+                Em títulos com 12 meses para vencer: desconto total de ~0,5% a 2% sobre o valor do papel.
+              </p>
+            </div>
+            <div class="bg-yellow-900/20 border border-yellow-800/40 rounded-xl p-3 space-y-1">
+              <p class="text-yellow-300 font-semibold">Bancos médios (risco moderado)</p>
+              <p class="text-gray-400 text-xs leading-relaxed">
+                Base de compradores menor. O mercado exige prêmio para absorver o risco.
+                Deságio típico: <strong class="text-white">2% a 8%</strong> sobre o valor de face,
+                dependendo do prazo restante e das condições de mercado.
+                Pode chegar a ~130% CDI efetivo para o comprador.
+              </p>
+            </div>
+            <div class="bg-red-900/20 border border-red-800/40 rounded-xl p-3 space-y-1">
+              <p class="text-red-300 font-semibold">Bancos pequenos / em stress</p>
+              <p class="text-gray-400 text-xs leading-relaxed">
+                Poucos compradores dispostos. O desconto precisa compensar o risco de crédito.
+                Deságio pode atingir <strong class="text-white">20% a 40%</strong> do valor original —
+                com yields chegando a 160–175% do CDI para o comprador.
+                <span class="text-red-400">(Dado real: crise de banco médio em 2025 — yields subiram de IPCA+19% para IPCA+31,75% em 24 horas)</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Variável 2: urgência do vendedor -->
+          <div class="space-y-3">
+            <p class="text-white font-semibold text-xs uppercase tracking-wider">Variável 2 — Urgência do vendedor</p>
+            <div class="bg-blue-900/20 border border-blue-800/40 rounded-xl p-3 space-y-1">
+              <p class="text-blue-300 font-semibold">Vendedor sem pressa</p>
+              <p class="text-gray-400 text-xs leading-relaxed">
+                Coloca o papel no secundário com preço próximo ao justo e espera o comprador certo.
+                Mesmo para bancos sólidos, pode conseguir desconto mínimo.
+                A <strong class="text-white">oportunidade de compra aqui é rara</strong> — papéis bons raramente entram no secundário com pressa.
+              </p>
+            </div>
+            <div class="bg-orange-900/20 border border-orange-800/40 rounded-xl p-3 space-y-1">
+              <p class="text-orange-300 font-semibold">Vendedor com urgência real</p>
+              <p class="text-gray-400 text-xs leading-relaxed">
+                Precisa do dinheiro em horas ou dias. Aceita qualquer desconto para fechar.
+                Mesmo títulos de <strong class="text-white">bancos sólidos</strong> podem aparecer com
+                5–15% de deságio quando o vendedor está em aperto financeiro pessoal.
+                <span class="text-orange-400">Essa é a oportunidade que o Cenário I busca nos Bancos B e C.</span>
+              </p>
+            </div>
+            <div class="bg-gray-800/60 rounded-xl p-3 space-y-1">
+              <p class="text-gray-300 font-semibold">Combinação ideal para o comprador</p>
+              <p class="text-gray-400 text-xs leading-relaxed">
+                Banco emissor sólido <strong class="text-white">+</strong> vendedor em urgência financeira.
+                Risco baixo para você + deságio alto = rentabilidade excepcional.
+                É infrequente, mas ocorre — e exige monitoramento ativo do secundário.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alerta sobre a estimativa 130% CDI -->
+        <div class="bg-amber-900/20 border border-amber-800/50 rounded-xl p-3 text-xs text-amber-300 space-y-1">
+          <p class="font-semibold">⚡ Sobre a estimativa de 130% CDI usada neste cenário:</p>
+          <p class="text-gray-400 leading-relaxed">
+            Os cálculos acima usam 130% CDI como taxa efetiva para os Bancos B e C.
+            Esse valor é <strong class="text-white">alcançável em papéis de bancos médios com deságio razoável</strong>
+            (5–10% sobre o valor de face), mas <em>não é garantido</em>.
+            Em bancos grandes, o deságio típico provavelmente resulta em 110–120% CDI efetivo.
+            Em bancos pequenos em stress, pode superar 140% CDI — mas o risco aumenta proporcionalmente.
+            <strong class="text-white">A diversificação em muitos títulos pequenos existe exatamente para não depender de uma única aposta.</strong>
+          </p>
+        </div>
+      </div>
+
       <!-- Riscos e cuidados -->
       <div class="bg-red-950/30 border border-red-800/50 rounded-2xl p-5 space-y-3">
         <p class="text-red-300 font-bold text-base">⚠️ Riscos que esta estratégia não elimina</p>
