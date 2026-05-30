@@ -596,6 +596,244 @@
         </div>
       </div>
 
+      <!-- ═══════════════════════════════════════════════════════════════════
+           A CILADA DAS COMBINAÇÕES — O pior cenário que o banco não anuncia
+           ═══════════════════════════════════════════════════════════════════ -->
+      <div class="rounded-2xl border-2 border-red-700/70 bg-red-950/30 p-5 space-y-5">
+
+        <!-- Cabeçalho -->
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-xl bg-red-900/60 flex items-center justify-center shrink-0 mt-0.5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <p class="text-red-300 font-bold text-base leading-tight">
+              "Sem carência" não significa "pode sacar quando quiser" — e é aí que o banco ganha
+            </p>
+            <p class="text-red-400/80 text-sm mt-1">
+              Esta é a cilada mais bem disfarçada da renda fixa. O banco anuncia o produto como "sem carência"
+              — o que é verdade — mas <strong class="text-white">omite que, sem liquidez diária, qualquer retirada vai para o mercado secundário</strong>.
+              O investidor descobre isso quando já é tarde.
+            </p>
+          </div>
+        </div>
+
+        <!-- Explicação do engano -->
+        <div class="bg-gray-900/70 border border-red-800/40 rounded-xl p-4 space-y-3 text-sm">
+          <p class="text-orange-200 font-semibold text-sm">Por que "sem carência" confunde tudo</p>
+          <p class="text-gray-300 leading-relaxed text-xs">
+            Carência e liquidez diária são <strong class="text-white">duas dimensões independentes</strong>.
+            Um produto pode não ter carência nenhuma — ou seja, o contrato não bloqueia o dinheiro por lei —
+            e ainda assim <strong class="text-white">não ter liquidez diária</strong>, o que significa que
+            o banco não assumiu o compromisso de recomprar o título antes do vencimento.
+            Quando o investidor quer sair antes do prazo, suas únicas saídas são:
+            pedir ao banco que recompre tudo (o montante total), ou vender no mercado secundário da B3 — com haircut.
+          </p>
+          <div class="grid sm:grid-cols-3 gap-2 text-xs">
+            <div class="bg-red-900/30 border border-red-800/40 rounded-lg p-2.5 space-y-1">
+              <p class="text-red-400 font-semibold">❌ O que o banco diz</p>
+              <p class="text-gray-400">"Este CDB não tem carência — você pode resgatar quando quiser."</p>
+            </div>
+            <div class="bg-yellow-900/30 border border-yellow-800/40 rounded-lg p-2.5 space-y-1">
+              <p class="text-yellow-400 font-semibold">⚠ O que o banco omite</p>
+              <p class="text-gray-400">"Sem liquidez diária — se quiser sair antes do vencimento, a recompra é pelo total ou vai para mercado secundário."</p>
+            </div>
+            <div class="bg-gray-800/60 border border-gray-700 rounded-lg p-2.5 space-y-1">
+              <p class="text-gray-300 font-semibold">💡 O que você precisa perguntar</p>
+              <p class="text-gray-400">"Se eu quiser resgatar R$3.000 amanhã, o banco me paga diretamente — ou tenho que vender na B3?"</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Matriz de combinações -->
+        <div class="space-y-2">
+          <p class="text-red-300 font-semibold text-xs uppercase tracking-wider">As 4 combinações possíveis — e o que acontece em cada uma</p>
+          <div class="space-y-2">
+
+            <!-- Combinação 1: IDEAL -->
+            <div class="flex items-start gap-3 bg-green-900/20 border border-green-700/50 rounded-xl p-3">
+              <div class="shrink-0 mt-0.5">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-800 text-green-200 text-[10px] font-black">A</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-1.5 mb-1">
+                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-green-900/60 text-green-300 border border-green-800/50">Sem carência</span>
+                  <span class="text-gray-600 text-[10px]">+</span>
+                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-green-900/60 text-green-300 border border-green-800/50">Com liquidez diária</span>
+                  <span class="text-gray-600 text-[10px]">+</span>
+                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-green-900/60 text-green-300 border border-green-800/50">Recompra pelo banco</span>
+                  <span class="ml-auto text-green-400 font-bold text-xs">✓ IDEAL</span>
+                </div>
+                <p class="text-gray-400 text-xs leading-relaxed">
+                  Você pode resgatar <strong class="text-white">qualquer valor, qualquer dia</strong> — parcial ou total.
+                  O banco paga à taxa contratada, pro-rata. Sem haircut, sem mercado secundário.
+                  É o único cenário onde retiradas parciais mensais funcionam como planejado.
+                  <strong class="text-green-300">Exija este formato para a parcela do patrimônio de onde vai fazer saques.</strong>
+                </p>
+              </div>
+            </div>
+
+            <!-- Combinação 2: BLOQUEADO MAS PREVISÍVEL -->
+            <div class="flex items-start gap-3 bg-yellow-900/20 border border-yellow-700/50 rounded-xl p-3">
+              <div class="shrink-0 mt-0.5">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-yellow-800 text-yellow-200 text-[10px] font-black">B</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-1.5 mb-1">
+                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-yellow-900/60 text-yellow-300 border border-yellow-800/50">Com carência (ex.: 6 meses)</span>
+                  <span class="text-gray-600 text-[10px]">+</span>
+                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-green-900/60 text-green-300 border border-green-800/50">Liquidez diária após carência</span>
+                  <span class="ml-auto text-yellow-400 font-bold text-xs">⚠ BLOQUEADO</span>
+                </div>
+                <p class="text-gray-400 text-xs leading-relaxed">
+                  Dinheiro preso por 6 meses — mas você <strong class="text-white">sabe disso antecipadamente</strong>.
+                  Após a carência, resgates parciais funcionam normalmente com recompra pelo banco.
+                  O risco aqui é de planejamento: não invista dinheiro que possa precisar antes da carência acabar.
+                </p>
+              </div>
+            </div>
+
+            <!-- Combinação 3: A ARMADILHA DO TUDO OU NADA -->
+            <div class="flex items-start gap-3 bg-orange-900/25 border border-orange-700/60 rounded-xl p-3">
+              <div class="shrink-0 mt-0.5">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-orange-800 text-orange-200 text-[10px] font-black">C</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-1.5 mb-1">
+                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-green-900/60 text-green-300 border border-green-800/50">Sem carência</span>
+                  <span class="text-gray-600 text-[10px]">+</span>
+                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-red-900/60 text-red-300 border border-red-800/50">Sem liquidez diária</span>
+                  <span class="text-gray-600 text-[10px]">+</span>
+                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-yellow-900/60 text-yellow-300 border border-yellow-800/50">Recompra total pelo banco</span>
+                  <span class="ml-auto text-orange-400 font-bold text-xs">☠ TUDO OU NADA</span>
+                </div>
+                <p class="text-gray-400 text-xs leading-relaxed">
+                  Tecnicamente sem carência — mas o banco só recompra <strong class="text-white">o montante inteiro</strong>.
+                  Quer retirar R$3.000 de R$600.000? O banco devolve os R$600.000+ inteiros — e você perde o contrato.
+                  Aí precisa reinvestir R$597.000 em outro produto, possivelmente com taxa menor.
+                  <strong class="text-orange-300">O banco fecha dois contratos pelo preço de um.</strong>
+                </p>
+              </div>
+            </div>
+
+            <!-- Combinação 4: PIOR CENÁRIO -->
+            <div class="flex items-start gap-3 bg-red-900/30 border-2 border-red-700/70 rounded-xl p-3">
+              <div class="shrink-0 mt-0.5">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-700 text-red-100 text-[10px] font-black">D</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-1.5 mb-1">
+                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-green-900/60 text-green-300 border border-green-800/50">Sem carência</span>
+                  <span class="text-gray-600 text-[10px]">+</span>
+                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-red-900/60 text-red-300 border border-red-800/50">Sem liquidez diária</span>
+                  <span class="text-gray-600 text-[10px]">+</span>
+                  <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-red-900/60 text-red-300 border border-red-800/50">Sem recompra → Mercado secundário</span>
+                  <span class="ml-auto text-red-400 font-bold text-xs">💀 PIOR CASO</span>
+                </div>
+                <p class="text-gray-400 text-xs leading-relaxed">
+                  O banco anunciou "sem carência" — mas omitiu que <strong class="text-white">não há compromisso de recompra</strong>.
+                  Qualquer saída antecipada obriga o investidor a vender no mercado secundário da B3:
+                  horário restrito, comprador incerto, <strong class="text-red-300">haircut de 1% a 5%</strong> sobre o valor total.
+                  Com um haircut de apenas 1,12% sobre R$600k, o investidor já perde o principal.
+                  <strong class="text-red-300">É aqui que o banco ganha — duas vezes:</strong> primeiro ao não assumir o risco de liquidez,
+                  depois ao receber o spread quando você aceitar condições piores no novo produto.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Como o banco ganha — o mecanismo exposto -->
+        <div class="bg-gray-900/80 border border-red-800/50 rounded-xl p-4 space-y-3">
+          <p class="text-red-300 font-bold text-sm">O mecanismo exato de como o banco lucra com isso</p>
+          <div class="grid sm:grid-cols-2 gap-3 text-xs text-gray-400">
+            <div class="space-y-2">
+              <div class="flex items-start gap-2">
+                <span class="text-red-400 font-black shrink-0 mt-0.5">1</span>
+                <p>O banco oferece CDB <strong class="text-white">"sem carência"</strong> a 116% CDI — 0,2% acima do mercado.
+                  O investidor aceita porque parece vantagem.</p>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-red-400 font-black shrink-0 mt-0.5">2</span>
+                <p>No contrato, em letras miúdas: <strong class="text-white">"recompra sujeita a disponibilidade"</strong>
+                  ou simplesmente a ausência de qualquer cláusula de liquidez diária.
+                  O gerente não menciona. Você não pergunta.</p>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-red-400 font-black shrink-0 mt-0.5">3</span>
+                <p>Meses depois, o investidor precisa de R$4.000 para uma emergência.
+                  Tem R$600.000 investidos. <strong class="text-white">Não consegue acessar nada</strong> — sem passar pelo mercado secundário.</p>
+              </div>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-start gap-2">
+                <span class="text-red-400 font-black shrink-0 mt-0.5">4</span>
+                <p>No mercado secundário, o comprador oferece 98% do valor.
+                  O investidor <strong class="text-white">perde 2% de R$600k = R$12.000</strong>
+                  para ter acesso a R$4.000 de emergência.</p>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-red-400 font-black shrink-0 mt-0.5">5</span>
+                <p>Ou aceita o resgate total pelo banco: recebe R$600k+ de volta,
+                  paga IR sobre o lucro e <strong class="text-white">reinveste em novo CDB com taxa menor</strong>
+                  (o ciclo de juros mudou). O banco fecha o segundo contrato com spread melhorado.</p>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-red-400 font-black shrink-0 mt-0.5">6</span>
+                <p>O banco <strong class="text-orange-300">ganhou nas duas pontas</strong>:
+                  utilizou o capital por meses sem comprometer liquidez,
+                  e na saída do cliente reposicionou o dinheiro em condições mais favoráveis para a instituição.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Guia de perguntas obrigatórias -->
+        <div class="bg-green-950/40 border border-green-700/50 rounded-xl p-4 space-y-2.5">
+          <p class="text-green-400 font-bold text-sm">🛡️ As 3 perguntas que expõem a armadilha antes de você cair nela</p>
+          <div class="space-y-2 text-xs">
+            <div class="flex items-start gap-2 bg-gray-900/60 rounded-lg p-2.5">
+              <span class="text-green-400 font-black shrink-0 mt-0.5">P1</span>
+              <div>
+                <p class="text-gray-200 font-semibold">"Se eu quiser resgatar R$3.000 amanhã, o que acontece?"</p>
+                <div class="mt-1 space-y-0.5">
+                  <p class="text-green-400">✓ Resposta boa: "Creditamos em D+0 a taxa contratada pro-rata."</p>
+                  <p class="text-red-400">✗ Resposta ruim: "Depende de disponibilidade" / "Precisaria consultar" / "Resgate total".</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-start gap-2 bg-gray-900/60 rounded-lg p-2.5">
+              <span class="text-green-400 font-black shrink-0 mt-0.5">P2</span>
+              <div>
+                <p class="text-gray-200 font-semibold">"Esse produto tem cláusula de recompra parcial pelo banco — está escrito no contrato?"</p>
+                <div class="mt-1 space-y-0.5">
+                  <p class="text-green-400">✓ Resposta boa: "Sim, a liquidez diária com recompra está prevista no boletim de subscrição."</p>
+                  <p class="text-red-400">✗ Resposta ruim: Qualquer hesitação, "verificar", ou menção a mercado secundário como alternativa.</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-start gap-2 bg-gray-900/60 rounded-lg p-2.5">
+              <span class="text-green-400 font-black shrink-0 mt-0.5">P3</span>
+              <div>
+                <p class="text-gray-200 font-semibold">"Quero fazer retiradas de R$4.000 por mês. Esse produto suporta isso?"</p>
+                <div class="mt-1 space-y-0.5">
+                  <p class="text-green-400">✓ Resposta boa: "Sim, com liquidez diária você pode resgatar qualquer valor em qualquer dia útil."</p>
+                  <p class="text-red-400">✗ Resposta ruim: "Sim, não tem carência" — sem confirmar que liquidez diária com recompra existe.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="text-green-600 text-[10px] border-t border-green-800/30 pt-2">
+            "Sem carência" é condição necessária mas não suficiente para saques parciais regulares.
+            Liquidez diária com recompra pelo banco é a única combinação que garante retiradas mensais sem penalidade.
+          </p>
+        </div>
+
+      </div>
+
       <!-- Produto vs. banco: quem define a regra? -->
       <div class="card space-y-4">
         <h3 class="font-semibold text-white">As regras dependem do produto ou do banco?</h3>
