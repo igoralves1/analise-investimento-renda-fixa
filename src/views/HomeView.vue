@@ -3023,17 +3023,17 @@ const grupos = [
     isento: false,
     nota: 'FGC cobre até R$ 250 mil por CPF por instituição (limite de R$ 1 milhão por 4 anos).',
     produtos: [
-      { sigla: 'CDB',      desc: 'Certificado de Depósito Bancário — pós, pré ou híbrido' },
-      { sigla: 'Poupança', desc: 'Isento de IR, mas rende menos — 0,5%/mês + TR' },
+      { sigla: 'CDB', desc: 'Certificado de Depósito Bancário — pós, pré ou híbrido' },
     ],
   },
   {
     nome: 'Bancários isentos de IR',
     isento: true,
-    nota: 'Prazo mínimo: 6 meses (CDI/prefixado) ou 12-36 meses (IPCA). CMN Res. maio/2025.',
+    nota: 'Prazo mínimo LCI/LCA: 6 meses (CDI/prefixado) ou 12-36 meses (IPCA). CMN Res. maio/2025. Poupança isenta sem carência.',
     produtos: [
-      { sigla: 'LCI', desc: 'Letra de Crédito Imobiliário' },
-      { sigla: 'LCA', desc: 'Letra de Crédito do Agronegócio' },
+      { sigla: 'LCI',      desc: 'Letra de Crédito Imobiliário' },
+      { sigla: 'LCA',      desc: 'Letra de Crédito do Agronegócio' },
+      { sigla: 'Poupança', desc: 'Isenta de IR, mas rende apenas 0,5%/mês + TR — a pior opção de renda fixa' },
     ],
   },
   {
