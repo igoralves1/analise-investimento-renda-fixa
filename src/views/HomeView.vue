@@ -3432,7 +3432,7 @@
         </a>
 
         <!-- CMN / CVM -->
-        <a href="https://www.bcb.gov.br/estabilidadefinanceira/cmn" target="_blank" rel="noopener noreferrer"
+        <a href="https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Resolucao%20CMN&numero=5215" target="_blank" rel="noopener noreferrer"
            class="group block bg-gray-900 border border-gray-800 hover:border-purple-700/60 rounded-2xl p-5 space-y-2 transition-all">
           <div class="flex items-start justify-between gap-3">
             <div class="space-y-1">
