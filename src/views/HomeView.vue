@@ -3432,7 +3432,7 @@
         </a>
 
         <!-- CMN / CVM -->
-        <a href="https://www.bcb.gov.br/estabilidadefinanceira/exibenormativo?tipo=Resolucao%20CMN&numero=5215" target="_blank" rel="noopener noreferrer"
+        <a href="https://www.gov.br/fazenda/pt-br/assuntos/cmn" target="_blank" rel="noopener noreferrer"
            class="group block bg-gray-900 border border-gray-800 hover:border-purple-700/60 rounded-2xl p-5 space-y-2 transition-all">
           <div class="flex items-start justify-between gap-3">
             <div class="space-y-1">
@@ -3440,7 +3440,7 @@
                 <span class="text-xs font-bold text-purple-400 bg-purple-900/40 border border-purple-800/50 px-2 py-0.5 rounded-full">[8]</span>
                 <p class="text-white font-semibold group-hover:text-purple-300 transition-colors">CMN — Conselho Monetário Nacional</p>
               </div>
-              <p class="text-purple-400 text-xs font-mono">bcb.gov.br · Resolução CMN 5.215/2025</p>
+              <p class="text-purple-400 text-xs font-mono">gov.br/fazenda · Resolução CMN 5.215/2025</p>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600 group-hover:text-purple-400 shrink-0 mt-1 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
